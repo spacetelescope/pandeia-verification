@@ -1,7 +1,7 @@
-Pandeia_verification is a toolset for calculating sensitivity limits using Pandeia. 
+Pandeia-verification is a toolset for calculating sensitivity limits using Pandeia. 
 
 Running the code:
-The test/ folder contains scripts for each JWST instrument and mode. Pandeia must be installed separately.
+The test/ folder contains scripts for each JWST instrument and mode. The code assumes the existence of an output/ folder. Pandeia must be installed separately.
 
 INSTALLATION:
 
