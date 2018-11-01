@@ -78,10 +78,10 @@ def calc_backgrounds(configs, obsmode=None,
     
         report = perform_calculation(input, dict_report=False)
 
-        if report.bg_pix.shape[0] != report.bg_pix.shape[1]:
-            bg_pix_rate = np.max(report.bg_pix,axis=0)
+        if report.signal.bg_pix_rate.shape[0] != report.signal.bg_pix_rate.shape[1]:
+            bg_pix_rate = np.max(report.signal.bg_pix_rate,axis=0)
         else:
-            bg_pix_rate = np.max(report.bg_pix)
+            bg_pix_rate = np.max(report.signal.bg_pix_rate)
         
         fits_dict = report.as_fits()
        
