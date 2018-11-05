@@ -253,6 +253,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
         aperture_total_rate = report.curves['extracted_flux_plus_bg'][1]
         aperture_bg_rate = aperture_total_rate-aperture_source_rate
         fov_source_rate = report.curves['total_flux'][1]
+        bg_pix_rate = report.signal.rate_plus_bg-report.signal.rate
         
         tgroup = report.signal.current_instrument.get_exposure_pars().tgroup
         tframe =  report.signal.current_instrument.get_exposure_pars().tframe
@@ -266,7 +267,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
 
         # SOSS is rotated by 90 degrees on the detector, for some reason
         if obsmode['mode'] is 'soss':
-            report.bg_pix = np.rot90(report.signal.bg_pix_rate)
+            bg_pix_rate = np.rot90(bg_pix_rate)
             report.signal.rate = np.rot90(report.signal.rate)
 
         # Spectrum?        
@@ -277,14 +278,14 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
             excess=0
             
         if excess==0:
-            fullwell_minus_bg = (report.signal.det_pars['fullwell']-mintime*report.signal.bg_pix_rate)
+            fullwell_minus_bg = (report.signal.det_pars['fullwell']-mintime*bg_pix_rate)
             rate_per_mjy = report.signal.rate/lim_flx[midpoint]
-            bg_pix_rate_min = np.min(report.signal.bg_pix_rate,0)
-            bg_pix_rate_max = np.max(report.signal.bg_pix_rate,0) 
+            bg_pix_rate_min = np.min(bg_pix_rate,0)
+            bg_pix_rate_max = np.max(bg_pix_rate,0) 
         else:
-            bg_pix_rate_min = np.min(report.signal.bg_pix_rate[:,int(excess/2):-int(excess/2)])
-            bg_pix_rate_max = np.max(report.signal.bg_pix_rate[:,int(excess/2):-int(excess/2)])
-            fullwell_minus_bg = (report.signal.det_pars['fullwell']-mintime*report.signal.bg_pix_rate[:,int(excess/2):-int(excess/2)-1])
+            bg_pix_rate_min = np.min(bg_pix_rate[:,int(excess/2):-int(excess/2)])
+            bg_pix_rate_max = np.max(bg_pix_rate[:,int(excess/2):-int(excess/2)])
+            fullwell_minus_bg = (report.signal.det_pars['fullwell']-mintime*bg_pix_rate[:,int(excess/2):-int(excess/2)-1])
             rate_per_mjy = report.signal.rate[:,int(excess/2):-int(excess/2)-1]/lim_flx[midpoint]
 
         sat_limit_detector = fullwell_minus_bg/mintime/np.abs(rate_per_mjy) #units of mJy
