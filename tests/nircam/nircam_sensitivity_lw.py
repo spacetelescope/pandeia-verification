@@ -1,7 +1,7 @@
 import numpy as np
 import astropy.io.fits as fits
 from verification_tools import calc_limits
-from verification_tools import fudge_throughput as ft
+#from verification_tools import fudge_throughput as ft
 
 configs = [{'filter':'f250m','idt':28.33},
            {'filter':'f277w','idt':12.70},
@@ -18,7 +18,7 @@ configs = [{'filter':'f250m','idt':28.33},
            {'filter':'f460m','idt':73.56},
            {'filter':'f466n','idt':235.43},
            {'filter':'f470n','idt':286.00},
-           {'filter':'f480m','idt':82.12}       
+           {'filter':'f480m','idt':82.12}
        ]
 
 
@@ -54,9 +54,8 @@ strategy = {
             'dithers': [{'x':0.0,'y':0.0}],
             'background_subtraction': False
             }
-    
+
 output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=10,nflx=10,skyfacs=2.,
                                  exp_config=exp_config,strategy=strategy,background='minzodi12')
 np.savez('../../outputs/nircam_lw_sensitivity.npz',
     wavelengths=output['wavelengths'], sns=output['sns'], lim_fluxes=output['lim_fluxes'], sat_limits=output['sat_limits'], configs=output['configs'])
-

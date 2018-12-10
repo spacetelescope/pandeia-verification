@@ -9,71 +9,71 @@ from astropy.io import fits, ascii
 
 from pandeia.engine.perform_calculation import perform_calculation
 
-def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None, 
-                exp_config=None, exp_configs=None, strategy=None, nflx=10, 
+def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
+                exp_config=None, exp_configs=None, strategy=None, nflx=10,
                 background='minzodi12',skyfacs=None,orders=None,lim_snr=10.0):
 
     """
-    Script to calculate sensitivity limits for point sources using Pandeia. The script calculates a 
-    grid of models by varying the source flux density, yielding a numerical function SNR(F). 
+    Script to calculate sensitivity limits for point sources using Pandeia. The script calculates a
+    grid of models by varying the source flux density, yielding a numerical function SNR(F).
     The sensitivity limit is then calculated by inverting the function SNR(F) => F(SNR=lim_snr). It is possible
-    to calculate the limiting sensitivity for a single Pandeia configuration, or for a list of N configurations, 
-    with some limitations. Most often, the user will probably loop over a list of N configurations, varying a filter, 
-    grating or other parameter. 
+    to calculate the limiting sensitivity for a single Pandeia configuration, or for a list of N configurations,
+    with some limitations. Most often, the user will probably loop over a list of N configurations, varying a filter,
+    grating or other parameter.
 
     Parameters
     ----------
-    configs: list of N dicts 
-        Contains dictionaries containing keyword/value pairs relevant for a Pandeia obsmode. 
-        For a given mode, passed values will be replaced, while others will default. These are the values 
-        of the configuration that are VARIED. For instance, the user might want to loop over different filter values. 
-    apertures: list of N floats 
+    configs: list of N dicts
+        Contains dictionaries containing keyword/value pairs relevant for a Pandeia obsmode.
+        For a given mode, passed values will be replaced, while others will default. These are the values
+        of the configuration that are VARIED. For instance, the user might want to loop over different filter values.
+    apertures: list of N floats
         Extraction apertures for each config.
-    fluxes: List of N floats 
-        Initial guess of limiting flux in mJy      
+    fluxes: List of N floats
+        Initial guess of limiting flux in mJy
     scanfac: float
-        Factor within which to search for the limiting flux. IMPORTANT: It is currently the users 
-        responsibility to check that the limiting flux is contained within fluxes/scanfac -> fluxes*scanfac. 
-        for spectroscopic modes, this should be true for every wavelength.        
+        Factor within which to search for the limiting flux. IMPORTANT: It is currently the users
+        responsibility to check that the limiting flux is contained within fluxes/scanfac -> fluxes*scanfac.
+        for spectroscopic modes, this should be true for every wavelength.
     obsmode: dict
-        These are dictionary keyword/value pairs of a Pandeia obsmode that are NOT varied. Typically, 
-        this would identify the instrument and mode.        
+        These are dictionary keyword/value pairs of a Pandeia obsmode that are NOT varied. Typically,
+        this would identify the instrument and mode.
     exp_config: dict
-        This is a dictionary of non-default values for a Pandeia exposure configuration. 
-        Set EITHER exp_config OR exp_configs.         
-    exp_configs: list of N dicts        
-        The user may want to use a different set of exposure configs for every obsmode config. 
-        In that case use this to pass N different versions.   
+        This is a dictionary of non-default values for a Pandeia exposure configuration.
+        Set EITHER exp_config OR exp_configs.
+    exp_configs: list of N dicts
+        The user may want to use a different set of exposure configs for every obsmode config.
+        In that case use this to pass N different versions.
     strategy: dict
-        A dictionary containing a valid Pandeia strategy. It is currently not possible to change the 
-        strategy for every configuration.         
+        A dictionary containing a valid Pandeia strategy. It is currently not possible to change the
+        strategy for every configuration.
     nflx: Integer
-        Number of flux values in the grid. 10 is a reasonable default if the limit guess is close.         
+        Number of flux values in the grid. 10 is a reasonable default if the limit guess is close.
     background: String
-        Invoke a canned background. There are various option, but most people will want to set this to "minzodi12". 
+        Invoke a canned background. There are various option, but most people will want to set this to "minzodi12".
         It is currently not possible to pass a new background beyond editing this scripts, but but it would not be
-        difficult to implement.         
+        difficult to implement.
     skyfacs: float
-        If the strategy is set to use background subtraction, this sets the size of the sky extraction aperture relative to the 
-        extraction aperture.      
+        If the strategy is set to use background subtraction, this sets the size of the sky extraction aperture relative to the
+        extraction aperture.
     orders: List of N integers
-        This sets the order for each configuration. This is the only strategy parameter that can currently be varied.        
+        This sets the order for each configuration. This is the only strategy parameter that can currently be varied.
     lim_snr: float
-        Limiting signal-to-noise ratio. The standard (and default) is 10.0. 
-    
-                
+        Limiting signal-to-noise ratio. The standard (and default) is 10.0.
+
+
     Returns
     ----------
     Dictionary containing:
         configs: List of the input Pandeia configurations
         strategy:  List of the input Pandeia strategies
         wavelengths: The effective wavelength for imaging modes and wavelength arrays for spectroscopic modes
-        sns: The signal-to-noise ratio for each configuration. This is for debugging purposes. 
+        sns: The signal-to-noise ratio for each configuration. This is for debugging purposes.
         lim_fluxes: The calculated limiting flux densities in mJy.
-        source_rates_per_njy: Detected electron rates for a source of 1 nJy. 
+        source_rates_per_njy: Detected electron rates for a source of 1 nJy.
         sat_limits: The calculated saturation limit
         orders: The input spectral order
-        line_limits: Limiting integrated line flux in W/m^2. 
+        line_limits: Limiting integrated line flux in W/m^2.
 
     """
 
@@ -100,7 +100,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
         fnu = (wave_mu**2/c_mu)*flambda
         fnu_Jy = fnu*1e26
         fnu_MJy = fnu_Jy/1e6
-        background = [wave_mu,fnu_MJy+scat_MJy]       
+        background = [wave_mu,fnu_MJy+scat_MJy]
     elif background in ['niriss']:
         syspath = os.path.abspath(os.path.dirname(__file__))
         bg_table = ascii.read(os.path.join(syspath,'inputs/NIRISS_background.txt'))
@@ -114,7 +114,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
         bg_table = fits.getdata(os.path.join(syspath,'inputs/minzodi12_12052016.fits'))
         background = [bg_table['wavelength'],bg_table['background']]
 
-    
+
     source = {
         'id': 1,
         'target': True,
@@ -158,7 +158,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
 
         if np.size(exp_configs)>1:
             exp_config = exp_configs[i]
-            
+
         if np.size(skyfacs)>1:
             skyfac = skyfacs[i]
         else:
@@ -168,41 +168,43 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
         if orders is not None:
             strategy['order'] = orders[i]
 
+        print(obsmode['mode'])
+
         if skyfacs is None:
             inner_fac = 2.
             outer_fac = 5.
         else:
-            if obsmode['mode'] in ['msa','fixed_slit','lrsslit','lrsslitless','wfgrism','ssgrism','wfss','soss']:
+            if obsmode['mode'] in ['msa','fixed_slit','lrsslit','lrsslitless','wfgrism','ssgrism','wfss','soss','grism']:
                 inner_fac = 1.5
                 outer_fac = inner_fac+skyfac/2.
-            elif obsmode['mode'] in ['ifu','mrs','sw_imaging','lw_imaging','imaging','ami']:
+            elif obsmode['mode'] in ['ifu','mrs','sw_imaging','lw_imaging','imaging','ami','imager']:
                 inner_fac = 2.
                 outer_fac = np.sqrt(skyfac+inner_fac**2.)
 
-        if 'sky_annulus' in strategy.keys():    
+        if 'sky_annulus' in strategy.keys():
             strategy['sky_annulus'] = [aperture*inner_fac,aperture*outer_fac]
-        
+
         for key in config.keys():
-            obsmode[key] = config[key] 
+            obsmode[key] = config[key]
 
         scene = [source]
 
         flx_expansion = np.logspace(np.log10(flux/scanfac),np.log10(flux*scanfac),nflx)
-        
+
         sn_arr = []
 
         for flux in flx_expansion:
-            
+
             source['spectrum']['normalization']['norm_flux'] = flux
-    
+
             input = {
                 'scene': scene,
                 'background': background,
                 'configuration': {'instrument': obsmode,
                 'detector': exp_config},
                 'strategy': strategy
-            }  
-    
+            }
+
             report = perform_calculation(input, dict_report=False)
             bg_pix_rate = np.min(report.bg_pix)
             aperture_source_rate = report.curves['extracted_flux'][1]
@@ -211,30 +213,30 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
             fits_dict = report.as_fits()
 
             sn_arr.append(fits_dict['1d']['sn'][0].data['sn'])
-       
+
             wavelength = fits_dict['1d']['sn'][0].data['wavelength']
-            
+
         bsubs = np.isinf(fits_dict['1d']['sn'][0].data['sn'])
 
         sn_arr = np.array(sn_arr)
         lim_flx = np.array([np.interp(lim_snr,sn_arr[:,i],flx_expansion) for i in np.arange(wavelength.size)])
         # Make sure that undefined points remain undefined in the limiting flux
         lim_flx[bsubs] = np.nan
-      
+
         if len(lim_flx)>0:
             lim_flx = lim_flx.flatten()
-    
+
         wavelengths.append(wavelength)
         sns.append(fits_dict['1d']['sn'][0].data['sn'])
         lim_fluxes.append(lim_flx)
         source_rates.append(aperture_source_rate/flux/1e6)
-        
+
         nwaves = np.size(aperture_source_rate)
-        
+
         midpoint = int(nwaves/2)
-        
+
         #The best one at the midpoint. It doesn't really matter what the reference spectrum is here. We
-        #just need one to calculate the rate per mJy for the saturation estimate. 
+        #just need one to calculate the rate per mJy for the saturation estimate.
         source['spectrum']['normalization']['norm_flux'] = lim_flx[midpoint]
 
         input = {
@@ -243,7 +245,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
             'configuration': {'instrument': obsmode,
             'detector': exp_config},
             'strategy': strategy
-        }  
+        }
 
         report = perform_calculation(input, dict_report=False)
         fits_dict = report.as_fits()
@@ -253,14 +255,14 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
         aperture_total_rate = report.curves['extracted_flux_plus_bg'][1]
         aperture_bg_rate = aperture_total_rate-aperture_source_rate
         fov_source_rate = report.curves['total_flux'][1]
-        
+
         tgroup = report.signal.current_instrument.get_exposure_pars().tgroup
         tframe =  report.signal.current_instrument.get_exposure_pars().tframe
         tfffr = report.signal.current_instrument.get_exposure_pars().tfffr
         det_type = report.signal.current_instrument.get_exposure_pars().det_type
-        
+
         if det_type=='h2rg':
-            mintime = tfffr + 2 * tframe 
+            mintime = tfffr + 2 * tframe
         else:
             mintime = tfffr + 5 * tframe #minimum recommended frames is 5 for MIRI
 
@@ -269,18 +271,18 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
             report.bg_pix = np.rot90(report.bg_pix)
             report.signal.rate = np.rot90(report.signal.rate)
 
-        # Spectrum?        
+        # Spectrum?
         if (lim_flx.shape[0]>1) and (report.signal.rate.shape[1]!=lim_flx.shape[0]):
             #slitless modes have excess pixels on each side - excess should always be an odd integer
             excess = (report.signal.rate.shape[1]-lim_flx.shape[0])-1
         else:
             excess=0
-            
+
         if excess==0:
             fullwell_minus_bg = (report.signal.det_pars['fullwell']-mintime*report.bg_pix)
             rate_per_mjy = report.signal.rate/lim_flx[midpoint]
             bg_pix_rate_min = np.min(report.bg_pix,0)
-            bg_pix_rate_max = np.max(report.bg_pix,0) 
+            bg_pix_rate_max = np.max(report.bg_pix,0)
         else:
             bg_pix_rate_min = np.min(report.bg_pix[:,int(excess/2):-int(excess/2)])
             bg_pix_rate_max = np.max(report.bg_pix[:,int(excess/2):-int(excess/2)])
@@ -289,7 +291,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
 
         sat_limit_detector = fullwell_minus_bg/mintime/np.abs(rate_per_mjy) #units of mJy
 
-        # Calculate line sensitivities, assuming unresolved lines. 
+        # Calculate line sensitivities, assuming unresolved lines.
         if lim_flx.shape[0]>1:
             sat_limit = np.min(sat_limit_detector,0)
             r = report.signal.current_instrument.get_resolving_power(wavelength)
@@ -299,15 +301,15 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
             freqs = 2.99792458e14/wavelength
             px_width_hz = np.abs(freqs-np.roll(freqs,1))
             px_width_hz[:1] = px_width_hz[1]
-            
-            line_width_px = wavelength/r/px_width_micron  
+
+            line_width_px = wavelength/r/px_width_micron
             line_limit = lim_flx*1e-3*1e-26 * px_width_hz * line_width_px / np.sqrt(line_width_px)
             line_limits.append(line_limit)
         else:
             sat_limit = np.min(sat_limit_detector)
-            
+
         sat_limits.append(sat_limit)
-        
+
         print('Configuration:', config)
         print('Exposure Time:', '{:7.2f}'.format(rep_dict['scalar']['exposure_time']))
         print('Total Exposure Time:', '{:7.2f}'.format(rep_dict['scalar']['total_exposure_time']))
@@ -323,6 +325,6 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
         print('Limiting flux:', '{:7.2e}'.format(np.min(lim_flx)),'mJy')
         print('SNR:', '{:7.2f}'.format(fits_dict['1d']['sn'][0].data['sn'][midpoint]))
         print('Reference wavelength:', '{:7.2e}'.format(fits_dict['1d']['sn'][0].data['wavelength'][midpoint]))
-                
+
     return {'configs':configs,'strategy':strategy, 'wavelengths':wavelengths,'sns':sns,'lim_fluxes':lim_fluxes,
             'source_rates_per_njy':source_rates, 'sat_limits':sat_limits, 'orders':orders, 'line_limits':line_limits}

@@ -1,7 +1,7 @@
 import numpy as np
 import astropy.io.fits as fits
 from verification_tools import calc_limits
-from verification_tools import fudge_throughput as ft
+#from verification_tools import fudge_throughput as ft
 
 configs = [{'aperture':'lw','filter':'f250m','disperser':'grismr','bounds':(2.421,2.581)},
            {'aperture':'lw','filter':'f277w','disperser':'grismr','bounds':(2.421,3.09)},
@@ -15,7 +15,7 @@ configs = [{'aperture':'lw','filter':'f250m','disperser':'grismr','bounds':(2.42
            {'aperture':'lw','filter':'f444w','disperser':'grismr','bounds':(3.929,4.949)},
            {'aperture':'lw','filter':'f460m','disperser':'grismr','bounds':(4.543,4.713)},
            {'aperture':'lw','filter':'f480m','disperser':'grismr','bounds':(4.693,4.921)}]
-     
+
 apertures = np.array([2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5])*0.0648
 idt_fluxes = np.array([1e-2, 1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2])
 skyfacs = [2,2,2,2,2,2,2,2,2,2,2,2]
@@ -39,7 +39,7 @@ strategy = {
             'sky_annulus': [0.16,0.5],
             'background_subtraction': False
             }
-    
+
 output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=5,skyfacs=skyfacs,
                                  exp_config=exp_config,strategy=strategy,background='minzodi12')
 
