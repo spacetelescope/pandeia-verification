@@ -168,8 +168,6 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
         if orders is not None:
             strategy['order'] = orders[i]
 
-        print(obsmode['mode'])
-
         if skyfacs is None:
             inner_fac = 2.
             outer_fac = 5.
