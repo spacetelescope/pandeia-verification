@@ -1,7 +1,6 @@
 import numpy as np
 import astropy.io.fits as fits
 from verification_tools import calc_limits
-#from verification_tools import fudge_throughput as ft
 
 configs = [{'filter':'f250m','idt':28.33},
            {'filter':'f277w','idt':12.70},

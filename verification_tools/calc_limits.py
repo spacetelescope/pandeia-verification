@@ -21,6 +21,9 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
     with some limitations. Most often, the user will probably loop over a list of N configurations, varying a filter,
     grating or other parameter.
 
+    This will only work with a pandeia where the results object has a bg_pix attribute
+    for every strategy (not v1.3, where it's not present when calculating any IFU strategies)
+
     Parameters
     ----------
     configs: list of N dicts
@@ -113,6 +116,8 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
         syspath = os.path.abspath(os.path.dirname(__file__))
         bg_table = fits.getdata(os.path.join(syspath,'inputs/minzodi12_12052016.fits'))
         background = [bg_table['wavelength'],bg_table['background']]
+    else:
+        raise ValueError('Unrecognized background {}'.format(background))
 
 
     source = {
@@ -178,6 +183,8 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
             elif obsmode['mode'] in ['ifu','mrs','sw_imaging','lw_imaging','imaging','ami','imager']:
                 inner_fac = 2.
                 outer_fac = np.sqrt(skyfac+inner_fac**2.)
+            else:
+                raise ValueError('Unrecognized mode {}'.format(obsmode['mode'])
 
         if 'sky_annulus' in strategy.keys():
             strategy['sky_annulus'] = [aperture*inner_fac,aperture*outer_fac]
