@@ -44,7 +44,7 @@ for instruments in insnames:
         scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
         # for whatever reason, line plot artists are actually lists of artists
         # unlike every other type of plot I've seen.
-        miri = ax.plot([4, 31],[-1e-20,-1e-20],label='MIRI')
+        miri = ax.plot([4, 30],[-1e-20,-1e-20],label='MIRI')
         legendhandles.append(miri[0])
     elif instrument == "nircam":
         # set up colors
@@ -135,7 +135,7 @@ for instruments in insnames:
 ax.set_xlabel('Wavelength (microns)')
 ax.set_ylabel(ylabel)
 ax.set_xscale('log')
-ax.set_xticks([0.6, 1, 2, 3, 5, 8, 10, 15, 20, 25, 30])
+ax.set_xticks([0.6, 1, 2, 5, 10, 15, 20, 25])
 ax.get_xaxis().set_major_formatter(StrMethodFormatter('{x:g}'))
 ax.set_ylim(ylim)
 ax.set_yscale(yscale)
