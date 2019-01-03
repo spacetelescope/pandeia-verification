@@ -33,30 +33,7 @@ fig = plt.figure(figsize=(20,12))
 ax = fig.add_subplot(111)
 bbox_props = dict(boxstyle="round", fc="w", ec="0.5", alpha=0.7)
 
-spectral = cm = plt.get_cmap('gist_heat_r')
-cNorm  = colors.Normalize(vmin=4.0, vmax=30)
-scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
-miri = ax.plot(-1e-20,-1e-20,label='MIRI')
-
-spectral = cm = plt.get_cmap('cool')
-cNorm  = colors.Normalize(vmin=0.6, vmax=5.4)
-scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
-nircam = ax.plot(-1e-20,-1e-20,label='NIRCam')
-
-spectral = cm = plt.get_cmap('autumn')
-cNorm  = colors.Normalize(vmin=0.7, vmax=5.4)
-scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
-niriss = ax.plot(-1e-20,-1e-20,label='NIRISS')
-
-spectral = cm = plt.get_cmap('YlGn')
-cNorm  = colors.Normalize(vmin=0.7, vmax=5.4)
-scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
-nirspec = ax.plot(-1e-20,-1e-20,label='NIRSpec')
-
-spectral = cm = plt.get_cmap('Spectral_r')
-cNorm  = colors.Normalize(vmin=0.4, vmax=2)
-scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
-wfirstimager = ax.plot(-1e-20,-1e-20,label='WFIRST Imager')
+legendhandles = []
 
 for instruments in insnames:
     instrument = instruments.split(',')[0]
@@ -65,26 +42,38 @@ for instruments in insnames:
         spectral = cm = plt.get_cmap('gist_heat_r')
         cNorm  = colors.Normalize(vmin=4.0, vmax=30)
         scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
+        # for whatever reason, line plot artists are actually lists of artists
+        # unlike every other type of plot I've seen.
+        miri = ax.plot([4, 31],[-1e-20,-1e-20],label='MIRI')
+        legendhandles.append(miri[0])
     elif instrument == "nircam":
         # set up colors
         spectral = cm = plt.get_cmap('cool')
         cNorm  = colors.Normalize(vmin=0.6, vmax=5.4)
         scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
+        nircam = ax.plot([0.6, 6],[-1e-20,-1e-20],label='NIRCam')
+        legendhandles.append(nircam[0])
     elif instrument == "niriss":
         # set up colors
         spectral = cm = plt.get_cmap('autumn')
         cNorm  = colors.Normalize(vmin=0.7, vmax=5.4)
         scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
+        niriss = ax.plot([0.6, 6],[-1e-20,-1e-20],label='NIRISS')
+        legendhandles.append(niriss[0])
     elif instrument == "nirspec":
         # set up colors
         spectral = cm = plt.get_cmap('YlGn')
         cNorm  = colors.Normalize(vmin=0.7, vmax=5.4)
         scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
+        nirspec = ax.plot([0.6, 6],[-1e-20,-1e-20],label='NIRSpec')
+        legendhandles.append(nirspec[0])
     elif instrument == "wfirstimager":
         # set up colors
         spectral = cm = plt.get_cmap('Spectral_r')
         cNorm  = colors.Normalize(vmin=0.4, vmax=2)
         scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
+        wfirstimager = ax.plot([0.6, 2],[-1e-20,-1e-20],label='WFIRST Imager')
+        legendhandles.append(wfirstimager[0])
     if prop == 'lim_fluxes':
         ylabel = 'Flux Density (S/N = 10 in 10000s) (microJy)'
         mult = 1e3
@@ -145,13 +134,14 @@ for instruments in insnames:
         data.close()
 ax.set_xlabel('Wavelength (microns)')
 ax.set_ylabel(ylabel)
-ax.set_ylim(ylim)
 ax.set_xscale('log')
+ax.set_xticks([0.6, 1, 2, 3, 5, 8, 10, 15, 20, 25, 30])
+ax.get_xaxis().set_major_formatter(StrMethodFormatter('{x:g}'))
+ax.set_ylim(ylim)
 ax.set_yscale(yscale)
 ax.set_title(prop)
 ax.grid()
-#ax.legend()
-ax.xaxis.set_major_formatter(StrMethodFormatter('{x:g}'))
+#ax.legend(handles=legendhandles)
 #ax.yaxis.set_major_formatter(StrMethodFormatter('{x:g}'))
 plt.tight_layout()
 
