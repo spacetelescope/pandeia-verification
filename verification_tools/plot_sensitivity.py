@@ -44,28 +44,32 @@ for instruments in insnames:
         scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
         # for whatever reason, line plot artists are actually lists of artists
         # unlike every other type of plot I've seen.
-        miri = ax.plot([4, 30],[-1e-20,-1e-20],label='MIRI')
+        colorVal = scalarMap.to_rgba(17)
+        miri = ax.plot(-1e-20,-1e-20,label='MIRI', color=colorVal)
         legendhandles.append(miri[0])
     elif instrument == "nircam":
         # set up colors
         spectral = cm = plt.get_cmap('cool')
         cNorm  = colors.Normalize(vmin=0.6, vmax=5.4)
         scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
-        nircam = ax.plot([0.6, 6],[-1e-20,-1e-20],label='NIRCam')
+        colorVal = scalarMap.to_rgba(3)
+        nircam = ax.plot(-1e-20,-1e-20,label='NIRCam', color=colorVal)
         legendhandles.append(nircam[0])
     elif instrument == "niriss":
         # set up colors
         spectral = cm = plt.get_cmap('autumn')
         cNorm  = colors.Normalize(vmin=0.7, vmax=5.4)
         scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
-        niriss = ax.plot([0.6, 6],[-1e-20,-1e-20],label='NIRISS')
+        colorVal = scalarMap.to_rgba(3)
+        niriss = ax.plot(-1e-20,-1e-20,label='NIRISS', color=colorVal)
         legendhandles.append(niriss[0])
     elif instrument == "nirspec":
         # set up colors
         spectral = cm = plt.get_cmap('YlGn')
         cNorm  = colors.Normalize(vmin=0.7, vmax=5.4)
         scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
-        nirspec = ax.plot([0.6, 6],[-1e-20,-1e-20],label='NIRSpec')
+        colorVal = scalarMap.to_rgba(3)
+        nirspec = ax.plot(-1e-20,-1e-20,label='NIRSpec', color=colorVal)
         legendhandles.append(nirspec[0])
     elif instrument == "wfirstimager":
         # set up colors
@@ -96,7 +100,7 @@ for instruments in insnames:
         yscale = 'log'
 
     for mode in instruments.split(',')[1:]:
-        data = np.load('{}_{}_sensitivity.npz'.format(instrument,mode))
+        data = np.load('../outputs/{}_{}_sensitivity.npz'.format(instrument,mode))
         print(instrument,mode)
         for x,keys in enumerate(data['configs']):
             colorVal = scalarMap.to_rgba(np.mean(data['wavelengths'][x]))
@@ -141,7 +145,7 @@ ax.set_ylim(ylim)
 ax.set_yscale(yscale)
 ax.set_title(prop)
 ax.grid()
-#ax.legend(handles=legendhandles)
+ax.legend(handles=legendhandles)
 #ax.yaxis.set_major_formatter(StrMethodFormatter('{x:g}'))
 plt.tight_layout()
 
