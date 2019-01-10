@@ -184,7 +184,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
                 inner_fac = 2.
                 outer_fac = np.sqrt(skyfac+inner_fac**2.)
             else:
-                raise ValueError('Unrecognized mode {}'.format(obsmode['mode'])
+                raise ValueError('Unrecognized mode {}'.format(obsmode['mode']))
 
         if 'sky_annulus' in strategy.keys():
             strategy['sky_annulus'] = [aperture*inner_fac,aperture*outer_fac]
