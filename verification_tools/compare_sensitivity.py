@@ -82,7 +82,7 @@ def plotparams(prop):
         ylabel = 'line_limits'
         ylim = (1e-23,1e-18)
         yscale = 'log'
-    ylabel = "% change"
+    ylabel = "% change ((old-new)/old)"
     return ylabel,mult,ylim,yscale
 
 def gettext(data,x):
@@ -108,8 +108,10 @@ def compareone(data, data2, x, ax, scalarMap):
     vals = data[prop][x]*mult
     vals2 = data2[prop][x]*mult
     textval = gettext(data,x)
-    ax.scatter(wave,((vals-vals2)/vals)*100, color=colorVal)
-    ax.text(np.mean(wave), (np.mean((vals-vals2)/vals)+(np.max((vals-vals2)/vals)/4.)), textval, ha="center", va="bottom", bbox=bbox_props)
+    ydata = ((vals-vals2)/vals)*100
+    ax.scatter(wave,ydata, color=colorVal)
+    # the modulus makes it either 0 or 1, the rest of the code is to flip the label above or below the point
+    ax.text(np.mean(wave), ydata - (x%2-0.5)*2, textval.upper(), ha="center", va="bottom", bbox=bbox_props)
 
     return ax, wave
 
@@ -128,7 +130,7 @@ def comparemulti(data, data2, x, ax, scalarMap, instrument, mode):
         else:
             gsubs = np.where(vals > -6)
     ax.plot(wave[gsubs], ((vals[gsubs]-vals2[gsubs])/vals[gsubs])*100, color='#000000', linewidth=3)
-    ax.set_title("{} {} {}".format(instrument, mode, textval))
+    ax.set_title("{} {} {}".format(instrument.upper(), mode.upper(), textval.upper()))
 
     return ax, wave
 
@@ -136,19 +138,24 @@ def drawbounds(minx,maxx,ax, scalarMap):
     colorVal = scalarMap.to_rgba(np.mean([minx,maxx]))
     datax = np.linspace(minx,maxx,5)
     errpolyx = np.concatenate((datax,datax[::-1]))
-    errpolyy = np.concatenate((np.ones_like(datax)*0.1, np.ones_like(datax)*-0.1))
+    errpolyy = np.concatenate((np.ones_like(datax)*10, np.ones_like(datax)*-10))
     poly = Polygon(list(zip(errpolyx,errpolyy)), closed=True)
     patch = PatchCollection([poly], alpha=0.3, color=colorVal)
     ax.add_collection(patch)
     ax.set_xlabel('Wavelength (microns)')
     ax.set_ylabel(ylabel)
-    ax.set_xscale('log')
-    ax.set_xticks([0.6, 1, 2, 5, 10, 15, 20, 25])
+    miny,maxy = ax.get_ylim()
+    if miny > -5:
+        miny = -5
+    if maxy < 5:
+        maxy = 5
+    ax.set_ylim(miny,maxy)
+    ax.set_xlim(minx-0.1,maxx+0.1)
+    #ax.set_xscale('log')
+    #ax.set_xticks([0.6, 1, 2, 5, 10, 15, 20, 25])
     ax.get_xaxis().set_major_formatter(StrMethodFormatter('{x:g}'))
     ax.grid()
     return ax
-
-compare=True
 
 if len(sys.argv) > 1:
     prop = sys.argv[1]
@@ -201,9 +208,9 @@ for instruments in insnames:
 
                 ax[num/3][num%3], wave = compareone(data, data2, x, ax[num/3][num%3], scalarMap)
                 waves.append(wave)
-            num += 1
-            ax[num/3][num%3].set_title('{} {}'.format(instrument,mode))
+            ax[num/3][num%3].set_title('{} {}'.format(instrument.upper(),mode.upper()))
             ax[num/3][num%3] = drawbounds(np.min(waves),np.max(waves), ax[num/3][num%3], scalarMap)
+            num += 1
         else:
             for x,keys in enumerate(data['configs']):
                 ax[num/3][num%3], wave = comparemulti(data, data2, x, ax[num/3][num%3], scalarMap, instrument, mode)
@@ -213,7 +220,7 @@ for instruments in insnames:
 
         data.close()
 
-fig.suptitle('{}'.format(prop))
+fig.suptitle('{}'.format(prop.upper()))
 plt.tight_layout()
 
 plt.savefig('{}.png'.format(prop))
