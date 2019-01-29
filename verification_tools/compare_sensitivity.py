@@ -64,7 +64,7 @@ def setup(instrument, ax):
 
     return scalarMap,legendhandles, ax
 
-def plotparams(prop):
+def plotparams(PROP):
     """
     Klaus's sensitivity plots have specific labels and limits that need to be
     matched.
@@ -72,17 +72,17 @@ def plotparams(prop):
     Pretty much none of this matters for the comparison plots - labels, limits,
     and scale are ignored, and mult doesn't actually matter.
     """
-    if prop == 'lim_fluxes':
+    if PROP == 'lim_fluxes':
         ylabel = 'Flux Density (S/N = 10 in 10000s) (microJy)'
         mult = 1e3
         ylim = (1e-3,5e4)
         yscale = 'log'
-    elif prop == 'sat_limits':
+    elif PROP == 'sat_limits':
         ylabel = 'Saturation Limit (Jy)'
         mult = 1e-3
         ylim = (1e-4,1e3)
         yscale = 'log'
-    elif prop == 'sns':
+    elif PROP == 'sns':
         ylabel = 'Signal to Noise Ratio'
         mult = 1
         ylim = (3,3000)
@@ -125,8 +125,8 @@ def compareone(data, data2, x, ax, scalarMap):
     """
     colorVal = scalarMap.to_rgba(np.mean(data['wavelengths'][x]))
     wave = data['wavelengths'][x]
-    vals = data[prop][x]*mult
-    vals2 = data2[prop][x]*mult
+    vals = data[PROP][x]*mult
+    vals2 = data2[PROP][x]*mult
     textval = gettext(data,x)
     ydata = ((vals-vals2)/vals)*100
     ax.scatter(wave,ydata, color=colorVal)
@@ -146,14 +146,14 @@ def comparemulti(data, data2, x, ax, scalarMap, instrument, mode):
     """
     colorVal = scalarMap.to_rgba(np.mean(data['wavelengths'][x]))
     wave = data['wavelengths'][x]
-    vals = data[prop][x]*mult
-    vals2 = data2[prop][x]*mult
+    vals = data[PROP][x]*mult
+    vals2 = data2[PROP][x]*mult
     textval = gettext(data,x)
     if 'bounds' in keys.keys():
         bounds = data['configs'][x]['bounds']
         gsubs = np.where((wave>bounds[0]) & (wave<bounds[1]))
     else:
-        if instrument == 'nirspec' and prop == 'sat_limits':
+        if instrument == 'nirspec' and PROP == 'sat_limits':
             gsubs = np.where(vals*mult < 7)
         else:
             gsubs = np.where(vals > -6)
@@ -219,7 +219,7 @@ fig = plt.figure(figsize=(20,20))
 bbox_props = dict(boxstyle="round", fc="w", ec="0.5", alpha=0.7)
 
 # Set up plot parameters (range, scale, ylabel)
-ylabel,mult,ylim,yscale = plotparams(prop)
+ylabel,mult,ylim,yscale = plotparams(PROP)
 
 # legend is unused in this code
 legendhandles = []
@@ -280,8 +280,8 @@ for instruments in insnames:
 
 # Add a global title to the plot - it's probably going to be in a weird place,
 # so make it prominent.
-fig.suptitle('{}'.format(prop.upper()), fontsize="x-large", fontstyle="italics")
+fig.suptitle('{}'.format(PROP.upper()), fontsize="x-large", fontstyle="italic")
 plt.tight_layout()
 
 # save the plot
-plt.savefig('{}.png'.format(prop))
+plt.savefig('{}.png'.format(PROP))
