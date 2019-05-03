@@ -15,3 +15,17 @@ code, and rely on code in verification_tools.
 
 The code used to generate the public-facing plots from that data is held by Klaus Pontoppidan.
 There is other code for plotting the sensitivity data in verification_tools.
+
+Folders:
+tests: contains the tests
+verification_tools: contains generic code, backgrounds, and plotting tools
+1.0: stored sensitivity data from Pandeia v1.0
+1.1: stored sensitivity data from Pandeia v1.1
+1.1.1: stored sensitivity data from Pandeia v1.1.1
+1.2: stored sensitivity	data from Pandeia v1.2
+1.2.2: stored sensitivity data from Pandeia v1.2.2
+1.3: stored sensitivity	data from Pandeia v1.3
+latest: points to the most recent stored engine release data.
+outputs: folder current test runs will be written to.
+
+The tests verification_tools, and v1.3 folders have both JWST and WFIRST data. The remaining folders are JWST-only.
