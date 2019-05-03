@@ -30,7 +30,7 @@ strategy = {
             }
 
 output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=5,skyfacs=skyfacs,
-                                 exp_config=exp_config,strategy=strategy,background='minzodi12')
+                                 exp_config=exp_config,strategy=strategy,background='wfirst_minzodi')
 
-np.savez('../../outputs/wfirst_wfirstgrism_sensitivity.npz',
+np.savez('../../outputs/wfirstimager_grism_sensitivity.npz',
     wavelengths=output['wavelengths'], sns=output['sns'], lim_fluxes=output['lim_fluxes'], sat_limits=output['sat_limits'], configs=output['configs'])

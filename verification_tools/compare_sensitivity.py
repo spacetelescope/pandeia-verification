@@ -59,10 +59,10 @@ def setup(instrument, ax):
         cNorm  = colors.Normalize(vmin=0.4, vmax=2)
         scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
         colorVal = scalarMap.to_rgba(1)
-        wfirstimager = ax[0][0].plot([0.6, 2],[-1e-20,-1e-20],label='WFIRST Imager', color=colorVal)
+        wfirstimager = ax[0][0].plot(-1e-20,-1e-20,label='WFIRST Imager', color=colorVal)
         legendhandles.append(wfirstimager[0])
 
-    return scalarMap,legendhandles, ax
+    return scalarMap, legendhandles, ax
 
 def plotparams(PROP):
     """
@@ -208,8 +208,11 @@ else:
     print('    python plot_sensitivity.py <property>')
     print('Output is a .png file in the directory you\'re running this from.')
     raise ValueError("Need to specify the property argument.")
-if len(sys.argv) > 2:
-    insnames = sys.argv[2:]
+folder = sys.argv[2]
+folder2 = sys.argv[3]
+if len(sys.argv) > 4:
+
+    insnames = sys.argv[4:]
 else:
     insnames = ['miri,imaging,lrs,mrs', 'nircam,lw,sw,wfgrism', 'niriss,imaging,ami,soss,wfss', 'nirspec,fs,ifu,msa']
 
@@ -231,7 +234,7 @@ for instruments in insnames:
     instrument = instruments.split(',')[0]
 
     for mode in instruments.split(',')[1:]:
-        data = np.load('../outputs/{}_{}_sensitivity.npz'.format(instrument,mode))
+        data = np.load('../{}/{}_{}_sensitivity.npz'.format(folder,instrument,mode))
         toadd = 0
         for x,keys in enumerate(data['configs']):
             if len(data['wavelengths'][x]) == 1:
@@ -243,15 +246,15 @@ for instruments in insnames:
 for instruments in insnames:
     instrument = instruments.split(',')[0]
     # Now that we know how many subplots we need, make a grid with enough plots.
-    ax = fig.subplots(nrows=np.int(np.ceil(subplots/3.)),ncols=3)
+    ax = np.atleast_2d(fig.subplots(nrows=np.int(np.ceil(subplots/3.)),ncols=3))
     # This sets up the legend and the color scheme based on the instrument
     scalarMap,legendhandles,ax = setup(instrument,ax)
 
     # go back through the modes again, and plot in the correct cells.
     num = 0
     for mode in instruments.split(',')[1:]:
-        data = np.load('../outputs/{}_{}_sensitivity.npz'.format(instrument,mode))
-        data2 = np.load('../latest/{}_{}_sensitivity.npz'.format(instrument,mode))
+        data = np.load('../{}/{}_{}_sensitivity.npz'.format(folder,instrument,mode))
+        data2 = np.load('../{}/{}_{}_sensitivity.npz'.format(folder2, instrument,mode))
         print(instrument,mode)
         if len(data['wavelengths'][0]) == 1:
             # If the mode is imaging data, we need to put all the data values on
@@ -284,4 +287,4 @@ fig.suptitle('{}'.format(PROP.upper()), fontsize="x-large", fontstyle="italic")
 plt.tight_layout()
 
 # save the plot
-plt.savefig('{}.png'.format(PROP))
+plt.savefig('{}_{}_{}.png'.format(folder,folder2,PROP))

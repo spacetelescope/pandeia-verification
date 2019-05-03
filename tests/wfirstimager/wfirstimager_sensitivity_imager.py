@@ -3,13 +3,13 @@ import astropy.io.fits as fits
 from verification_tools import calc_limits
 #from verification_tools import fudge_throughput as ft
 
-configs = [{'filter':'r062','idt':55.33},
-           {'filter':'z087','idt':12.70},
-           {'filter':'y106','idt':22.94},
-           {'filter':'j129','idt':8.55},
-           {'filter':'w146','idt':166.61},
-           {'filter':'h158','idt':19.43},
-           {'filter':'f184','idt':12.83}
+configs = [{'filter':'r062','idt':70.00},
+           {'filter':'z087','idt':120.00},
+           {'filter':'y106','idt':120.00},
+           {'filter':'j129','idt':120.00},
+           {'filter':'w146','idt':70.00},
+           {'filter':'h158','idt':120.00},
+           {'filter':'f184','idt':200.00}
        ]
 
 
@@ -47,6 +47,6 @@ strategy = {
             }
 
 output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=10,nflx=10,skyfacs=2.,
-                                 exp_config=exp_config,strategy=strategy,background='minzodi12')
+                                 exp_config=exp_config,strategy=strategy,background='wfirst_minzodi')
 np.savez('../../outputs/wfirstimager_imager_sensitivity.npz',
     wavelengths=output['wavelengths'], sns=output['sns'], lim_fluxes=output['lim_fluxes'], sat_limits=output['sat_limits'], configs=output['configs'])
