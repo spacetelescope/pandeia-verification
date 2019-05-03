@@ -27,3 +27,5 @@ verification_tools: contains generic code, backgrounds, and plotting tools
 1.3: stored sensitivity	data from Pandeia v1.3
 latest: points to the most recent stored engine release data.
 outputs: folder current test runs will be written to.
+
+The tests verification_tools, and v1.3 folders have both JWST and WFIRST data. The remaining folders are JWST-only.
