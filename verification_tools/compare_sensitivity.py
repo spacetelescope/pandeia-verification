@@ -3,10 +3,11 @@ Properties that can be read out of plot_sensitivity:
 'wavelengths', 'sns', 'lim_fluxes', 'sat_limits'
 'line_limits' is also available for miri lrs and mrs
 """
-
+from __future__ import division
 import sys
 import glob
 import numpy as np
+import collections
 from matplotlib import pyplot as plt
 import matplotlib.colors as colors
 import matplotlib.cm as cmx
@@ -64,6 +65,31 @@ def setup(instrument, ax):
 
     return scalarMap, legendhandles, ax
 
+def convert(entry):
+    """
+    Converts a data structure from bytes to strings
+    """
+    #print(type(entry),entry)
+    if isinstance(entry, bytes):
+        return entry.decode('utf-8')
+    elif isinstance(entry, dict):
+        newdict = {}
+        for key,value in entry.items():
+            key = convert(key)
+            newdict[key] = convert(value)
+        return newdict
+    elif isinstance(entry, list) or isinstance(entry, np.ndarray):
+        for index, dummy in enumerate(entry):
+            entry[index] = convert(entry[index])
+        return entry
+    elif isinstance(entry, tuple):
+        outlist = []
+        for index, dummy in enumerate(entry):
+            outlist.append(convert(entry[index]))
+        return tuple(outlist)
+    else:
+        return entry
+
 def plotparams(PROP):
     """
     Klaus's sensitivity plots have specific labels and limits that need to be
@@ -108,7 +134,7 @@ def gettext(data,x):
             else:
                 textval = '{} {}'.format(data['configs'][x]['disperser'], data['configs'][x]['filter'])
         else:
-            textval = '{} {}'.format(data['configs'][x]['aperture'],data['configs'][x]['disperser'])
+            textval = '{} {}'.format(data['configs'][x]['aperture'], data['configs'][x]['disperser'])
     else:
         if 'filter' in data['configs'][x]:
             textval = data['configs'][x]['filter']
@@ -234,7 +260,8 @@ for instruments in insnames:
     instrument = instruments.split(',')[0]
 
     for mode in instruments.split(',')[1:]:
-        data = np.load('../{}/{}_{}_sensitivity.npz'.format(folder,instrument,mode))
+        data = dict(np.load('../{}/{}_{}_sensitivity.npz'.format(folder,instrument,mode), encoding="bytes"))
+        data = convert(data)
         toadd = 0
         for x,keys in enumerate(data['configs']):
             if len(data['wavelengths'][x]) == 1:
@@ -253,33 +280,34 @@ for instruments in insnames:
     # go back through the modes again, and plot in the correct cells.
     num = 0
     for mode in instruments.split(',')[1:]:
-        data = np.load('../{}/{}_{}_sensitivity.npz'.format(folder,instrument,mode))
-        data2 = np.load('../{}/{}_{}_sensitivity.npz'.format(folder2, instrument,mode))
-        print(instrument,mode)
+        data = dict(np.load('../{}/{}_{}_sensitivity.npz'.format(folder,instrument,mode), encoding="bytes"))
+        data2 = dict(np.load('../{}/{}_{}_sensitivity.npz'.format(folder2, instrument,mode), encoding="bytes"))
+        data = convert(data)
+        data2 = convert(data2)
         if len(data['wavelengths'][0]) == 1:
             # If the mode is imaging data, we need to put all the data values on
             # one plot
             waves = []
             for x,keys in enumerate(data['configs']):
                 # compareone will handle all the aspects of plotting the point
-                ax[num/3][num%3], wave = compareone(data, data2, x, ax[num/3][num%3], scalarMap)
+                ax[num//3][num%3], wave = compareone(data, data2, x, ax[num//3][num%3], scalarMap)
                 waves.append(wave)
             # add the title and the boundary rectangle
-            ax[num/3][num%3].set_title('{} {}'.format(instrument.upper(),mode.upper()))
-            ax[num/3][num%3] = drawbounds(np.min(waves),np.max(waves), ax[num/3][num%3], scalarMap)
+            ax[num//3][num%3].set_title('{} {}'.format(instrument.upper(),mode.upper()))
+            ax[num//3][num%3] = drawbounds(np.min(waves),np.max(waves), ax[num//3][num%3], scalarMap)
             num += 1
         else:
             # if the mode is spectroscopic data, we need to put each setup in
             # its own plot
             for x,keys in enumerate(data['configs']):
                 # comparemulti will handle all aspects of plotting the spectrum
-                ax[num/3][num%3], wave = comparemulti(data, data2, x, ax[num/3][num%3], scalarMap, instrument, mode)
-                ax[num/3][num%3] = drawbounds(np.min(wave), np.max(wave), ax[num/3][num%3], scalarMap)
+                ax[num//3][num%3], wave = comparemulti(data, data2, x, ax[num//3][num%3], scalarMap, instrument, mode)
+                ax[num//3][num%3] = drawbounds(np.min(wave), np.max(wave), ax[num//3][num%3], scalarMap)
                 num += 1
 
 
-        data.close()
-        data2.close()
+        #data.close()
+        #data2.close()
 
 # Add a global title to the plot - it's probably going to be in a weird place,
 # so make it prominent.
