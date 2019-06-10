@@ -27,7 +27,7 @@ obsmode = {
            }
 exp_config = {
               'subarray': 'full',
-              'readmode': 'deep8',
+              'readout_pattern': 'deep8',
               'ngroup': 5,
               'nint': 1,
               'nexp': 10

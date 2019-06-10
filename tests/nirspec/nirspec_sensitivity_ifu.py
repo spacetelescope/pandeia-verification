@@ -15,7 +15,7 @@ configs = [{'filter':'f070lp','disperser':'g140h'},
            {'filter':'f170lp','disperser':'g235m'},
            {'filter':'f290lp','disperser':'g395m'},
            {'filter':'clear','disperser':'prism'}]
-     
+
 #apertures = np.array([0.1*1.7,0.1*1.7,0.1*1.7])
 #idt_fluxes = np.array([1e-4,5e-3,1e-3])
 #skyfacs = np.array([1.,1.,1.])
@@ -31,7 +31,7 @@ obsmode = {
            }
 exp_config = {
               'subarray': 'full',
-              'readmode': 'nrsirs2',
+              'readout_pattern': 'nrsirs2',
               'ngroup': 17,
               'nint': 1,
               'nexp': 4
@@ -41,7 +41,7 @@ strategy = {
             'aperture_size': 0.15,
             'dithers': [{'x':0,'y':0},{'x':1,'y':1}]
            }
-    
+
 output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=15,
                                  exp_config=exp_config,strategy=strategy,background='minzodi12')
 

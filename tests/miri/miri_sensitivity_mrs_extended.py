@@ -27,7 +27,7 @@ obsmode = {
            }
 exp_config = {
               'subarray': 'full',
-              'readmode': 'fast',
+              'readout_pattern': 'fast',
               'ngroup': 99,
               'nint': 1,
               'nexp': 18
@@ -37,10 +37,10 @@ strategy = {
             'background_subtraction': False,
             'dithers': [{'x':-1,'y':-1},{'x':1,'y':1}]
             }
-    
+
 output = calc_limits_extended.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=15,skyfacs=1.05,
                                  exp_config=exp_config,strategy=strategy,background='minzodi12',nflx=3)
 
 np.savez('../../outputs/miri_mrs_sensitivity_extended.npz',
-    wavelengths=output['wavelengths'], sns=output['sns'], lim_fluxes=output['lim_fluxes'], 
+    wavelengths=output['wavelengths'], sns=output['sns'], lim_fluxes=output['lim_fluxes'],
     sat_limits=output['sat_limits'], configs=output['configs'], line_limits=output['line_limits'])

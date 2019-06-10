@@ -21,7 +21,7 @@ obsmode = {
            }
 exp_config = {
               'subarray': 'sub80',
-              'readmode': 'nisrapid',
+              'readout_pattern': 'nisrapid',
               'ngroup': 133,
               'nint': 10,
               'nexp': 100

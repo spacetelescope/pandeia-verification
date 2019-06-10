@@ -33,7 +33,7 @@ obsmode = {
            }
 exp_config = {
               'subarray': 'full',
-              'readmode': 'nrsirs2',
+              'readout_pattern': 'nrsirs2',
               'ngroup': 14,
               'nint': 1,
               'nexp': 10
