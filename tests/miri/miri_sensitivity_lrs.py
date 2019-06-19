@@ -16,7 +16,7 @@ obsmode = {
            }
 exp_config = {
               'subarray': 'full',
-              'readmode': 'fast',
+              'readout_pattern': 'fast',
               'ngroup': 180,
               'nint': 1,
               'nexp': 20
@@ -28,7 +28,7 @@ strategy = {
             'background_subtraction': False
             }
 
-    
+
 output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=100,nflx=20,
                                  exp_config=exp_config,strategy=strategy,background='minzodi12')
 

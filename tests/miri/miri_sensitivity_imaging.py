@@ -14,67 +14,67 @@ configs = [{'filter':'f560w'},
 
 exp_configs = [{
                 'subarray': 'full',
-                'readmode': 'fast',
+                'readout_pattern': 'fast',
                 'ngroup': 106,
                 'nint': 2,
                 'nexp': 17
                },
                {
                 'subarray': 'full',
-                'readmode': 'fast',
+                'readout_pattern': 'fast',
                 'ngroup': 106,
                 'nint': 2,
                 'nexp':17
                },
                {
                  'subarray': 'full',
-                 'readmode': 'fast',
+                 'readout_pattern': 'fast',
                  'ngroup': 106,
                  'nint': 2,
                  'nexp': 17
                 },
                 {
                 'subarray': 'full',
-                'readmode': 'fast',
+                'readout_pattern': 'fast',
                 'ngroup': 106,
                 'nint': 2,
                 'nexp': 17
                 },
                 {
                  'subarray': 'full',
-                 'readmode': 'fast',
+                 'readout_pattern': 'fast',
                  'ngroup': 106,
                  'nint': 2,
                  'nexp': 17
                 },
                {
                 'subarray': 'full',
-                'readmode': 'fast',
+                'readout_pattern': 'fast',
                 'ngroup': 22,
                 'nint': 4,
                 'nexp': 41
                 },
                 {
                  'subarray': 'full',
-                 'readmode': 'fast',
+                 'readout_pattern': 'fast',
                  'ngroup': 22,
                  'nint': 4,
                  'nexp': 41
                 },
                 {
                 'subarray': 'full',
-                'readmode': 'fast',
+                'readout_pattern': 'fast',
                 'ngroup': 12,
                 'nint': 15,
                 'nexp': 20
                 },
                 {
                  'subarray': 'full',
-                 'readmode': 'fast',
+                 'readout_pattern': 'fast',
                  'ngroup': 12,
                  'nint': 15,
                  'nexp': 20
-                }                
+                }
                ]
 
 apertures = 0.42*np.array([5.6,7.7,10.,11.3,12.8,15.,18.,21.,25.5])/10.
@@ -89,7 +89,7 @@ obsmode = {
            }
 exp_config = {
               'subarray': 'full',
-              'readmode': 'fast',
+              'readout_pattern': 'fast',
               'ngroup': 81,
               'nint': 40,
               'nexp': 1
@@ -102,7 +102,7 @@ strategy = {
             'dithers': [{'x':0.0,'y':0.0}],
             'background_subtraction': False
             }
-    
+
 output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=5,skyfacs=1.,
                                  exp_configs=exp_configs,strategy=strategy,background='minzodi12')
 

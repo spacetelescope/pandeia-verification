@@ -4,7 +4,7 @@ from verification_tools import calc_limits
 
 configs = [{'aperture':'soss','filter':None,'disperser':'gr700xd'},
            {'aperture':'soss','filter':None,'disperser':'gr700xd'}]
-     
+
 apertures = np.array([2.5,2.5])*0.0656
 idt_fluxes = np.array([0.03, 0.03])
 orders = [1,2]
@@ -17,7 +17,7 @@ obsmode = {
            }
 exp_config = {
               'subarray': 'substrip256',
-              'readmode': 'nisrapid',
+              'readout_pattern': 'nisrapid',
               'ngroup': 36,
               'nint': 1,
               'nexp': 5
@@ -26,7 +26,7 @@ strategy = {
             'method': 'soss',
             'order': 1
             }
-    
+
 output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=20,nflx=10,
                                  exp_config=exp_config,strategy=strategy,background='minzodi12',orders=orders)
 

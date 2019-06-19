@@ -29,7 +29,7 @@ obsmode = {
            }
 exp_config = {
               'subarray': 'full',
-              'readmode': 'nisrapid',
+              'readout_pattern': 'nisrapid',
               'ngroup': 93,
               'nint': 1,
               'nexp': 10
