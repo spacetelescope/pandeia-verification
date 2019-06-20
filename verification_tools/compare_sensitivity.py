@@ -193,9 +193,9 @@ def comparemulti(data, data2, x, ax, scalarMap, instrument, mode):
         gsubs = np.where((wave>bounds[0]) & (wave<bounds[1]))
     else:
         if instrument == 'nirspec' and PROP == 'sat_limits':
-            gsubs = np.where(vals*mult < 7)
+            gsubs = np.where(flux1*mult < 7)
         else:
-            gsubs = np.where(vals > -6)
+            gsubs = np.where(flux1 > -6)
     ax.plot(wave, (flux1-flux2)/flux1*100, color='#000000', linewidth=3)
     ax.set_title("{} {} {}".format(instrument.upper(), mode.upper(), textval.upper()))
 
