@@ -328,4 +328,4 @@ fig.suptitle('{}'.format(PROP.upper()), fontsize="x-large", fontstyle="italic")
 plt.tight_layout()
 
 # save the plot
-plt.savefig('{}_{}_{}.png'.format(folder,folder2,PROP))
+plt.savefig('{}_{}_{}_{}.png'.format(instrument,folder,folder2,PROP))
