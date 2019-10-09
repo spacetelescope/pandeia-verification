@@ -3,12 +3,12 @@ import astropy.io.fits as fits
 from verification_tools import calc_limits
 #from verification_tools import fudge_throughput as ft
 
-configs = [{'filter':'r062','idt':70.00},
-           {'filter':'z087','idt':120.00},
-           {'filter':'y106','idt':120.00},
-           {'filter':'j129','idt':120.00},
-           {'filter':'w146','idt':70.00},
-           {'filter':'h158','idt':120.00},
+configs = [{'filter':'f062','idt':70.00},
+           {'filter':'f087','idt':120.00},
+           {'filter':'f106','idt':120.00},
+           {'filter':'f129','idt':120.00},
+           {'filter':'f146','idt':70.00},
+           {'filter':'f158','idt':120.00},
            {'filter':'f184','idt':200.00}
        ]
 
@@ -26,7 +26,7 @@ apertures = np.array([2.5,2.5,2.5,2.5,2.5,2.5,2.5])*pixscale
 obsmode = {
            'instrument': 'wfirstimager',
            'mode': 'imaging',
-           'filter': 'r062',
+           'filter': 'f062',
            'aperture': 'any',
            'disperser': None
            }

@@ -3,7 +3,8 @@ import astropy.io.fits as fits
 from verification_tools import calc_limits
 #from verification_tools import fudge_throughput as ft
 
-configs = [{'aperture':'grism','filter':'g150','disperser':'grsgrism','bounds':(0.95,1.9)}]
+configs = [{'aperture':'grism', 'filter':None, 'disperser':'g150', 'bounds':(1.0,1.93)},
+           {'aperture':'grism', 'filter':None, 'disperser':'p120', 'bounds':(0.76,1.8)}]
 
 apertures = np.array([2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5])*0.11
 idt_fluxes = np.array([1e-2, 1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2])
@@ -11,9 +12,9 @@ skyfacs = [2,2,2,2,2,2,2,2,2,2,2,2]
 obsmode = {
            'instrument': 'wfirstimager',
            'mode': 'grism',
-           'filter': 'g150',
+           'filter': None,
            'aperture': 'grism',
-           'disperser': 'grsgrism'
+           'disperser': 'g150'
            }
 exp_config = {
               'subarray': 'full',
