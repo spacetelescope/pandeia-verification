@@ -3,7 +3,7 @@ from __future__ import print_function
 import os
 import numpy as np
 import scipy.interpolate as ip
-import matplotlib.pylab as plt
+#import matplotlib.pylab as plt
 import scipy.constants as con
 from astropy.io import fits, ascii
 
