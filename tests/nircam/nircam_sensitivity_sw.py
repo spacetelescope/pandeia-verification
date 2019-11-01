@@ -6,6 +6,7 @@ configs = [{'filter':'f070w','idt':21.81},
            {'filter':'f090w','idt':15.07},
            {'filter':'f115w','idt':12.99},
            {'filter':'f150w','idt':10.68},
+           {'filter':'f150w2','idt':10.68},
            {'filter':'f200w','idt':9.34},
            {'filter':'f140m','idt':19.17},
            {'filter':'f162m','idt':18.07},
@@ -17,7 +18,7 @@ configs = [{'filter':'f070w','idt':21.81},
 
 idt_fluxes = np.array([config['idt'] for config in configs])*1e-6
 pixscale = 0.0317  # arcsec
-apertures = np.array([2.652,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.62])*pixscale
+apertures = np.array([2.652,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.62])*pixscale
 obsmode = {
            'instrument': 'nircam',
            'mode': 'sw_imaging',
