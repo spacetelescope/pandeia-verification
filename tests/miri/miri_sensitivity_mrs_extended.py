@@ -28,9 +28,9 @@ obsmode = {
 exp_config = {
               'subarray': 'full',
               'readout_pattern': 'fast',
-              'ngroup': 99,
-              'nint': 1,
-              'nexp': 18
+              'ngroup': 50,
+              'nint': 36,
+              'nexp': 1
               }
 strategy = {
             'method': 'ifunodinscene',

@@ -15,64 +15,64 @@ configs = [{'filter':'f560w'},
 exp_configs = [{
                 'subarray': 'full',
                 'readout_pattern': 'fast',
-                'ngroup': 106,
-                'nint': 2,
+                'ngroup': 53,
+                'nint': 4,
                 'nexp': 17
                },
                {
                 'subarray': 'full',
                 'readout_pattern': 'fast',
-                'ngroup': 106,
-                'nint': 2,
+                'ngroup': 53,
+                'nint': 4,
                 'nexp':17
                },
                {
                  'subarray': 'full',
                  'readout_pattern': 'fast',
-                 'ngroup': 106,
-                 'nint': 2,
+                 'ngroup': 53,
+                 'nint': 4,
                  'nexp': 17
                 },
                 {
                 'subarray': 'full',
                 'readout_pattern': 'fast',
-                'ngroup': 106,
-                'nint': 2,
+                'ngroup': 53,
+                'nint': 4,
                 'nexp': 17
                 },
                 {
                  'subarray': 'full',
                  'readout_pattern': 'fast',
-                 'ngroup': 106,
-                 'nint': 2,
+                 'ngroup':  53,
+                 'nint': 4,
                  'nexp': 17
                 },
                {
                 'subarray': 'full',
                 'readout_pattern': 'fast',
-                'ngroup': 22,
-                'nint': 4,
+                'ngroup': 11,
+                'nint': 8,
                 'nexp': 41
                 },
                 {
                  'subarray': 'full',
                  'readout_pattern': 'fast',
-                 'ngroup': 22,
-                 'nint': 4,
+                 'ngroup': 11,
+                 'nint': 8,
                  'nexp': 41
                 },
                 {
                 'subarray': 'full',
                 'readout_pattern': 'fast',
-                'ngroup': 12,
-                'nint': 15,
+                'ngroup': 6,
+                'nint': 30,
                 'nexp': 20
                 },
                 {
                  'subarray': 'full',
                  'readout_pattern': 'fast',
-                 'ngroup': 12,
-                 'nint': 15,
+                 'ngroup': 6,
+                 'nint': 30,
                  'nexp': 20
                 }
                ]
@@ -90,8 +90,8 @@ obsmode = {
 exp_config = {
               'subarray': 'full',
               'readout_pattern': 'fast',
-              'ngroup': 81,
-              'nint': 40,
+              'ngroup': 41,
+              'nint': 80,
               'nexp': 1
               }
 strategy = {

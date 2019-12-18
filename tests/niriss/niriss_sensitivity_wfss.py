@@ -22,8 +22,8 @@ obsmode = {
 exp_config = {
               'subarray': 'full',
               'readout_pattern': 'nis',
-              'ngroup': 23,
-              'nint': 1,
+              'ngroup': 12,
+              'nint': 2,
               'nexp': 10
               }
 strategy = {
