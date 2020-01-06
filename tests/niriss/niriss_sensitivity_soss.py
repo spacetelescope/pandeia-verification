@@ -27,7 +27,7 @@ strategy = {
             'order': 1
             }
 
-output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=20,nflx=10,
+output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=200,nflx=10,
                                  exp_config=exp_config,strategy=strategy,background='minzodi12',orders=orders)
 
 np.savez('../../outputs/niriss_soss_sensitivity.npz',

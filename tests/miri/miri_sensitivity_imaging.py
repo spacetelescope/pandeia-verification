@@ -103,7 +103,7 @@ strategy = {
             'background_subtraction': False
             }
 
-output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=5,skyfacs=1.,
+output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=50,skyfacs=1.,
                                  exp_configs=exp_configs,strategy=strategy,background='minzodi12')
 
 np.savez('../../outputs/miri_imaging_sensitivity.npz',

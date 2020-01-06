@@ -131,7 +131,10 @@ def gettext(data,x):
     if 'disperser' in data['configs'][x]:
         if 'filter' in data['configs'][x]:
             if data['configs'][x]['filter'] == None:
-                textval = '{} {}'.format(data['configs'][x]['disperser'], data['orders'][x])
+                if 'orders' in data['configs'][x]:
+                    textval = '{} {}'.format(data['configs'][x]['disperser'], data['orders'][x])
+                else:
+                    textval = '{} {}'.format(data['configs'][x]['aperture'], data['configs'][x]['disperser'])
             else:
                 textval = '{} {}'.format(data['configs'][x]['disperser'], data['configs'][x]['filter'])
         else:
@@ -241,7 +244,7 @@ if len(sys.argv) > 1:
 else:
     print('Run this from the outputs folder.')
     print('Calling sequence: ')
-    print('    python plot_sensitivity.py <property> <insnameA,modename1...> <insnameB,modename2...>')
+    print('    python plot_sensitivity.py <property> <old> <new> <insnameA,modename1...> <insnameB,modename2...>')
     print('where <property> is sat_limits, lim_fluxes, or sns, and the instruments and modes are JWST ETC names')
     print('Or to get everything: ')
     print('    python plot_sensitivity.py <property>')
@@ -253,23 +256,16 @@ if len(sys.argv) > 4:
 
     insnames = sys.argv[4:]
 else:
-    insnames = ['miri,imaging,lrs,mrs', 'nircam,lw,sw,wfgrism', 'niriss,imaging,ami,soss,wfss', 'nirspec,fs,ifu,msa']
+    insnames = ['miri,imaging,lrs,mrs', 'nircam,lw,sw,wfgrism', 'niriss,imaging,ami,soss,wfss', 'nirspec,fs,ifu,msa', 'wfirstimager,imager,grism']
 
-# The plot is going to have at least 9 subplots, so it had better be huge
-fig = plt.figure(figsize=(20,20))
-# set up a nice label for the points
-bbox_props = dict(boxstyle="round", fc="w", ec="0.5", alpha=0.7)
 
-# Set up plot parameters (range, scale, ylabel)
-ylabel,mult,ylim,yscale = plotparams(PROP)
 
-# legend is unused in this code
-legendhandles = []
 
 # How many subplots do we need? An imaging mode gets only one, but a
 # spectroscopic mode should get one per setup.
-subplots = 0
+
 for instruments in insnames:
+    subplots = 0
     instrument = instruments.split(',')[0]
 
     for mode in instruments.split(',')[1:]:
@@ -283,7 +279,17 @@ for instruments in insnames:
                 toadd += 1
         subplots += toadd
 
-for instruments in insnames:
+    # The plot is going to have at least 9 subplots, so it had better be huge
+    fig = plt.figure(figsize=(20,20))
+    # set up a nice label for the points
+    bbox_props = dict(boxstyle="round", fc="w", ec="0.5", alpha=0.7)
+
+    # Set up plot parameters (range, scale, ylabel)
+    ylabel,mult,ylim,yscale = plotparams(PROP)
+
+    # legend is unused in this code
+    legendhandles = []
+
     instrument = instruments.split(',')[0]
     # Now that we know how many subplots we need, make a grid with enough plots.
     ax = np.atleast_2d(fig.subplots(nrows=np.int(np.ceil(subplots/3.)),ncols=3))
@@ -322,10 +328,10 @@ for instruments in insnames:
         #data.close()
         #data2.close()
 
-# Add a global title to the plot - it's probably going to be in a weird place,
-# so make it prominent.
-fig.suptitle('{}'.format(PROP.upper()), fontsize="x-large", fontstyle="italic")
-plt.tight_layout()
+    # Add a global title to the plot - it's probably going to be in a weird place,
+    # so make it prominent.
+    fig.suptitle('{}'.format(PROP.upper()), fontsize="xx-large", fontstyle="italic")
+    plt.tight_layout()
 
-# save the plot
-plt.savefig('{}_{}_{}_{}.png'.format(instrument,folder,folder2,PROP))
+    # save the plot
+    plt.savefig('{}_{}_{}_{}.png'.format(instrument,folder,folder2,PROP))

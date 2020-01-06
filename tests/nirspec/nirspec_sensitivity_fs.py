@@ -46,7 +46,7 @@ strategy = {
             'dithers': [{'x':0.0,'y':0.0}]
             }
 
-output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=15,skyfacs=skyfacs,
+output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=150,skyfacs=skyfacs,
                                  exp_config=exp_config,strategy=strategy,background='minzodi12')
 
 np.savez('../../outputs/nirspec_fs_sensitivity.npz',

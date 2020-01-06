@@ -38,7 +38,7 @@ strategy = {
             'dithers': [{'x':-1,'y':-1},{'x':1,'y':1}]
             }
 
-output = calc_limits_extended.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=15,skyfacs=1.05,
+output = calc_limits_extended.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=150,skyfacs=1.05,
                                  exp_config=exp_config,strategy=strategy,background='minzodi12',nflx=3)
 
 np.savez('../../outputs/miri_mrs_sensitivity_extended.npz',

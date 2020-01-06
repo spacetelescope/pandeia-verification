@@ -9,7 +9,7 @@ from astropy.io import fits, ascii
 
 from pandeia.engine.perform_calculation import perform_calculation
 
-def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
+def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
                 exp_config=None, exp_configs=None, strategy=None, nflx=10,
                 background='minzodi12',skyfacs=None,orders=None,lim_snr=10.0):
 
@@ -114,11 +114,11 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
         background = [bg_table['col1'].data,bg_table['col2'].data]
     elif background in ['minzodi12']:
         syspath = os.path.abspath(os.path.dirname(__file__))
-        bg_table = fits.getdata(os.path.join(syspath,'inputs/minzodi12_12052016.fits'))
+        bg_table = fits.getdata(os.path.join(syspath,'inputs/minzodi_benchmark.fits'))
         background = [bg_table['wavelength'],bg_table['background']]
     elif background in ['wfirst_minzodi']:
         syspath = os.path.abspath(os.path.dirname(__file__))
-        bg_table = fits.getdata(os.path.join(syspath,'inputs/wfirst_minzodi_low.fits'))
+        bg_table = fits.getdata(os.path.join(syspath,'inputs/wfirst_minzodi_benchmark.fits'))
         background = [bg_table['wavelength'],bg_table['background']]
     else:
         raise ValueError('Unrecognized background {}'.format(background))
@@ -199,6 +199,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
         scene = [source]
 
         flx_expansion = np.logspace(np.log10(flux/scanfac),np.log10(flux*scanfac),nflx)
+        print(flx_expansion)
 
         sn_arr = []
 
@@ -235,6 +236,9 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
         if len(lim_flx)>0:
             lim_flx = lim_flx.flatten()
 
+        print(lim_flx)
+        print()
+        print()
         wavelengths.append(wavelength)
         sns.append(fits_dict['1d']['sn'][0].data['sn'])
         lim_fluxes.append(lim_flx)

@@ -5,7 +5,7 @@ from verification_tools import calc_limits
 configs = [{'aperture':'imager','mode':'lrsslitless'},
            {'aperture':'lrsslit','mode':'lrsslit'}]
 apertures = np.array([0.42,0.42])*7.5/10.
-idt_fluxes = np.array([5e-3,30e-3])
+idt_fluxes = np.array([5e-2,30e-3])
 
 obsmode = {
            'instrument': 'miri',
