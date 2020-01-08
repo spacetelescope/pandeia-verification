@@ -39,7 +39,7 @@ strategy = {
             'background_subtraction': False
             }
 
-output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=1000,skyfacs=skyfacs,
+output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=2000,skyfacs=skyfacs,
                                  exp_config=exp_config,strategy=strategy,background='minzodi12')
 
 np.savez('../../outputs/nircam_wfgrism_sensitivity.npz',
