@@ -16,7 +16,7 @@ configs = [{'aperture':'lw','filter':'f250m','disperser':'grismr','bounds':(2.42
            {'aperture':'lw','filter':'f480m','disperser':'grismr','bounds':(4.693,4.921)}]
 
 apertures = np.array([2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5])*0.0648
-idt_fluxes = np.array([1e-2, 1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2])
+idt_fluxes = np.array([1e-1, 1e-1,1e-1,1e-1,1e-1,1e-1,1e-1,1e-1,1e-1,1e-1,1e-1,1e-1])
 skyfacs = [2,2,2,2,2,2,2,2,2,2,2,2]
 obsmode = {
            'instrument': 'nircam',
@@ -39,7 +39,7 @@ strategy = {
             'background_subtraction': False
             }
 
-output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=50,skyfacs=skyfacs,
+output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=1000,skyfacs=skyfacs,
                                  exp_config=exp_config,strategy=strategy,background='minzodi12')
 
 np.savez('../../outputs/nircam_wfgrism_sensitivity.npz',
