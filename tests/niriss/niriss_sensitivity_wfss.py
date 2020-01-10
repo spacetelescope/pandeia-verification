@@ -10,7 +10,7 @@ configs = [{'aperture':'imager','filter':'f090w','disperser':'gr150r','bounds':(
            {'aperture':'imager','filter':'f200w','disperser':'gr150r','bounds':(1.772,2.207)}]
 
 apertures = np.array([1.5,1.5,1.5,1.5,1.5,1.5])*0.0656
-idt_fluxes = np.array([2e-3, 2e-3,2e-3,2e-3,2e-3,2e-3])
+idt_fluxes = np.array([2e-4, 2e-4,2e-4,2e-4,2e-4,2e-4])
 skyfacs = [2,2,2,2,2,2]
 obsmode = {
            'instrument': 'niriss',
@@ -33,7 +33,7 @@ strategy = {
             'background_subtraction': False
             }
 
-output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=100,skyfacs=skyfacs,
+output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=500,skyfacs=skyfacs,
                                  exp_config=exp_config,strategy=strategy,background='minzodi12')
 
 np.savez('../../outputs/niriss_wfss_sensitivity.npz',

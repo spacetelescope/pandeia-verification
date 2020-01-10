@@ -5,7 +5,7 @@ from verification_tools import calc_limits
 configs = [{'aperture':'imager','mode':'lrsslitless'},
            {'aperture':'lrsslit','mode':'lrsslit'}]
 apertures = np.array([0.42,0.42])*7.5/10.
-idt_fluxes = np.array([5e-2,30e-3])
+idt_fluxes = np.array([5e-3,30e-3])
 
 obsmode = {
            'instrument': 'miri',
@@ -29,7 +29,7 @@ strategy = {
             }
 
 
-output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=100,nflx=20,
+output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=1000,nflx=20,
                                  exp_config=exp_config,strategy=strategy,background='minzodi12')
 
 np.savez('../../outputs/miri_lrs_sensitivity.npz',

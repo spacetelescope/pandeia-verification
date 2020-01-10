@@ -199,7 +199,6 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
         scene = [source]
 
         flx_expansion = np.logspace(np.log10(flux/scanfac),np.log10(flux*scanfac),nflx)
-        print(flx_expansion)
 
         sn_arr = []
 
@@ -236,9 +235,11 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
         if len(lim_flx)>0:
             lim_flx = lim_flx.flatten()
 
-        print(lim_flx)
-        print()
-        print()
+        for wav in np.arange(wavelength.size):
+            if lim_flx[wav] == np.min(flx_expansion):
+                print("Limiting flux at lower limit {} at {}".format(lim_flx[wav], wavelength[wav]))
+            if lim_flx[wav] == np.max(flx_expansion):
+                print("Limiting flux at upper limit {} at {}".format(lim_flx[wav], wavelength[wav]))
         wavelengths.append(wavelength)
         sns.append(fits_dict['1d']['sn'][0].data['sn'])
         lim_fluxes.append(lim_flx)
