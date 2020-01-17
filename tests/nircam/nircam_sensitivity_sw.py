@@ -42,7 +42,7 @@ strategy = {
             'background_subtraction': False
             }
 
-output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=100,nflx=10,skyfacs=2.,
+output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=100,skyfacs=2.,
                                  exp_config=exp_config,strategy=strategy,background='minzodi12')
 
 
