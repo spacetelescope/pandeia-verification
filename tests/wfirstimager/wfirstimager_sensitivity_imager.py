@@ -46,7 +46,7 @@ strategy = {
             'background_subtraction': False
             }
 
-output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=100,nflx=10,skyfacs=2.,
+output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=100,skyfacs=2.,
                                  exp_config=exp_config,strategy=strategy,background='wfirst_minzodi')
 np.savez('../../outputs/wfirstimager_imager_sensitivity.npz',
     wavelengths=output['wavelengths'], sns=output['sns'], lim_fluxes=output['lim_fluxes'], sat_limits=output['sat_limits'], configs=output['configs'])
