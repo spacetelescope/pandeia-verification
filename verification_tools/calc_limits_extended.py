@@ -10,7 +10,7 @@ from astropy.io import fits, ascii
 from pandeia.engine.perform_calculation import perform_calculation
 
 def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
-                exp_config=None, exp_configs=None, strategy=None, nflx=10,
+                exp_config=None, exp_configs=None, strategy=None, nflx=40,
                 background='miri',skyfacs=None,orders=None,lim_snr=10.0):
 
     """

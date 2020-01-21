@@ -39,7 +39,7 @@ strategy = {
             }
 
 output = calc_limits_extended.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=150,skyfacs=1.05,
-                                 exp_config=exp_config,strategy=strategy,background='minzodi12',nflx=6)
+                                 exp_config=exp_config,strategy=strategy,background='minzodi12',nflx=12)
 
 np.savez('../../outputs/miri_mrs_sensitivity_extended.npz',
     wavelengths=output['wavelengths'], sns=output['sns'], lim_fluxes=output['lim_fluxes'],
