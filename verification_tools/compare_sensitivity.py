@@ -269,7 +269,7 @@ for instruments in insnames:
     instrument = instruments.split(',')[0]
 
     for mode in instruments.split(',')[1:]:
-        data = dict(np.load('../{}/{}_{}_sensitivity.npz'.format(folder,instrument,mode), encoding="bytes"))
+        data = dict(np.load('../{}/{}_{}_sensitivity.npz'.format(folder,instrument,mode), encoding="bytes", allow_pickle=True))
         data = convert(data)
         toadd = 0
         for x,keys in enumerate(data['configs']):
@@ -299,8 +299,8 @@ for instruments in insnames:
     # go back through the modes again, and plot in the correct cells.
     num = 0
     for mode in instruments.split(',')[1:]:
-        data = dict(np.load('../{}/{}_{}_sensitivity.npz'.format(folder,instrument,mode), encoding="bytes"))
-        data2 = dict(np.load('../{}/{}_{}_sensitivity.npz'.format(folder2, instrument,mode), encoding="bytes"))
+        data = dict(np.load('../{}/{}_{}_sensitivity.npz'.format(folder,instrument,mode), encoding="bytes", allow_pickle=True))
+        data2 = dict(np.load('../{}/{}_{}_sensitivity.npz'.format(folder2, instrument,mode), encoding="bytes", allow_pickle=True))
         data = convert(data)
         data2 = convert(data2)
         if len(data['wavelengths'][0]) == 1:
