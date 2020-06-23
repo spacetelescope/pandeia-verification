@@ -22,4 +22,5 @@ python nircam_sensitivity_sw.py > ../../logs/nircam_sw.log
 python nircam_sensitivity_wfgrism.py > ../../logs/nircam_wfgrism.log
 cd ../wfirstimager
 python wfirstimager_sensitivity_grism.py > ../../logs/wfirstimager_grism.log
+python wfirstimager_sensitivity_prism.py > ../../logs/wfirstimager_prism.log
 python wfirstimager_sensitivity_imager.py > ../../logs/wfirstimager_imager.log
