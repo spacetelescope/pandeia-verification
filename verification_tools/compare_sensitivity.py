@@ -256,7 +256,8 @@ if len(sys.argv) > 4:
 
     insnames = sys.argv[4:]
 else:
-    insnames = ['miri,imaging,lrs,mrs', 'nircam,lw,sw,wfgrism', 'niriss,imaging,ami,soss,wfss', 'nirspec,fs,ifu,msa', 'wfirstimager,imager,grism']
+    insnames = ['miri,imaging,lrs,mrs', 'nircam,lw,sw,wfgrism', 'niriss,imaging,ami,soss,wfss', 'nirspec,fs,ifu,msa', 
+'wfirstimager,imager,spectroscopy']
 
 
 
