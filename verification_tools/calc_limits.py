@@ -181,7 +181,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
             inner_fac = 2.
             outer_fac = 5.
         else:
-            if obsmode['mode'] in ['msa','fixed_slit','lrsslit','lrsslitless','wfgrism','ssgrism','wfss','soss','grism']:
+            if obsmode['mode'] in ['msa','fixed_slit','lrsslit','lrsslitless','wfgrism','ssgrism','wfss','soss','spectroscopy']:
                 inner_fac = 1.5
                 outer_fac = inner_fac+skyfac/2.
             elif obsmode['mode'] in ['ifu','mrs','sw_imaging','lw_imaging','imaging','ami','imager']:
