@@ -13,22 +13,22 @@ from bokeh.io import output_file, show
 from bokeh.palettes import Set1 as ColorPalette
 
 
-miri_imaging = dict(np.load('../outputs/miri_imaging_sensitivity.npz', fix_imports=True, encoding='latin1'))
-miri_mrs = dict(np.load('../outputs/miri_mrs_sensitivity.npz', fix_imports=True, encoding='latin1'))
-miri_lrs = dict(np.load('../outputs/miri_lrs_sensitivity.npz', fix_imports=True, encoding='latin1'))
+miri_imaging = dict(np.load('../outputs/miri_imaging_sensitivity.npz', fix_imports=True, encoding='latin1', allow_pickle=True))
+miri_mrs = dict(np.load('../outputs/miri_mrs_sensitivity.npz', fix_imports=True, encoding='latin1', allow_pickle=True))
+miri_lrs = dict(np.load('../outputs/miri_lrs_sensitivity.npz', fix_imports=True, encoding='latin1', allow_pickle=True))
 
-nircam_sw = dict(np.load('../outputs/nircam_sw_sensitivity.npz', fix_imports=True, encoding='latin1'))
-nircam_lw = dict(np.load('../outputs/nircam_lw_sensitivity.npz', fix_imports=True, encoding='latin1'))
-nircam_wfgrism = dict(np.load('../outputs/nircam_wfgrism_sensitivity.npz', fix_imports=True, encoding='latin1'))
+nircam_sw = dict(np.load('../outputs/nircam_sw_sensitivity.npz', fix_imports=True, encoding='latin1', allow_pickle=True))
+nircam_lw = dict(np.load('../outputs/nircam_lw_sensitivity.npz', fix_imports=True, encoding='latin1', allow_pickle=True))
+nircam_wfgrism = dict(np.load('../outputs/nircam_wfgrism_sensitivity.npz', fix_imports=True, encoding='latin1', allow_pickle=True))
 
-niriss_imaging = dict(np.load('../outputs/niriss_imaging_sensitivity.npz', fix_imports=True, encoding='latin1'))
-niriss_wfss = dict(np.load('../outputs/niriss_wfss_sensitivity.npz', fix_imports=True, encoding='latin1'))
-niriss_soss = dict(np.load('../outputs/niriss_soss_sensitivity.npz', fix_imports=True, encoding='latin1'))
-niriss_ami = dict(np.load('../outputs/niriss_ami_sensitivity.npz', fix_imports=True, encoding='latin1'))
+niriss_imaging = dict(np.load('../outputs/niriss_imaging_sensitivity.npz', fix_imports=True, encoding='latin1', allow_pickle=True))
+niriss_wfss = dict(np.load('../outputs/niriss_wfss_sensitivity.npz', fix_imports=True, encoding='latin1', allow_pickle=True))
+niriss_soss = dict(np.load('../outputs/niriss_soss_sensitivity.npz', fix_imports=True, encoding='latin1', allow_pickle=True))
+niriss_ami = dict(np.load('../outputs/niriss_ami_sensitivity.npz', fix_imports=True, encoding='latin1', allow_pickle=True))
 
-nirspec_fs = dict(np.load('../outputs/nirspec_fs_sensitivity.npz', fix_imports=True, encoding='latin1'))
-nirspec_ifu = dict(np.load('../outputs/nirspec_ifu_sensitivity.npz', fix_imports=True, encoding='latin1'))
-nirspec_msa = dict(np.load('../outputs/nirspec_msa_sensitivity.npz', fix_imports=True, encoding='latin1'))
+nirspec_fs = dict(np.load('../outputs/nirspec_fs_sensitivity.npz', fix_imports=True, encoding='latin1', allow_pickle=True))
+nirspec_ifu = dict(np.load('../outputs/nirspec_ifu_sensitivity.npz', fix_imports=True, encoding='latin1', allow_pickle=True))
+nirspec_msa = dict(np.load('../outputs/nirspec_msa_sensitivity.npz', fix_imports=True, encoding='latin1', allow_pickle=True))
 
 miri = {'imaging':miri_imaging,'mrs':miri_mrs,'lrs':miri_lrs}
 nircam = {'sw':nircam_sw,'lw':nircam_lw,'wfgrism':nircam_wfgrism}
@@ -119,22 +119,21 @@ for instrument in frame.keys():
 
 # http://bokeh.pydata.org/en/1.1.0/docs/user_guide/interaction/callbacks.html#userguide-interaction-jscallbacks
 scode = """
-        var active = cb_obj.active;
-        var labels = cb_obj.labels;
         var active_labels = [];
-        for (i = 0; i < active.length; i++) {
-            active_labels.push(labels[active[i]].toLowerCase());
+        for (let i = 0; i < this.active.length; i++) {
+            active_labels.push(this.labels[this.active[i]].toLowerCase());
             }
 
-        for (i = 0; i < arguments.length; i++) {
-               var data = arguments[i].data;
-               var instrument = data.instrument[0];
-               var ins_in_array = (active_labels.indexOf(instrument) > -1);
-               console.log(ins_in_array);
+        // the last two arguments are Bokeh-related, and have no data
+        for (let i = 0; i < arguments.length - 2; i++) {
+               console.log(arguments[i])
+               let instrument = arguments[i].data.instrument[0];
+               let ins_in_array = (active_labels.indexOf(instrument) > -1);
+               console.log(ins_in_array, instrument);
                if (ins_in_array) {
-                  data.y=data.y_backup;
+                  arguments[i].data.y=arguments[i].data.y_backup;
                } else {
-                  data.y=data.y_hidden;
+                  arguments[i].data.y=arguments[i].data.y_hidden;
                }
                arguments[i].change.emit();
            }
@@ -145,7 +144,8 @@ callback = CustomJS(args=sources, code=scode)
 
 checkbox_group = CheckboxButtonGroup(
         labels=["NIRCam", "NIRSpec", "NIRISS", "MIRI"], active=[0,1,2,3],
-        sizing_mode="scale_width",callback=callback,width=800)
+        sizing_mode="scale_width", width=800)
+checkbox_group.js_on_click(callback)
 
 spacer1 = Spacer()
 spacer2 = Spacer()
