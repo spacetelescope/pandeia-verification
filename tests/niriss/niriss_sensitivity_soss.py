@@ -2,8 +2,8 @@ import numpy as np
 import astropy.io.fits as fits
 from verification_tools import calc_limits
 
-configs = [{'aperture':'soss','filter':None,'disperser':'gr700xd'},
-           {'aperture':'soss','filter':None,'disperser':'gr700xd'}]
+configs = [{'aperture':'soss','filter':'clear','disperser':'gr700xd'},
+           {'aperture':'soss','filter':'clear','disperser':'gr700xd'}]
 
 apertures = np.array([2.5,2.5])*0.0656
 idt_fluxes = np.array([0.03, 0.03])
@@ -11,7 +11,7 @@ orders = [1,2]
 obsmode = {
            'instrument': 'niriss',
            'mode': 'soss',
-           'filter': None,
+           'filter': 'clear',
            'aperture': 'soss',
            'disperser': 'gr700xd'
            }
