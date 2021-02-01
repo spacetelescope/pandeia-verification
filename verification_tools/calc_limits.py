@@ -116,9 +116,9 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
         syspath = os.path.abspath(os.path.dirname(__file__))
         bg_table = fits.getdata(os.path.join(syspath,'inputs/minzodi_benchmark.fits'))
         background = [bg_table['wavelength'],bg_table['background']]
-    elif background in ['wfirst_minzodi']:
+    elif background in ['roman_minzodi']:
         syspath = os.path.abspath(os.path.dirname(__file__))
-        bg_table = fits.getdata(os.path.join(syspath,'inputs/wfirst_minzodi_benchmark.fits'))
+        bg_table = fits.getdata(os.path.join(syspath,'inputs/roman_minzodi_benchmark.fits'))
         background = [bg_table['wavelength'],bg_table['background']]
     else:
         raise ValueError('Unrecognized background {}'.format(background))
@@ -184,7 +184,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
             if obsmode['mode'] in ['msa','fixed_slit','lrsslit','lrsslitless','wfgrism','ssgrism','wfss','soss','spectroscopy']:
                 inner_fac = 1.5
                 outer_fac = inner_fac+skyfac/2.
-            elif obsmode['mode'] in ['ifu','mrs','sw_imaging','lw_imaging','imaging','ami','imager']:
+            elif obsmode['mode'] in ['ifu','mrs','sw_imaging','lw_imaging','imaging','ami']:
                 inner_fac = 2.
                 outer_fac = np.sqrt(skyfac+inner_fac**2.)
             else:
