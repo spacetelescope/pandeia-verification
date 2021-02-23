@@ -20,6 +20,6 @@ cd ../nircam
 python nircam_sensitivity_lw.py > ../../logs/nircam_lw.log
 python nircam_sensitivity_sw.py > ../../logs/nircam_sw.log
 python nircam_sensitivity_wfgrism.py > ../../logs/nircam_wfgrism.log
-cd ../wfirstimager
-python wfirstimager_sensitivity_spectroscopy.py > ../../logs/wfirstimager_spectroscopy.log
-python wfirstimager_sensitivity_imager.py > ../../logs/wfirstimager_imager.log
+cd ../wfi
+python wfi_sensitivity_spectroscopy.py > ../../logs/wfi_spectroscopy.log
+python wfi_sensitivity_imaging.py > ../../logs/wfi_imaging.log

@@ -24,7 +24,7 @@ pixscale = 0.11  # arcsec
 apertures = np.array([2.5,2.5,2.5,2.5,2.5,2.5,2.5])*pixscale
 
 obsmode = {
-           'instrument': 'wfirstimager',
+           'instrument': 'wfi',
            'mode': 'imaging',
            'filter': 'f062',
            'aperture': 'any',
@@ -47,6 +47,6 @@ strategy = {
             }
 
 output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=100,skyfacs=2.,
-                                 exp_config=exp_config,strategy=strategy,background='wfirst_minzodi')
-np.savez('../../outputs/wfirstimager_imager_sensitivity.npz',
+                                 exp_config=exp_config,strategy=strategy,background='roman_minzodi')
+np.savez('../../outputs/wfi_imaging_sensitivity.npz',
     wavelengths=output['wavelengths'], sns=output['sns'], lim_fluxes=output['lim_fluxes'], sat_limits=output['sat_limits'], configs=output['configs'])

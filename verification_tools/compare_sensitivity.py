@@ -55,14 +55,14 @@ def setup(instrument, ax):
         colorVal = scalarMap.to_rgba(3)
         nirspec = ax[0][0].plot(-1e-20,-1e-20,label='NIRSpec', color=colorVal)
         legendhandles.append(nirspec[0])
-    elif instrument == "wfirstimager":
+    elif instrument == "wfi":
         # set up colors
         spectral = cm = plt.get_cmap('Spectral_r')
         cNorm  = colors.Normalize(vmin=0.4, vmax=2)
         scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
         colorVal = scalarMap.to_rgba(1)
-        wfirstimager = ax[0][0].plot(-1e-20,-1e-20,label='WFIRST Imager', color=colorVal)
-        legendhandles.append(wfirstimager[0])
+        wfi = ax[0][0].plot(-1e-20,-1e-20,label='Roman WFI', color=colorVal)
+        legendhandles.append(wfi[0])
 
     return scalarMap, legendhandles, ax
 
@@ -257,7 +257,7 @@ if len(sys.argv) > 4:
     insnames = sys.argv[4:]
 else:
     insnames = ['miri,imaging,lrs,mrs', 'nircam,lw,sw,wfgrism', 'niriss,imaging,ami,soss,wfss', 'nirspec,fs,ifu,msa', 
-'wfirstimager,imager,spectroscopy']
+'wfi,imaging,spectroscopy']
 
 
 

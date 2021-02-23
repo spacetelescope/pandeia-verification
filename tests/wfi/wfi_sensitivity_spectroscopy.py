@@ -10,7 +10,7 @@ apertures = np.array([2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5])*0.11
 idt_fluxes = np.array([1e-2, 1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2])
 skyfacs = [2,2,2,2,2,2,2,2,2,2,2,2]
 obsmode = {
-           'instrument': 'wfirstimager',
+           'instrument': 'wfi',
            'mode': 'spectroscopy',
            'filter': None,
            'aperture': 'any',
@@ -31,7 +31,7 @@ strategy = {
             }
 
 output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=50,skyfacs=skyfacs,
-                                 exp_config=exp_config,strategy=strategy,background='wfirst_minzodi')
+                                 exp_config=exp_config,strategy=strategy,background='roman_minzodi')
 
-np.savez('../../outputs/wfirstimager_spectroscopy_sensitivity.npz',
+np.savez('../../outputs/wfi_spectroscopy_sensitivity.npz',
     wavelengths=output['wavelengths'], sns=output['sns'], lim_fluxes=output['lim_fluxes'], sat_limits=output['sat_limits'], configs=output['configs'])
