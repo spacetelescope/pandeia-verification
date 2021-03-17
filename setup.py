@@ -1,9 +1,9 @@
 from setuptools import setup, find_packages
 
 setup(name='pandeia_verification',
-      version='1.5.1',
+      version='1.6',
       description='Pandeia verification tools',
-      author='Klaus Pontoppidan',
+      author='Klaus Pontoppidan, Adric Riedel',
       author_email='pontoppi@stsci.edu',
       url='http://www.stsci.edu/~pontoppi',
       packages=find_packages(),
