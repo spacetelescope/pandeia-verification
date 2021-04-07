@@ -105,8 +105,10 @@ for instrument in frame.keys():
                 jumpr = [y[k]/y[k-1] if y[k]/y[k-1] > 1 else y[k-1]/y[k] for k in range(1, len(y)) ]
                 jumpl.insert(-1,1e99)
                 jumpr.insert(0,1e99)
-                gsubs = [k for k in range(len(y)) if (jumpl[k] < 1.1 and jumpr[k] < 1.1) and (y[k] > -7)]
-
+                if len(y) == 1:
+                    gsubs = np.where(y > -7)
+                else:
+                    gsubs = [k for k in range(len(y)) if (jumpl[k] < 1.2 and jumpr[k] < 1.2) and (y[k] > -7)]
 
             source = ColumnDataSource({'x':x[gsubs],'y':y[gsubs], 'label':[label]*x[gsubs].size, 'instrument':[instrument]*x[gsubs].size,
                                        'config':[config]*x[gsubs].size, 'y_backup':y[gsubs], 'y_hidden':[1e18]*y[gsubs].size,

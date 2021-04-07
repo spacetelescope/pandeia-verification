@@ -101,7 +101,10 @@ for instrument in frame.keys():
                 jumpr = [y[k]/y[k-1] if y[k]/y[k-1] > 1 else y[k-1]/y[k] for k in range(1, len(y)) ]
                 jumpl.insert(-1,1e99)
                 jumpr.insert(0,1e99)
-                bsubs = [k for k in range(len(y)) if (jumpl[k] > 1.1 and jumpr[k] > 1.1) or (y[k] > 7)]
+                if len(y) == 1:
+                    bsubs = np.where(y > 7)
+                else:
+                    bsubs = [k for k in range(len(y)) if (jumpl[k] > 1.1 and jumpr[k] > 1.1) or (y[k] > 7)]
                 y[bsubs] = np.nan
 
             if mode is 'soss':
