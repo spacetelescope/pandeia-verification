@@ -97,9 +97,12 @@ for instrument in frame.keys():
             y=y[np.isfinite(y)]
 
             if instrument is 'nirspec':
-                bsubs = np.where(y>7)
+                jumpl = [y[k]/y[k+1] if y[k]/y[k+1] > 1 else y[k+1]/y[k] for k in range(len(y)-1) ]
+                jumpr = [y[k]/y[k-1] if y[k]/y[k-1] > 1 else y[k-1]/y[k] for k in range(1, len(y)) ]
+                jumpl.insert(-1,1e99)
+                jumpr.insert(0,1e99)
+                bsubs = [k for k in range(len(y)) if (jumpl[k] > 1.1 and jumpr[k] > 1.1) or (y[k] > 7)]
                 y[bsubs] = np.nan
-                print(np.where(y>7), x[np.where(y>7)])
 
             if mode is 'soss':
                 bsubs = np.where(y>10)
