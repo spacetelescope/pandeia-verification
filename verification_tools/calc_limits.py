@@ -273,9 +273,9 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
         tgroup = report.signal.current_instrument.get_exposure_pars().tgroup
         tframe =  report.signal.current_instrument.get_exposure_pars().tframe
         tfffr = report.signal.current_instrument.get_exposure_pars().tfffr
-        det_type = report.signal.current_instrument.get_exposure_pars().det_type
+        #det_type = report.signal.current_instrument.get_exposure_pars().det_type
 
-        if det_type=='h2rg':
+        if obsmode['instrument'] != 'miri':
             mintime = tfffr + 2 * tframe
         else:
             mintime = tfffr + 5 * tframe #minimum recommended frames is 5 for MIRI
