@@ -270,10 +270,10 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
         aperture_bg_rate = aperture_total_rate-aperture_source_rate
         fov_source_rate = report.curves['total_flux'][1]
 
-        tgroup = report.signal.current_instrument.get_exposure_pars().tgroup
-        tframe =  report.signal.current_instrument.get_exposure_pars().tframe
-        tfffr = report.signal.current_instrument.get_exposure_pars().tfffr
-        #det_type = report.signal.current_instrument.get_exposure_pars().det_type
+        tgroup = report.signal.current_instrument.the_detector.exposure_spec.tgroup
+        tframe =  report.signal.current_instrument.the_detector.exposure_spec.tframe
+        tfffr = report.signal.current_instrument.the_detector.exposure_spec.tfffr
+        #det_type = report.signal.current_instrument.detector.exposure_spec.det_type
 
         if obsmode['instrument'] != 'miri':
             mintime = tfffr + 2 * tframe
@@ -293,14 +293,14 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
             excess=0
 
         if excess==0:
-            fullwell_minus_bg = (report.signal.det_pars['fullwell']-mintime*report.bg_pix)
+            fullwell_minus_bg = (report.signal.the_detector.fullwell-mintime*report.bg_pix)
             rate_per_mjy = report.signal.rate/lim_flx[midpoint]
             bg_pix_rate_min = np.min(report.bg_pix,0)
             bg_pix_rate_max = np.max(report.bg_pix,0)
         else:
             bg_pix_rate_min = np.min(report.bg_pix[:,int(excess/2):-int(excess/2)])
             bg_pix_rate_max = np.max(report.bg_pix[:,int(excess/2):-int(excess/2)])
-            fullwell_minus_bg = (report.signal.det_pars['fullwell']-mintime*report.bg_pix[:,int(excess/2):-int(excess/2)-1])
+            fullwell_minus_bg = (report.signal.the_detector.fullwell-mintime*report.bg_pix[:,int(excess/2):-int(excess/2)-1])
             rate_per_mjy = report.signal.rate[:,int(excess/2):-int(excess/2)-1]/lim_flx[midpoint]
 
         sat_limit_detector = fullwell_minus_bg/mintime/np.abs(rate_per_mjy) #units of mJy
