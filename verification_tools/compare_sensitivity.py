@@ -293,7 +293,7 @@ for instruments in insnames:
 
     instrument = instruments.split(',')[0]
     # Now that we know how many subplots we need, make a grid with enough plots.
-    ax = np.atleast_2d(fig.subplots(nrows=np.int(np.ceil(subplots/3.)),ncols=3))
+    ax = np.atleast_2d(fig.subplots(nrows=np.int32(np.ceil(subplots/3.)),ncols=3))
     # This sets up the legend and the color scheme based on the instrument
     scalarMap,legendhandles,ax = setup(instrument,ax)
 
