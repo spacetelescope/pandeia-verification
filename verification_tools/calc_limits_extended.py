@@ -77,7 +77,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
 
     """
 
-    if background is 'miri':
+    if background == 'miri':
         syspath = os.path.abspath(os.path.dirname(__file__))
         bg_table = ascii.read(os.path.join(syspath,'inputs/miri_verification_background.tab'))
         # From the matlab doc, it appears that the thermal background is not subjected to the OTE transmission
@@ -264,13 +264,13 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
 
         #nprerej =  report.signal.current_instrument.the_detector.exposure_spec.nprerej
 
-        if obsmode['instrument'] is not 'miri':
+        if obsmode['instrument'] != 'miri':
             mintime = tfffr + 2 * tframe
         else:
             mintime = tfffr + 5 * tframe #minimum recommended frames is 5 for MIRI
 
         # Soss is rotated by 90 degrees on the detector, for some reason
-        if obsmode['mode'] is 'soss':
+        if obsmode['mode'] == 'soss':
             report.bg_pix = np.rot90(report.bg_pix)
             report.signal.rate = np.rot90(report.signal.rate)
 
