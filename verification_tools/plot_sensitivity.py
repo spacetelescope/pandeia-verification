@@ -13,8 +13,32 @@ import matplotlib.cm as cmx
 from matplotlib.ticker import StrMethodFormatter
 
 
+def gettext(data,x):
+    """
+    Text labels. Priority is: Disperser (and order) if it exists, then filter
+    if it exists. If neither exist (unlikely), just use aperture.
+    """
+    if 'disperser' in data['configs'][x]:
+        if 'filter' in data['configs'][x]:
+            if data['configs'][x]['filter'] == None:
+                if 'orders' in data['configs'][x]:
+                    textval = '{} {}'.format(data['configs'][x]['disperser'], data['orders'][x])
+                else:
+                    textval = '{} {}'.format(data['configs'][x]['aperture'], data['configs'][x]['disperser'])
+            else:
+                textval = '{} {}'.format(data['configs'][x]['disperser'], data['configs'][x]['filter'])
+        else:
+            textval = '{} {}'.format(data['configs'][x]['aperture'], data['configs'][x]['disperser'])
+    else:
+        if 'filter' in data['configs'][x]:
+            textval = data['configs'][x]['filter']
+        else:
+            textval = data['configs'][x]['aperture']
+    return textval
+
 if len(sys.argv) > 1:
     prop = sys.argv[1]
+    folder = sys.argv[2]
 else:
     print('Run this from the outputs folder.')
     print('Calling sequence: ')
@@ -25,9 +49,9 @@ else:
     print('Output is a .png file in the directory you\'re running this from.')
     raise ValueError("Need to specify the property argument.")
 if len(sys.argv) > 2:
-    insnames = sys.argv[2:]
+    insnames = sys.argv[3:]
 else:
-    insnames = ['miri,imaging,lrs,mrs', 'nircam,lw,sw,wfgrism', 'niriss,imaging,ami,soss,wfss', 'nirspec,fs,ifu,msa']
+    insnames = ['miri,imaging,lrs,mrs', 'nircam,lw,sw,wfgrism', 'niriss,imaging,ami,soss,wfss', 'nirspec,fs,ifu,msa', 'wfi,imaging']
 
 fig = plt.figure(figsize=(20,12))
 ax = fig.add_subplot(111)
@@ -71,13 +95,13 @@ for instruments in insnames:
         colorVal = scalarMap.to_rgba(3)
         nirspec = ax.plot(-1e-20,-1e-20,label='NIRSpec', color=colorVal)
         legendhandles.append(nirspec[0])
-    elif instrument == "wfirstimager":
+    elif instrument == "wfi":
         # set up colors
-        spectral = cm = plt.get_cmap('Spectral_r')
+        spectral = cm = plt.get_cmap('viridis')
         cNorm  = colors.Normalize(vmin=0.4, vmax=2)
         scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
-        wfirstimager = ax.plot([0.6, 2],[-1e-20,-1e-20],label='WFIRST Imager')
-        legendhandles.append(wfirstimager[0])
+        wfi = ax.plot([0.6, 3],[-1e-20,-1e-20],label='Roman WFI')
+        legendhandles.append(wfi[0])
     if prop == 'lim_fluxes':
         ylabel = 'Flux Density (S/N = 10 in 10000s) (microJy)'
         mult = 1e3
@@ -100,27 +124,15 @@ for instruments in insnames:
         yscale = 'log'
 
     for mode in instruments.split(',')[1:]:
-        data = np.load('../outputs/{}_{}_sensitivity.npz'.format(instrument,mode))
+        data = np.load('../{}/{}_{}_sensitivity.npz'.format(folder,instrument,mode), allow_pickle=True)
         print(instrument,mode)
         for x,keys in enumerate(data['configs']):
             colorVal = scalarMap.to_rgba(np.mean(data['wavelengths'][x]))
             # get text
-            if 'disperser' in data['configs'][x]:
-                if 'filter' in data['configs'][x]:
-                    if data['configs'][x]['filter'] == None:
-                        textval = '{} {}'.format(data['configs'][x]['disperser'], data['orders'][x])
-                    else:
-                        textval = '{} {}'.format(data['configs'][x]['disperser'], data['configs'][x]['filter'])
-                else:
-                    textval = '{} {}'.format(data['configs'][x]['aperture'],data['configs'][x]['disperser'])
-            else:
-                if 'filter' in data['configs'][x]:
-                    textval = data['configs'][x]['filter']
-                else:
-                    textval = data['configs'][x]['aperture']
+            textval = gettext(data, x)
 
             if len(data['wavelengths'][x]) == 1:
-                ax.scatter(data['wavelengths'][x],data[prop][x]*mult,label=data['configs'][x].values()[0], color=colorVal)
+                ax.scatter(data['wavelengths'][x],data[prop][x]*mult,label=data['configs'][x], color=colorVal)
                 ax.text(np.mean(data['wavelengths'][x]), (np.mean(data[prop][x])+(np.max(data[prop][x])/4.))*mult, textval, ha="center", va="bottom", bbox=bbox_props)
             else:
                 wave = data['wavelengths'][x]
@@ -133,7 +145,7 @@ for instruments in insnames:
                         gsubs = np.where(vals*mult < 7)
                     else:
                         gsubs = np.where(vals > -6)
-                ax.plot(wave[gsubs],vals[gsubs]*mult,label=data['configs'][x].values()[0], color=colorVal)
+                ax.plot(wave[gsubs],vals[gsubs]*mult,label=data['configs'][x], color=colorVal)
                 ax.text(np.mean(wave[gsubs]), np.nanmedian(vals[gsubs])*mult, textval, ha="center", va="bottom", bbox=bbox_props)
         data.close()
 ax.set_xlabel('Wavelength (microns)')
