@@ -70,6 +70,7 @@ for instruments in insnames:
         # unlike every other type of plot I've seen.
         colorVal = scalarMap.to_rgba(17)
         miri = ax.plot(-1e-20,-1e-20,label='MIRI', color=colorVal)
+        xlimits = [0.6,30]
         legendhandles.append(miri[0])
     elif instrument == "nircam":
         # set up colors
@@ -78,6 +79,7 @@ for instruments in insnames:
         scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
         colorVal = scalarMap.to_rgba(3)
         nircam = ax.plot(-1e-20,-1e-20,label='NIRCam', color=colorVal)
+        xlimits = [0.6,30]
         legendhandles.append(nircam[0])
     elif instrument == "niriss":
         # set up colors
@@ -86,6 +88,7 @@ for instruments in insnames:
         scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
         colorVal = scalarMap.to_rgba(3)
         niriss = ax.plot(-1e-20,-1e-20,label='NIRISS', color=colorVal)
+        xlimits = [0.6,30]
         legendhandles.append(niriss[0])
     elif instrument == "nirspec":
         # set up colors
@@ -94,13 +97,15 @@ for instruments in insnames:
         scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
         colorVal = scalarMap.to_rgba(3)
         nirspec = ax.plot(-1e-20,-1e-20,label='NIRSpec', color=colorVal)
+        xlimits = [0.6,30]
         legendhandles.append(nirspec[0])
     elif instrument == "wfi":
         # set up colors
         spectral = cm = plt.get_cmap('viridis')
         cNorm  = colors.Normalize(vmin=0.4, vmax=2)
         scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=spectral)
-        wfi = ax.plot([0.6, 3],[-1e-20,-1e-20],label='Roman WFI')
+        wfi = ax.plot([0.3, 3],[-1e-20,-1e-20],label='Roman WFI')
+        xlimits = [0.3,3]
         legendhandles.append(wfi[0])
     if prop == 'lim_fluxes':
         ylabel = 'Flux Density (S/N = 10 in 10000s) (microJy)'
@@ -151,7 +156,8 @@ for instruments in insnames:
 ax.set_xlabel('Wavelength (microns)')
 ax.set_ylabel(ylabel)
 ax.set_xscale('log')
-ax.set_xticks([0.6, 1, 2, 5, 10, 15, 20, 25])
+ax.set_xticks([0.4, 1, 2, 5, 10, 15, 20, 25])
+ax.set_xlim(xlimits)
 ax.get_xaxis().set_major_formatter(StrMethodFormatter('{x:g}'))
 ax.set_ylim(ylim)
 ax.set_yscale(yscale)
@@ -161,4 +167,4 @@ ax.legend(handles=legendhandles)
 #ax.yaxis.set_major_formatter(StrMethodFormatter('{x:g}'))
 plt.tight_layout()
 
-plt.savefig('{}.png'.format(prop))
+plt.savefig('{}_{}.png'.format(prop,folder))
