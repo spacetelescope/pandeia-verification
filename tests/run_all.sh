@@ -4,13 +4,13 @@ mkdir -p ../logs
 mkdir -p ../outputs
 cd niriss/
 python niriss_sensitivity_soss.py > ../../logs/niriss_soss.log &
+python niriss_sensitivity_wfss.py > ../../logs/niriss_wfss.log &
 cd ../miri/
 python miri_sensitivity_mrs.py > ../../logs/miri_mrs.log &
 cd ../nirspec
 python nirspec_sensitivity_ifu.py > ../../logs/nirspec_ifu.log &
 cd ../niriss/
 python niriss_sensitivity_ami.py > ../../logs/niriss_ami.log
-python niriss_sensitivity_wfss.py > ../../logs/niriss_wfss.log
 python niriss_sensitivity_imaging.py > ../../logs/niriss_imaging.log
 cd ../miri/
 python miri_sensitivity_imaging.py > ../../logs/miri_imaging.log

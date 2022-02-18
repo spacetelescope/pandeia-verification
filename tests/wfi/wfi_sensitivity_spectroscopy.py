@@ -3,8 +3,8 @@ import astropy.io.fits as fits
 from verification_tools import calc_limits
 #from verification_tools import fudge_throughput as ft
 
-configs = [{'aperture':'any', 'filter':None, 'disperser':'g150', 'bounds':(1.0,1.93)},
-           {'aperture':'any', 'filter':None, 'disperser':'p120', 'bounds':(0.76,1.8)}]
+configs = [{'aperture':'spectroscopy', 'filter':None, 'disperser':'g150', 'bounds':(1.0,1.93)},
+           {'aperture':'spectroscopy', 'filter':None, 'disperser':'p120', 'bounds':(0.76,1.8)}]
 
 apertures = np.array([2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5])*0.11
 idt_fluxes = np.array([1e-2, 1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2])
@@ -13,11 +13,11 @@ obsmode = {
            'instrument': 'wfi',
            'mode': 'spectroscopy',
            'filter': None,
-           'aperture': 'any',
+           'aperture': 'spectroscopy',
            'disperser': 'g150'
            }
 exp_config = {
-              'subarray': 'full',
+              'subarray': 'spectroscopy',
               'readout_pattern': 'deep8',
               'ngroup': 5,
               'nint': 1,
