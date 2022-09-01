@@ -6,7 +6,7 @@ from verification_tools import calc_limits
 configs = [{'aperture':'spectroscopy', 'filter':None, 'disperser':'g150', 'bounds':(1.0,1.93)},
            {'aperture':'spectroscopy', 'filter':None, 'disperser':'p120', 'bounds':(0.76,1.8)}]
 
-apertures = np.array([2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5])*0.11
+apertures = np.array([5,5,5,5,5,5,5,5,5,5,5,5])*0.11
 idt_fluxes = np.array([1e-2, 1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2])
 skyfacs = [2,2,2,2,2,2,2,2,2,2,2,2]
 obsmode = {

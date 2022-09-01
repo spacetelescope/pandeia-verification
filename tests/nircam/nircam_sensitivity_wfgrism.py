@@ -15,7 +15,7 @@ configs = [{'aperture':'lw','filter':'f250m','disperser':'grismr','bounds':(2.42
            {'aperture':'lw','filter':'f460m','disperser':'grismr','bounds':(4.543,4.713)},
            {'aperture':'lw','filter':'f480m','disperser':'grismr','bounds':(4.693,4.921)}]
 
-apertures = np.array([2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5])*0.0648
+apertures = np.array([5,5,5,5,5,5,5,5,5,5,5,5])*0.0648
 idt_fluxes = np.array([1e-2, 1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2])
 skyfacs = [2,2,2,2,2,2,2,2,2,2,2,2]
 obsmode = {

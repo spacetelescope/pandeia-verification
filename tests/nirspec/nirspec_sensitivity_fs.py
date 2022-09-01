@@ -16,7 +16,7 @@ configs = [{'aperture':'s200a1','filter':'f070lp','disperser':'g140h'},
 #           {'aperture':'s1600a1','filter':'clear','disperser':'prism'},
 #           {'aperture':'s200a1','filter':'clear','disperser':'prism'}]
 
-apertures = np.array([0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21])
+apertures = np.array([0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42])
 idt_fluxes = np.array([1e-2,1e-2,1e-2,1e-2,1e-3,1e-3,1e-3,1e-3,1e-4])
 skyfacs = np.array([2.,2.,2.,2.,2.,2.,2.,2.,2.])
 

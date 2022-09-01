@@ -9,7 +9,7 @@ configs = [{'aperture':'imager','filter':'f090w','disperser':'gr150r','bounds':(
            {'aperture':'imager','filter':'f158m','disperser':'gr150r','bounds':(1.506,1.667)},
            {'aperture':'imager','filter':'f200w','disperser':'gr150r','bounds':(1.772,2.207)}]
 
-apertures = np.array([1.5,1.5,1.5,1.5,1.5,1.5])*0.0656
+apertures = np.array([3,3,3,3,3,3])*0.0656
 idt_fluxes = np.array([2e-4, 2e-4,2e-4,2e-4,2e-4,2e-4])
 skyfacs = [2,2,2,2,2,2]
 obsmode = {
