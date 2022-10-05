@@ -160,6 +160,9 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
     sat_limits = []
     line_limits = []
     source_rates = []
+    sat_limits_1 = []
+    line_limits_1 = []
+    outputs = []
     for i in range(len(configs)):
         config = configs[i]
         aperture = apertures[i]
@@ -275,11 +278,6 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
         tfffr = report.signal.current_instrument.the_detector.exposure_spec.tfffr
         #det_type = report.signal.current_instrument.detector.exposure_spec.det_type
 
-        if obsmode['instrument'] != 'miri':
-            mintime = tfffr + 2 * tframe
-        else:
-            mintime = tfffr + 5 * tframe #minimum recommended frames is 5 for MIRI
-
         # SOSS is rotated by 90 degrees on the detector, for some reason
         if obsmode['mode'] == 'soss':
             report.bg_pix = np.rot90(report.bg_pix)
@@ -291,6 +289,11 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
             excess = (report.signal.rate.shape[1]-lim_flx.shape[0])-1
         else:
             excess=0
+
+        if obsmode['instrument'] != 'miri':
+            mintime = tfffr + 2 * tframe
+        else:
+            mintime = tfffr + 5 * tframe #minimum recommended frames is 5 for MIRI
 
         if excess==0:
             fullwell_minus_bg = (report.signal.the_detector.fullwell-mintime*report.bg_pix)
@@ -340,5 +343,43 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
         print('SNR:', '{:7.2f}'.format(fits_dict['1d']['sn'][0].data['sn'][midpoint]))
         print('Reference wavelength:', '{:7.2e}'.format(fits_dict['1d']['sn'][0].data['wavelength'][midpoint]))
 
-    return {'configs':configs,'strategy':strategy, 'wavelengths':wavelengths,'sns':sns,'lim_fluxes':lim_fluxes,
-            'source_rates_per_njy':source_rates, 'sat_limits':sat_limits, 'orders':orders, 'line_limits':line_limits}
+        if excess==0:
+            fullwell_minus_bg = (report.signal.the_detector.fullwell-mintime*report.bg_pix)
+            rate_per_mjy = report.signal.rate/lim_flx[midpoint]
+            bg_pix_rate_min = np.min(report.bg_pix,0)
+            bg_pix_rate_max = np.max(report.bg_pix,0)
+        else:
+            bg_pix_rate_min = np.min(report.bg_pix[:,int(excess/2):-int(excess/2)])
+            bg_pix_rate_max = np.max(report.bg_pix[:,int(excess/2):-int(excess/2)])
+            fullwell_minus_bg = (report.signal.the_detector.fullwell-mintime*report.bg_pix[:,int(excess/2):-int(excess/2)-1])
+            rate_per_mjy = report.signal.rate[:,int(excess/2):-int(excess/2)-1]/lim_flx[midpoint]
+
+        sat_limit_detector = fullwell_minus_bg/mintime/np.abs(rate_per_mjy) #units of mJy
+
+        # Calculate line sensitivities, assuming unresolved lines.
+        if lim_flx.shape[0]>1:
+            sat_limit = np.min(sat_limit_detector,0)
+            r = report.signal.current_instrument.get_resolving_power(wavelength)
+            px_width_micron = np.abs(wavelength-np.roll(wavelength,1))
+            px_width_micron[:1] = px_width_micron[1]
+
+            freqs = 2.99792458e14/wavelength
+            px_width_hz = np.abs(freqs-np.roll(freqs,1))
+            px_width_hz[:1] = px_width_hz[1]
+
+            line_width_px = wavelength/r/px_width_micron
+            line_limit = lim_flx*1e-3*1e-26 * px_width_hz * line_width_px / np.sqrt(line_width_px)
+            line_limits_1.append(line_limit)
+        else:
+            sat_limit = np.min(sat_limit_detector)
+
+        sat_limits_1.append(sat_limit)
+
+    outputs.append({'configs':configs,'strategy':strategy, 'wavelengths':wavelengths,'sns':sns,'lim_fluxes':lim_fluxes,
+            'source_rates_per_njy':source_rates, 'sat_limits':sat_limits, 'orders':orders, 'line_limits':line_limits})
+
+    outputs.append({'configs':configs,'strategy':strategy, 'wavelengths':wavelengths,'sns':sns,'lim_fluxes':lim_fluxes,
+            'source_rates_per_njy':source_rates, 'sat_limits':sat_limits_1, 'orders':orders, 'line_limits':line_limits_1})
+    
+    
+    return outputs

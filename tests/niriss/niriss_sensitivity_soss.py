@@ -31,4 +31,7 @@ output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,sc
                                  exp_config=exp_config,strategy=strategy,background='minzodi12',orders=orders)
 
 np.savez('../../outputs/niriss_soss_sensitivity.npz',
-    wavelengths=output['wavelengths'], sns=output['sns'], lim_fluxes=output['lim_fluxes'], sat_limits=output['sat_limits'], configs=output['configs'], orders=output['orders'])
+    wavelengths=output[0]['wavelengths'], sns=output[0]['sns'], lim_fluxes=output[0]['lim_fluxes'], sat_limits=output[0]['sat_limits'], configs=output[0]['configs'], orders=output[0]['orders'])
+
+np.savez('../../outputs/niriss_soss_sensitivity_one.npz',
+    wavelengths=output[1]['wavelengths'], sns=output[1]['sns'], lim_fluxes=output[1]['lim_fluxes'], sat_limits=output[1]['sat_limits'], configs=output[1]['configs'], orders=output[1]['orders'])
