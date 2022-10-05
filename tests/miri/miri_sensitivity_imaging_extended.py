@@ -1,5 +1,4 @@
 import numpy as np
-import astropy.io.fits as fits
 from verification_tools import calc_limits_extended
 
 configs = [{'filter':'f560w'},

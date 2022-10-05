@@ -162,7 +162,6 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
     source_rates = []
     sat_limits_1 = []
     line_limits_1 = []
-    outputs = []
     for i in range(len(configs)):
         config = configs[i]
         aperture = apertures[i]
@@ -290,6 +289,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
         else:
             excess=0
 
+        # The regular output case
         if obsmode['instrument'] != 'miri':
             mintime = tfffr + 2 * tframe
         else:
@@ -343,6 +343,8 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
         print('SNR:', '{:7.2f}'.format(fits_dict['1d']['sn'][0].data['sn'][midpoint]))
         print('Reference wavelength:', '{:7.2e}'.format(fits_dict['1d']['sn'][0].data['wavelength'][midpoint]))
 
+        # And now, recompute for the ngroups=1 case
+        mintime = tfffr + 1 * tframe
         if excess==0:
             fullwell_minus_bg = (report.signal.the_detector.fullwell-mintime*report.bg_pix)
             rate_per_mjy = report.signal.rate/lim_flx[midpoint]
@@ -375,11 +377,11 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
 
         sat_limits_1.append(sat_limit)
 
-    outputs.append({'configs':configs,'strategy':strategy, 'wavelengths':wavelengths,'sns':sns,'lim_fluxes':lim_fluxes,
-            'source_rates_per_njy':source_rates, 'sat_limits':sat_limits, 'orders':orders, 'line_limits':line_limits})
+    outputs_regular = {'configs':configs,'strategy':strategy, 'wavelengths':wavelengths,'sns':sns,'lim_fluxes':lim_fluxes,
+            'source_rates_per_njy':source_rates, 'sat_limits':sat_limits, 'orders':orders, 'line_limits':line_limits}
 
-    outputs.append({'configs':configs,'strategy':strategy, 'wavelengths':wavelengths,'sns':sns,'lim_fluxes':lim_fluxes,
-            'source_rates_per_njy':source_rates, 'sat_limits':sat_limits_1, 'orders':orders, 'line_limits':line_limits_1})
+    outputs_one = {'configs':configs,'strategy':strategy, 'wavelengths':wavelengths,'sns':sns,'lim_fluxes':lim_fluxes,
+            'source_rates_per_njy':source_rates, 'sat_limits':sat_limits_1, 'orders':orders, 'line_limits':line_limits_1}
     
     
-    return outputs
+    return outputs_regular, outputs_one
