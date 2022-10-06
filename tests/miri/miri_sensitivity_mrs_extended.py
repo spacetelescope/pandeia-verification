@@ -1,5 +1,4 @@
 import numpy as np
-import astropy.io.fits as fits
 from verification_tools import calc_limits_extended
 
 configs = [{'aperture':'ch1','disperser':'short'},

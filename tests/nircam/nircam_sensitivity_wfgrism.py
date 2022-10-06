@@ -1,5 +1,4 @@
 import numpy as np
-import astropy.io.fits as fits
 from verification_tools import calc_limits
 
 configs = [{'aperture':'lw','filter':'f250m','disperser':'grismr','bounds':(2.421,2.581)},
@@ -15,7 +14,7 @@ configs = [{'aperture':'lw','filter':'f250m','disperser':'grismr','bounds':(2.42
            {'aperture':'lw','filter':'f460m','disperser':'grismr','bounds':(4.543,4.713)},
            {'aperture':'lw','filter':'f480m','disperser':'grismr','bounds':(4.693,4.921)}]
 
-apertures = np.array([2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5])*0.0648
+apertures = np.array([5,5,5,5,5,5,5,5,5,5,5,5])*0.0648
 idt_fluxes = np.array([1e-2, 1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2])
 skyfacs = [2,2,2,2,2,2,2,2,2,2,2,2]
 obsmode = {
@@ -39,8 +38,11 @@ strategy = {
             'background_subtraction': False
             }
 
-output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=10000000,skyfacs=skyfacs,nflx=80,
+outputs_regular, outputs_one = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=10000000,skyfacs=skyfacs,nflx=80,
                                  exp_config=exp_config,strategy=strategy,background='minzodi12')
 
 np.savez('../../outputs/nircam_wfgrism_sensitivity.npz',
-    wavelengths=output['wavelengths'], sns=output['sns'], lim_fluxes=output['lim_fluxes'], sat_limits=output['sat_limits'], configs=output['configs'])
+    wavelengths=outputs_regular['wavelengths'], sns=outputs_regular['sns'], lim_fluxes=outputs_regular['lim_fluxes'], sat_limits=outputs_regular['sat_limits'], configs=outputs_regular['configs'])
+
+np.savez('../../outputs/nircam_wfgrism_sensitivity_one.npz',
+    wavelengths=outputs_one['wavelengths'], sns=outputs_one['sns'], lim_fluxes=outputs_one['lim_fluxes'], sat_limits=outputs_one['sat_limits'], configs=outputs_one['configs'])

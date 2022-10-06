@@ -1,5 +1,4 @@
 import numpy as np
-import astropy.io.fits as fits
 from verification_tools import calc_limits
 
 configs = [{'aperture':'ch1','disperser':'short'},
@@ -37,9 +36,13 @@ strategy = {
             #'dithers': [{'x':0,'y':0},{'x':1,'y':1}]
             }
 
-output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=150,skyfacs=1.05,
+outputs_regular, outputs_one = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=150,skyfacs=1.05,
                                  exp_config=exp_config,strategy=strategy,background='minzodi12')
 
 np.savez('../../outputs/miri_mrs_sensitivity.npz',
-    wavelengths=output['wavelengths'], sns=output['sns'], lim_fluxes=output['lim_fluxes'],
-    sat_limits=output['sat_limits'], configs=output['configs'], line_limits=output['line_limits'])
+    wavelengths=outputs_regular['wavelengths'], sns=outputs_regular['sns'], lim_fluxes=outputs_regular['lim_fluxes'],
+    sat_limits=outputs_regular['sat_limits'], configs=outputs_regular['configs'], line_limits=outputs_regular['line_limits'])
+
+np.savez('../../outputs/miri_mrs_sensitivity_one.npz',
+    wavelengths=outputs_one['wavelengths'], sns=outputs_one['sns'], lim_fluxes=outputs_one['lim_fluxes'],
+    sat_limits=outputs_one['sat_limits'], configs=outputs_one['configs'], line_limits=outputs_one['line_limits'])

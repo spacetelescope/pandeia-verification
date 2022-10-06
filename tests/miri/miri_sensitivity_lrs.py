@@ -1,10 +1,9 @@
 import numpy as np
-import astropy.io.fits as fits
 from verification_tools import calc_limits
 
 configs = [{'aperture':'imager','mode':'lrsslitless'},
            {'aperture':'lrsslit','mode':'lrsslit'}]
-apertures = np.array([0.42,0.42])*7.5/10.
+apertures = np.array([0.84,0.84])*7.5/10.
 idt_fluxes = np.array([5e-3,30e-3])
 
 obsmode = {
@@ -29,9 +28,13 @@ strategy = {
             }
 
 
-output = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=1000,nflx=80,
+outputs_regular, outputs_one = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=1000,nflx=80,
                                  exp_config=exp_config,strategy=strategy,background='minzodi12')
 
 np.savez('../../outputs/miri_lrs_sensitivity.npz',
-    wavelengths=output['wavelengths'], sns=output['sns'], lim_fluxes=output['lim_fluxes'],
-    source_rates_per_njy=output['source_rates_per_njy'], sat_limits=output['sat_limits'], configs=output['configs'], line_limits=output['line_limits'])
+    wavelengths=outputs_regular['wavelengths'], sns=outputs_regular['sns'], lim_fluxes=outputs_regular['lim_fluxes'],
+    source_rates_per_njy=outputs_regular['source_rates_per_njy'], sat_limits=outputs_regular['sat_limits'], configs=outputs_regular['configs'], line_limits=outputs_regular['line_limits'])
+
+np.savez('../../outputs/miri_lrs_sensitivity_one.npz',
+    wavelengths=outputs_one['wavelengths'], sns=outputs_one['sns'], lim_fluxes=outputs_one['lim_fluxes'],
+    source_rates_per_njy=outputs_one['source_rates_per_njy'], sat_limits=outputs_one['sat_limits'], configs=outputs_one['configs'], line_limits=outputs_one['line_limits'])
