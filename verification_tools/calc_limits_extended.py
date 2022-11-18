@@ -265,9 +265,9 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
         #nprerej =  report.signal.current_instrument.the_detector.exposure_spec.nprerej
 
         if obsmode['instrument'] != 'miri':
-            mintime = tfffr + 2 * tframe
+            mintime = 2 * tframe
         else:
-            mintime = tfffr + 5 * tframe #minimum recommended frames is 5 for MIRI
+            mintime = 5 * tframe #minimum recommended frames is 5 for MIRI
 
         # Soss is rotated by 90 degrees on the detector, for some reason
         if obsmode['mode'] == 'soss':
