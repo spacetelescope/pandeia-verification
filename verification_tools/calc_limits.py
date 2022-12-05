@@ -291,9 +291,9 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
 
         # The regular output case
         if obsmode['instrument'] != 'miri':
-            mintime = tfffr + 2 * tframe
+            mintime = 2 * tframe
         else:
-            mintime = tfffr + 5 * tframe #minimum recommended frames is 5 for MIRI
+            mintime = 5 * tframe #minimum recommended frames is 5 for MIRI
 
         if excess==0:
             fullwell_minus_bg = (report.signal.the_detector.fullwell-mintime*report.bg_pix)
