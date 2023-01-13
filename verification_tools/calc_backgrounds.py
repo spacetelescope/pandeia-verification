@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 import os
 import numpy as np
 import scipy.interpolate as ip
@@ -68,7 +66,7 @@ def calc_backgrounds(configs, obsmode=None,
 
         scene = [source]
     
-        input = {
+        calc_input = {
             'scene': scene,
             'background': background,
             'configuration': {'instrument': obsmode,
@@ -76,7 +74,7 @@ def calc_backgrounds(configs, obsmode=None,
             'strategy': strategy
         }  
     
-        report = perform_calculation(input, dict_report=False)
+        report = perform_calculation(calc_input, dict_report=False)
 
         if report.bg_pix.shape[0] != report.bg_pix.shape[1]:
             bg_pix_rate = np.max(report.bg_pix,axis=0)
