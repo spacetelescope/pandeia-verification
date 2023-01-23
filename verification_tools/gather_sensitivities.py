@@ -46,7 +46,7 @@ TOOLS = ['box_zoom',hover,'reset']
 
 colors = {'miri':ColorPalette[8][0],'nircam':ColorPalette[8][1],'niriss':ColorPalette[8][2],'nirspec':ColorPalette[8][3]}
 
-yrange = (10**-3.0, 10**4.9)
+yrange = (10**-3.0, 10**5.9)
 plot = Figure(x_axis_type="log",y_axis_type="log",y_range=yrange,x_range=(0.4,29.),
               x_axis_label="Wavelength [micron]", y_axis_label="Flux Density (S/N=10 in 10,000 s) [microJy]",
               plot_width=600, plot_height=400,tools=TOOLS,background_fill_color=None,
@@ -78,7 +78,7 @@ for instrument in frame.keys():
                 if 'aperture' in data[mode]['configs'][i].keys():
                     config += data[mode]['configs'][i]['aperture']
                     config += ' '
-                print(mode,data[mode]['configs'][i].keys())
+                #print(mode,data[mode]['configs'][i].keys())
                 if 'filter' in data[mode]['configs'][i].keys():
                     if data[mode]['configs'][i]['filter'] != None:
                         config += data[mode]['configs'][i]['filter']
@@ -108,7 +108,7 @@ for instrument in frame.keys():
                 if len(y) == 1:
                     gsubs = np.where(y > -7)
                 else:
-                    gsubs = [k for k in range(len(y)) if (jumpl[k] < 1.2 and jumpr[k] < 1.2) and (y[k] > -7)]
+                    gsubs = [k for k in range(len(y)) if (jumpl[k] < 1.1 and jumpr[k] < 1.1) and (y[k] > -7)]
 
             source = ColumnDataSource({'x':x[gsubs],'y':y[gsubs], 'label':[label]*x[gsubs].size, 'instrument':[instrument]*x[gsubs].size,
                                        'config':[config]*x[gsubs].size, 'y_backup':y[gsubs], 'y_hidden':[1e18]*y[gsubs].size,

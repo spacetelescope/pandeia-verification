@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 import os
 import numpy as np
 import scipy.interpolate as ip
@@ -198,7 +196,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
 
             source['spectrum']['normalization']['norm_flux'] = flux
 
-            input = {
+            calc_input = {
                 'scene': scene,
                 'background': background,
                 'configuration': {'instrument': obsmode,
@@ -206,7 +204,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
                 'strategy': strategy
             }
 
-            report = perform_calculation(input, dict_report=False)
+            report = perform_calculation(calc_input, dict_report=False)
             bg_pix_rate = np.min(report.bg_pix)
             aperture_source_rate = report.curves['extracted_flux'][1]
             aperture_bg_rate = report.curves['extracted_flux_plus_bg'][1][0]-aperture_source_rate[0]
@@ -240,7 +238,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
         #just need one to calculate the rate per mJy for the saturation estimate.
         source['spectrum']['normalization']['norm_flux'] = lim_flx[midpoint]
 
-        input = {
+        calc_input = {
             'scene': [source],
             'background': background,
             'configuration': {'instrument': obsmode,
@@ -248,7 +246,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
             'strategy': strategy
         }
 
-        report = perform_calculation(input, dict_report=False)
+        report = perform_calculation(calc_input, dict_report=False)
         fits_dict = report.as_fits()
         res_dict = report.as_dict()
 

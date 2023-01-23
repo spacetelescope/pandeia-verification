@@ -45,7 +45,7 @@ TOOLS = ['box_zoom',hover,'reset']
 
 colors = {'miri':ColorPalette[8][0],'nircam':ColorPalette[8][1],'niriss':ColorPalette[8][2],'nirspec':ColorPalette[8][3]}
 
-yrange = (10**-4, 10**3.2)
+yrange = (10**-4, 10**4)
 plot = Figure(x_axis_type="log",y_axis_type="log",y_range=yrange,x_range=(0.4,29.),
               x_axis_label="Wavelength [micron]", y_axis_label="Saturation limit [Jy]",
               plot_width=600, plot_height=400,tools=TOOLS,background_fill_color=None,
@@ -96,7 +96,7 @@ for instrument in frame.keys():
             x=x[np.isfinite(y)]
             y=y[np.isfinite(y)]
 
-            if instrument is 'nirspec':
+            if instrument == 'nirspec':
                 jumpl = [y[k]/y[k+1] if y[k]/y[k+1] > 1 else y[k+1]/y[k] for k in range(len(y)-1) ]
                 jumpr = [y[k]/y[k-1] if y[k]/y[k-1] > 1 else y[k-1]/y[k] for k in range(1, len(y)) ]
                 jumpl.insert(-1,1e99)
@@ -107,11 +107,23 @@ for instrument in frame.keys():
                     bsubs = [k for k in range(len(y)) if (jumpl[k] > 1.1 and jumpr[k] > 1.1) or (y[k] > 7)]
                 y[bsubs] = np.nan
 
-            if mode is 'soss':
-                bsubs = np.where(y>10)
+            if mode == 'soss':
+                jumpl = [y[k]/y[k+1] if y[k]/y[k+1] > 1 else y[k+1]/y[k] for k in range(len(y)-1) ]
+                jumpr = [y[k]/y[k-1] if y[k]/y[k-1] > 1 else y[k-1]/y[k] for k in range(1, len(y)) ]
+                jumpl.insert(-1,1e99)
+                jumpr.insert(0,1e99)
+                bsubs = [k for k in range(len(y)) if (jumpl[k] > 1.08 and jumpr[k] > 1.08) and x.size > 1]
                 y[bsubs] = np.nan
 
-            if mode is 'ami':
+            if instrument == 'miri':
+                jumpl = [y[k]/y[k+1] if y[k]/y[k+1] > 1 else y[k+1]/y[k] for k in range(len(y)-1) ]
+                jumpr = [y[k]/y[k-1] if y[k]/y[k-1] > 1 else y[k-1]/y[k] for k in range(1, len(y)) ]
+                jumpl.insert(-1,1e99)
+                jumpr.insert(0,1e99)
+                bsubs = [k for k in range(len(y)) if (jumpl[k] > 1.07 and jumpr[k] > 1.07) and x.size > 1]
+                y[bsubs] = np.nan
+
+            if mode == 'ami':
                 bsubs = np.where(y>20)
                 y[bsubs] = np.nan
 
