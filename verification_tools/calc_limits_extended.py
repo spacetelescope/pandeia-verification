@@ -204,7 +204,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
                 'strategy': strategy
             }
 
-            report = perform_calculation(calc_input, dict_report=False)
+            report = perform_calculation(calc_input, dict_report=False, webapp=False)
             bg_pix_rate = np.min(report.bg_pix)
             aperture_source_rate = report.curves['extracted_flux'][1]
             aperture_bg_rate = report.curves['extracted_flux_plus_bg'][1][0]-aperture_source_rate[0]
@@ -246,7 +246,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
             'strategy': strategy
         }
 
-        report = perform_calculation(calc_input, dict_report=False)
+        report = perform_calculation(calc_input, dict_report=False, webapp=False)
         fits_dict = report.as_fits()
         res_dict = report.as_dict()
 

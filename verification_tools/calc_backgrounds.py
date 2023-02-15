@@ -9,7 +9,7 @@ from pandeia.engine.perform_calculation import perform_calculation
 def calc_backgrounds(configs, obsmode=None, 
                      exp_config=None, strategy=None, background='miri'):
 
-    if background is 'miri':
+    if background == 'miri':
         syspath = os.path.abspath(os.path.dirname(__file__))
         bg_table = ascii.read(os.path.join(syspath,'inputs/miri_verification_background.tab'))
         # From the matlab doc, it appears that the thermal background is not subjected to the OTE transmission
