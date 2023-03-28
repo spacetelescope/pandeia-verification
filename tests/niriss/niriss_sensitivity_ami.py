@@ -29,7 +29,7 @@ strategy = {
             'method': 'imagingapphot',
             'aperture_size': 1.1,
             'sky_annulus': [1.11,3.2],
-            'target': [0.0, 0.0],
+            'target_xy': [0.0, 0.0],
             'background_subtraction': False
             }
 

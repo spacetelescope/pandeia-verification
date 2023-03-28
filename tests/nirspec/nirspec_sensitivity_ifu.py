@@ -36,6 +36,7 @@ exp_config = {
               'nexp': 4
               }
 strategy = {
+            'target_xy': [0.0, 0.0],
             'method': 'ifunodinscene',
             'aperture_size': 0.15,
             'dithers': [{'x':0,'y':0},{'x':1,'y':1}]

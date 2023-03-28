@@ -124,7 +124,6 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
 
     source = {
         'id': 1,
-        'target': True,
         'position': {
             'orientation': 23.0,
             'ang_unit': 'arcsec',

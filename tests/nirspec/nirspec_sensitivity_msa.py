@@ -38,6 +38,7 @@ exp_config = {
               }
 strategy = {
             'method': 'msafullapphot',
+            'target_xy': [0.0, 0.0],
             'dithers': [
                         {'x':0.0,
                          'y':0.0,

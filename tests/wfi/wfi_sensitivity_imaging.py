@@ -41,7 +41,7 @@ strategy = {
             'method': 'imagingapphot',
             'aperture_size': 0.5,
             'sky_annulus': [0.6,3.2],
-            'target': [0.0, 0.0],
+            'target_xy': [0.0, 0.0],
             'dithers': [{'x':0.0,'y':0.0}],
             'background_subtraction': False
             }
