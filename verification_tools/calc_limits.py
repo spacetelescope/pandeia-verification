@@ -132,6 +132,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
             'y_offset': 0.0,
         },
         'shape': {
+            "geometry": "point"
             'major': 0.0,
             'minor': 0.0
         },
@@ -142,6 +143,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
                 'norm_fluxunit': 'mjy',
                 'norm_flux': 0.1,
                 'norm_wave': 2.},
+                'redshift': 0.0,
                 'sed': {
                     'sed_type': 'input',
                     'wmin': 0.4,

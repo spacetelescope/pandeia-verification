@@ -136,6 +136,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
                 'norm_fluxunit': 'mjy',
                 'norm_flux': 0.1,
                 'norm_wave': 2.},
+                'redshift': 0.0,
                 'sed': {
                     'sed_type': 'input',
                     'wmin': 0.4,
