@@ -23,6 +23,7 @@ exp_config = {
               }
 strategy = {
             'method': 'soss',
+            'background_subtraction': False,
             'order': 1
             }
 
