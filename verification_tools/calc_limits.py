@@ -151,10 +151,8 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
                 'norm_wave': 2.},
             'redshift': 0.0,
             'sed': {
-                'sed_type': 'input',
-                'wmin': 0.4,
-                'wmax': 30.,
                 'sed_type': 'flat',
+                'unit': 'fnu'
                 },
             'lines': []
             }
