@@ -132,7 +132,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
             'y_offset': 0.0
         },
         'shape': {
-            "geometry": "point",
+            'geometry': 'point',
             'major': 0.0,
             'minor': 0.0
         },
