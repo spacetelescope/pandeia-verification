@@ -21,6 +21,7 @@ exp_config = {
               'nexp': 20
               }
 strategy = {
+            'target_xy': [0.0, 0.0],
             'method': 'specapphot',
             'aperture_size': 1.1,
             'sky_annulus': [1.11,3.2],

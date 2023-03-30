@@ -27,7 +27,8 @@ obsmode = {
            'filter': 'f070lp',
            'aperture': 'shutter',
            'disperser': 'g140h',
-           'slitlet_shape': [[0,-2],[0,0],[0,2]]
+           'slitlet_shape': [[0,-2],[0,0],[0,2]],
+           'shutter_location': 'q3_183_86',
            }
 exp_config = {
               'subarray': 'full',
@@ -43,7 +44,11 @@ strategy = {
                         {'x':0.0,
                          'y':0.0,
                          'on_source': [False,True,False]}
-                       ]
+                       ],
+            'shutter_offset': [
+                0.0,
+                0.0
+            ]
             }
 
 outputs_regular, outputs_one = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=150,

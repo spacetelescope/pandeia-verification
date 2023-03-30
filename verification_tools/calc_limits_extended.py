@@ -147,6 +147,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
                 'wmin': 0.4,
                 'wmax': 30.,
                 'sed_type': 'flat',
+                'unit': 'fnu'
             },
             'lines': []
             }
