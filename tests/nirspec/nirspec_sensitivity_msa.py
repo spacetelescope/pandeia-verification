@@ -38,6 +38,7 @@ exp_config = {
               'nexp': 10
               }
 strategy = {
+            'background_subtraction': True,
             'method': 'msafullapphot',
             'target_xy': [0.0, 0.0],
             'dithers': [
