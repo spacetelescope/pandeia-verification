@@ -124,31 +124,36 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
 
     source = {
         'id': 1,
-        'target': True,
         'position': {
             'orientation': 23.0,
             'ang_unit': 'arcsec',
             'x_offset': 0.0,
-            'y_offset': 0.0,
+            'y_offset': 0.0
         },
         'shape': {
+            'geometry': 'point',
             'major': 0.0,
             'minor': 0.0
         },
         'spectrum': {
+            'extinction': {
+                'bandpass': 'j',
+                'law': 'mw_rv_31',
+                'unit': 'mag',
+                'value': 0.0
+            },
             'normalization': {
                 'type': 'at_lambda',
                 'norm_waveunit': 'microns',
                 'norm_fluxunit': 'mjy',
                 'norm_flux': 0.1,
                 'norm_wave': 2.},
-                'sed': {
-                    'sed_type': 'input',
-                    'wmin': 0.4,
-                    'wmax': 30.,
-                    'sed_type': 'flat',
+            'redshift': 0.0,
+            'sed': {
+                'sed_type': 'flat',
+                'unit': 'fnu'
                 },
-                'lines': []
+            'lines': []
             }
         }
 

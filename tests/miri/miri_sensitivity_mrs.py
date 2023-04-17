@@ -31,9 +31,10 @@ exp_config = {
               'nexp': 1
               }
 strategy = {
+            'target_xy': [0.0, 0.0],
             'method': 'ifunodinscene',
-            'aperture_size': 1.1#,
-            #'dithers': [{'x':0,'y':0},{'x':1,'y':1}]
+            'aperture_size': 1.1,
+            'dithers': [{'x':0,'y':0},{'x':1,'y':1}]
             }
 
 outputs_regular, outputs_one = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=150,skyfacs=1.05,

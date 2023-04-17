@@ -115,7 +115,6 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
 
     source = {
         'id': 1,
-        'target': True,
         'position': {
             'orientation': 23.0,
             'ang_unit': 'arcsec',
@@ -130,19 +129,27 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
             'minor': 0.9
         },
         'spectrum': {
+            'extinction': {
+                'bandpass': 'j',
+                'law': 'mw_rv_31',
+                'unit': 'mag',
+                'value': 0.0
+            },
             'normalization': {
                 'type': 'at_lambda',
                 'norm_waveunit': 'microns',
                 'norm_fluxunit': 'mjy',
                 'norm_flux': 0.1,
                 'norm_wave': 2.},
-                'sed': {
-                    'sed_type': 'input',
-                    'wmin': 0.4,
-                    'wmax': 30.,
-                    'sed_type': 'flat',
-                },
-                'lines': []
+            'redshift': 0.0,
+            'sed': {
+                'sed_type': 'input',
+                'wmin': 0.4,
+                'wmax': 30.,
+                'sed_type': 'flat',
+                'unit': 'fnu'
+            },
+            'lines': []
             }
         }
 

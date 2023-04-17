@@ -3,6 +3,7 @@ Properties that can be read out of plot_sensitivity:
 'wavelengths', 'sns', 'lim_fluxes', 'sat_limits'
 'line_limits' is also available for miri lrs and mrs
 """
+import sys
 import glob
 import numpy as np
 from scipy import interpolate as interp

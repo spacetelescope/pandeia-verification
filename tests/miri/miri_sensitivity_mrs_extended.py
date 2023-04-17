@@ -32,6 +32,7 @@ exp_config = {
               'nexp': 18
               }
 strategy = {
+            'target_xy': [0.0, 0.0],
             'method': 'ifunodinscene',
             'background_subtraction': False,
             'dithers': [{'x':-1,'y':-1},{'x':1,'y':1}]

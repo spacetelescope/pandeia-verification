@@ -41,8 +41,9 @@ strategy = {
             'method': 'specapphot',
             'aperture_size': 0.15,
             'sky_annulus': [0.16,0.5],
-            'target': [0.0, 0.0],
-            'dithers': [{'x':0.0,'y':0.0}]
+            'target_xy': [0.0, 0.0],
+            'dithers': [{'x':0.0,'y':0.0}],
+            'background_subtraction': True
             }
 
 outputs_regular, outputs_one = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=150,skyfacs=skyfacs,
