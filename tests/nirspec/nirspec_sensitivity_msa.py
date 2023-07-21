@@ -49,7 +49,8 @@ strategy = {
             'shutter_offset': [
                 0.0,
                 0.0
-            ]
+            ],
+            "units": "arcsec"
             }
 
 outputs_regular, outputs_one = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=150,

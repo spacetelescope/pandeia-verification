@@ -38,7 +38,8 @@ strategy = {
             'aperture_size': 0.1,
             'sky_annulus': [1,3],
             'target_xy': [0.0, 0.0],
-            'background_subtraction': False
+            'background_subtraction': False,
+            "units": "arcsec"
             }
 
 outputs_regular, outputs_one = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=50,

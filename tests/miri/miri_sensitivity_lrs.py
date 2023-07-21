@@ -25,7 +25,8 @@ strategy = {
             'method': 'specapphot',
             'aperture_size': 1.1,
             'sky_annulus': [1.11,3.2],
-            'background_subtraction': False
+            'background_subtraction': False,
+            "units": "arcsec"
             }
 
 

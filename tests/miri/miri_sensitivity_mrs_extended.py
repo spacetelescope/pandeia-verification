@@ -35,7 +35,8 @@ strategy = {
             'target_xy': [0.0, 0.0],
             'method': 'ifunodinscene',
             'background_subtraction': False,
-            'dithers': [{'x':-1,'y':-1},{'x':1,'y':1}]
+            'dithers': [{'x':-1,'y':-1},{'x':1,'y':1}],
+            "units": "arcsec"
             }
 
 output = calc_limits_extended.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=150,skyfacs=1.05,
