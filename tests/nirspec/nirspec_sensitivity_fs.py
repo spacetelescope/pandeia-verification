@@ -43,7 +43,8 @@ strategy = {
             'sky_annulus': [0.16,0.5],
             'target_xy': [0.0, 0.0],
             'dithers': [{'x':0.0,'y':0.0}],
-            'background_subtraction': True
+            'background_subtraction': True,
+            "units": "arcsec"
             }
 
 outputs_regular, outputs_one = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=150,skyfacs=skyfacs,
