@@ -34,7 +34,6 @@ exp_config = {
 strategy = {
             'target_xy': [0.0, 0.0],
             'method': 'ifunodoffscene',
-            'background_subtraction': False,
             'dithers': [{'x':0,'y':0},{'x':50,'y':0}],
             "units": "arcsec"
             }
