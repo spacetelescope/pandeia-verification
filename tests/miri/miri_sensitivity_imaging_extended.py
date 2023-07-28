@@ -9,7 +9,44 @@ configs = [{'filter':'f560w'},
            {'filter':'f1500w'},
            {'filter':'f1800w'},
            {'filter':'f2100w'},
-           {'filter':'f2550w'}]
+           {'filter':'f2550w'},
+           {'filter':'f560w'},
+           {'filter':'f770w'},
+           {'filter':'f1000w'},
+           {'filter':'f1130w'},
+           {'filter':'f1280w'},
+           {'filter':'f1500w'},
+           {'filter':'f1800w'},
+           {'filter':'f2100w'},
+           {'filter':'f2550w'},
+           {'filter':'f560w'},
+           {'filter':'f770w'},
+           {'filter':'f1000w'},
+           {'filter':'f1130w'},
+           {'filter':'f1280w'},
+           {'filter':'f1500w'},
+           {'filter':'f1800w'},
+           {'filter':'f2100w'},
+           {'filter':'f2550w'},
+           {'filter':'f560w'},
+           {'filter':'f770w'},
+           {'filter':'f1000w'},
+           {'filter':'f1130w'},
+           {'filter':'f1280w'},
+           {'filter':'f1500w'},
+           {'filter':'f1800w'},
+           {'filter':'f2100w'},
+           {'filter':'f2550w'},
+           {'filter':'f560w'},
+           {'filter':'f770w'},
+           {'filter':'f1000w'},
+           {'filter':'f1130w'},
+           {'filter':'f1280w'},
+           {'filter':'f1500w'},
+           {'filter':'f1800w'},
+           {'filter':'f2100w'},
+           {'filter':'f2550w'},
+           ]
 
 exp_configs = [{
                 'subarray': 'full',
@@ -333,8 +370,8 @@ exp_configs = [{
                ]
 
 #apertures = 0.42*np.array([5.6,7.7,10.,11.3,12.8,15.,18.,21.,25.5])/10.
-apertures = 0.565*np.ones(9)
-idt_fluxes = np.array([0.22,0.26,0.53,1.2,0.83,0.93,1.9,3.3,9.1])*1e-3
+apertures = 0.565*np.ones(45)
+idt_fluxes = np.array([0.22,0.26,0.53,1.2,0.83,0.93,1.9,3.3,9.1,0.22,0.26,0.53,1.2,0.83,0.93,1.9,3.3,9.1,0.22,0.26,0.53,1.2,0.83,0.93,1.9,3.3,9.1,0.22,0.26,0.53,1.2,0.83,0.93,1.9,3.3,9.1,0.22,0.26,0.53,1.2,0.83,0.93,1.9,3.3,9.1])*1e-3
 
 obsmode = {
            'instrument': 'miri',
