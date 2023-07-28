@@ -9,7 +9,7 @@ configs = [{'filter':'f277w','idt':200.0},
 
 idt_fluxes = np.array([config['idt'] for config in configs])*1e-6
 apertures = []
-apertures = np.array([2.5,2.5,2.72,2.72])*0.0646
+apertures = np.array([2.5,2.5,2.5,2.5])*0.0656
 
 obsmode = {
            'instrument': 'niriss',

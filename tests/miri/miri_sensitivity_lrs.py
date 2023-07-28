@@ -15,7 +15,7 @@ obsmode = {
            }
 exp_config = {
               'subarray': 'full',
-              'readout_pattern': 'fast',
+              'readout_pattern': 'fastr1',
               'ngroup': 180,
               'nint': 1,
               'nexp': 20

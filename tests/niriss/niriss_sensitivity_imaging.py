@@ -17,7 +17,7 @@ configs = [{'filter':'f090w','idt':14.46},
 
 idt_fluxes = np.array([config['idt'] for config in configs])*1e-6
 wave_centers = np.array([0.9,1.15,1.40,1.50,1.58,2.00,2.77,3.56,3.80,4.30,4.44,4.80])
-apertures = np.array([1.54,1.54,1.54,1.54,1.54,1.54,2.5,2.5,2.5,2.72,2.72,2.72])*0.0646
+apertures = np.array([2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5])*0.0656
 
 obsmode = {
            'instrument': 'niriss',
