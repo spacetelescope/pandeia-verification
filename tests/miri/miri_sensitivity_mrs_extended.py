@@ -26,16 +26,15 @@ obsmode = {
            }
 exp_config = {
               'subarray': 'full',
-              'readout_pattern': 'fast',
+              'readout_pattern': 'fastr1',
               'ngroup': 99,
-              'nint': 1,
-              'nexp': 18
+              'nint': 36,
+              'nexp': 1
               }
 strategy = {
             'target_xy': [0.0, 0.0],
-            'method': 'ifunodinscene',
-            'background_subtraction': False,
-            'dithers': [{'x':-1,'y':-1},{'x':1,'y':1}],
+            'method': 'ifunodoffscene',
+            'dithers': [{'x':0,'y':0},{'x':50,'y':0}],
             "units": "arcsec"
             }
 

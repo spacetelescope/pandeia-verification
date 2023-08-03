@@ -174,19 +174,28 @@ def comparemulti(data, data2, x, ax, scalarMap, instrument, mode):
     routine must read.
     """
     colorVal = scalarMap.to_rgba(np.mean(data['wavelengths'][x]))
-    wave1 = data['wavelengths'][x]
-    wave2 = data2['wavelengths'][x]
-    # create a new combined wavelength range
+    wave1 = np.asarray(data['wavelengths'][x])
+    wave2 = np.asarray(data2['wavelengths'][x])
 
-    wmin = np.max((wave1[0],wave2[0]))
-    wmax = np.min((wave1[-1],wave2[-1]))
-    wmin2 = np.min((wave1[0],wave2[0]))
-    wmax2 = np.max((wave1[-1],wave2[-1]))
+    data1prop = np.asarray(data[PROP][x])
+    data2prop = np.asarray(data2[PROP][x])
+
+    if wave1[0] > wave1[-1]:
+        wave1 = wave1[::-1]
+        data1prop = data1prop[::-1]
+    if wave2[0] > wave2[-1]:
+        wave2 = wave2[::-1]
+        data2prop = data2prop[::-1]
+
+    # create a new combined wavelength range
+    wmin = np.max((wave1.min(),wave2.min()))
+    wmax = np.min((wave1.max(),wave2.max()))
+    wmin2 = np.min((wave1.min(),wave2.min()))
+    wmax2 = np.max((wave1.max(),wave2.max()))
     wave = np.arange(wmin, wmax, (wmax-wmin)/(np.max((len(wave1), len(wave2)))+1))
     wave_wide = np.arange(wmin2, wmax2, (wmax2-wmin2)/(np.max((len(wave1), len(wave2)))+1))
-    #print(wave[0], wave[-1], wave1[0], wave1[-1], wave2[0], wave2[-1], wave_wide[0], wave_wide[-1])
-    fun1 = interp.interp1d(wave1,data[PROP][x]*mult, fill_value='extrapolate')
-    fun2 = interp.interp1d(wave2,data2[PROP][x]*mult, fill_value='extrapolate')
+    fun1 = interp.interp1d(wave1,data1prop*mult, fill_value='extrapolate')
+    fun2 = interp.interp1d(wave2,data2prop*mult, fill_value='extrapolate')
     flux1 = fun1(wave)
     flux2 = fun2(wave)
     textval = gettext(data,x)

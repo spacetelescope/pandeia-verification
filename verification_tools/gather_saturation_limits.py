@@ -1,11 +1,11 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pylab as plt
-from bokeh.plotting import figure, Figure
+from bokeh.plotting import figure
 from bokeh.resources import CDN
 from bokeh.embed import file_html, components, autoload_static
 from bokeh.models import ColumnDataSource, Range1d, LabelSet, Label, HoverTool, CustomJS, LogTickFormatter
-from bokeh.layouts import widgetbox,column,layout, Spacer
+from bokeh.layouts import column,layout, Spacer
 from bokeh.models.widgets import CheckboxButtonGroup
 from bokeh.models.axes import LinearAxis,LogAxis
 from bokeh.models.ranges import Range1d
@@ -46,9 +46,9 @@ TOOLS = ['box_zoom',hover,'reset']
 colors = {'miri':ColorPalette[8][0],'nircam':ColorPalette[8][1],'niriss':ColorPalette[8][2],'nirspec':ColorPalette[8][3]}
 
 yrange = (10**-4, 10**4)
-plot = Figure(x_axis_type="log",y_axis_type="log",y_range=yrange,x_range=(0.4,29.),
+plot = figure(x_axis_type="log",y_axis_type="log",y_range=yrange,x_range=(0.4,29.),
               x_axis_label="Wavelength [micron]", y_axis_label="Saturation limit [Jy]",
-              plot_width=600, plot_height=400,tools=TOOLS,background_fill_color=None,
+              width=600, height=400,tools=TOOLS,background_fill_color=None,
               border_fill_color = None, toolbar_location='above')
 
 plot.xaxis.axis_label_text_font_size = '12pt'
@@ -88,6 +88,9 @@ for instrument in frame.keys():
                     config += 'order '
                     config += str(data[mode]['orders'][i])
                     config += ' '
+                if 'subarray' in data[mode]['configs'][i].keys():
+                    if data[mode]['configs'][i]['subarray'] != "full":
+                        continue
 
             label = instrument+' '+mode
             x = data[mode]['wavelengths'][i]
@@ -173,7 +176,7 @@ callback = CustomJS(args=sources, code=scode)
 checkbox_group = CheckboxButtonGroup(
         labels=["NIRCam", "NIRSpec", "NIRISS", "MIRI"], active=[0,1,2,3],
         sizing_mode="scale_width", width=800)
-checkbox_group.js_on_click(callback)
+checkbox_group.js_on_event("button_click", callback)
 
 spacer1 = Spacer()
 spacer2 = Spacer()
