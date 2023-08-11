@@ -17,10 +17,10 @@ obsmode = {
            }
 exp_config = {
               'subarray': 'spectroscopy',
-              'readout_pattern': 'deep8',
-              'ngroup': 5,
-              'nint': 1,
-              'nexp': 10
+              'readout_pattern': 'rapid',
+              'ngroup': 123,
+              'nint': 20,
+              'nexp': 1
               }
 strategy = {
             'target_xy': [0.0, 0.0],
