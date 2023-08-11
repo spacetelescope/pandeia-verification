@@ -367,7 +367,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
         print('Reference wavelength:', '{:7.2e}'.format(fits_dict['1d']['sn'][0].data['wavelength'][midpoint]))
 
         # And now, recompute for the ngroups=1 case
-        mintime = tfffr + 1 * tframe
+        mintime = 1 * tframe
         if excess==0:
             fullwell_minus_bg = (report.signal.the_detector.fullwell-mintime*report.bg_pix)
             rate_per_mjy = report.signal.rate/lim_flx[midpoint]
