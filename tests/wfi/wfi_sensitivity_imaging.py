@@ -32,10 +32,10 @@ obsmode = {
            }
 exp_config = {
               'subarray': 'imaging',
-              'readout_pattern': 'deep8',
-              'ngroup': 5,
-              'nint': 1,
-              'nexp': 10
+              'readout_pattern': 'rapid',
+              'ngroup': 184,
+              'nint': 18,
+              'nexp': 1
               }
 strategy = {
             'method': 'imagingapphot',
