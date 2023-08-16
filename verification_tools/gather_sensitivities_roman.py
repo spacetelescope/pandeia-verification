@@ -112,34 +112,38 @@ for instrument in frame.keys():
             sources[(label+config).replace(" ", "")] = glyph.data_source
 
 # http://bokeh.pydata.org/en/1.1.0/docs/user_guide/interaction/callbacks.html#userguide-interaction-jscallbacks
+# https://docs.bokeh.org/en/3.2.2/docs/examples/interaction/js_callbacks/js_on_event.html
+# https://www.freecodecamp.org/news/how-to-iterate-over-objects-in-javascript/
 scode = """
         var active_labels = [];
-        for (let i = 0; i < this.active.length; i++) {
-            active_labels.push(this.labels[this.active[i]].toLowerCase());
+        for (let i = 0; i < btns.active.length; i++) {
+            active_labels.push(btns.labels[btns.active[i]].toLowerCase());
             }
 
+        let sourceitem = Object.keys(sourceargs)
+        
         // the last two arguments are Bokeh-related, and have no data
-        for (let i = 0; i < arguments.length - 2; i++) {
-               console.log(arguments[i])
-               let instrument = arguments[i].data.instrument[0];
+        sourceitem.forEach((argval) => {
+               console.log(sourceargs[argval])
+               let instrument = sourceargs[argval].data.instrument[0];
                let ins_in_array = (active_labels.indexOf(instrument) > -1);
-               console.log(ins_in_array, instrument);
+
                if (ins_in_array) {
-                  arguments[i].data.y=arguments[i].data.y_backup;
+                  sourceargs[argval].data.y=sourceargs[argval].data.y_backup;
                } else {
-                  arguments[i].data.y=arguments[i].data.y_hidden;
+                  sourceargs[argval].data.y=sourceargs[argval].data.y_hidden;
                }
-               arguments[i].change.emit();
-           }
+               sourceargs[argval].change.emit();
+           })
 
         """
-
-callback = CustomJS(args=sources, code=scode)
 
 checkbox_group = CheckboxButtonGroup(
         labels=["WFI"], active=[0],
         sizing_mode="scale_width", width=800)
-#checkbox_group.js_on_event("button_click", callback)
+callback = CustomJS(args={"btns": checkbox_group, "sourceargs": sources}, code=scode)
+checkbox_group.js_on_event("button_click", callback)
+
 
 spacer1 = Spacer()
 spacer2 = Spacer()
