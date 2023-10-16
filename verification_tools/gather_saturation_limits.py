@@ -93,8 +93,8 @@ for instrument in frame.keys():
                         continue
 
             label = instrument+' '+mode
-            x = data[mode]['wavelengths'][i]
-            y = data[mode]['sat_limits'][i]/1000 #to Jy
+            x = np.asarray(data[mode]['wavelengths'][i], dtype=float)
+            y = np.asarray(data[mode]['sat_limits'][i]/1000, dtype=float) #to Jy
 
             x=x[np.isfinite(y)]
             y=y[np.isfinite(y)]
