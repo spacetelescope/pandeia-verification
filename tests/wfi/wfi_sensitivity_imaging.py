@@ -32,10 +32,9 @@ obsmode = {
            }
 exp_config = {
               'subarray': 'imaging',
-              'readout_pattern': 'rapid',
-              'ngroup': 184,
-              'nint': 18,
-              'nexp': 1
+              'ma_table_name': 'hltds_imaging1',
+              'nresultants': -1,
+              'nexp': 62
               }
 strategy = {
             'method': 'imagingapphot',

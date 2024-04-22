@@ -275,9 +275,9 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
         aperture_bg_rate = aperture_total_rate-aperture_source_rate
         fov_source_rate = report.curves['total_flux'][1]
 
-        tgroup = report.signal.current_instrument.the_detector.exposure_spec.tgroup
+        #tgroup = report.signal.current_instrument.the_detector.exposure_spec.tgroup
         tframe =  report.signal.current_instrument.the_detector.exposure_spec.tframe
-        tfffr = report.signal.current_instrument.the_detector.exposure_spec.tfffr
+        #tfffr = report.signal.current_instrument.the_detector.exposure_spec.tfffr
         #det_type = report.signal.current_instrument.detector.exposure_spec.det_type
 
         # SOSS is rotated by 90 degrees on the detector, for some reason
@@ -300,10 +300,15 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
             excess=0
 
         # The regular output case
-        if obsmode['instrument'] != 'miri':
-            mintime = 2 * tframe
-        else:
+        if obsmode['instrument'] == 'miri':
             mintime = 5 * tframe #minimum recommended frames is 5 for MIRI
+        elif obsmode['instrument'] == 'wfi':
+            if obsmode['mode'] == "spectroscopy":
+                mintime = 16 * tframe # the shortest valid spec exposure is HLWAS_SPECTROSCOPY, nresultants=2
+            else:
+                mintime = 3 * tframe # The shortest valid exposure is DEFOCUS_MOD/DEFOCUS_LRG, nresultants=2
+        else:
+            mintime = 2 * tframe
 
         if excess==0:
             fullwell_minus_bg = (report.signal.the_detector.fullwell-mintime*report.bg_pix)
@@ -330,7 +335,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
 
         # Calculate line sensitivities, assuming unresolved lines.
         if lim_flx.shape[0]>1:
-            if "lrsslit" in obsmode["mode"]:
+            if "lrsslit" in obsmode["mode"]: # covers both lrsslit and lrsslitless
                 sat_limit = np.min(sat_limit_detector,1)
             else:
                 sat_limit = np.min(sat_limit_detector,0)
