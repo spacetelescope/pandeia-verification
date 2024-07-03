@@ -357,6 +357,6 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
     outputs_regular = {'configs':np.asarray(configs, dtype="object"),'strategy':strategy, 
                        'wavelengths':np.asarray(wavelengths, dtype="object"),'sns':np.asarray(sns, dtype="object"),
                        'lim_fluxes':np.asarray(lim_fluxes, dtype="object"), 'source_rates_per_njy':source_rates, 
-                       'sat_limits':np.asarray(sat_limits, dtype="object"), 'orders':orders, 'line_limits':line_limits}
+                       'sat_limits':np.asarray(sat_limits, dtype="object"), 'orders':orders, 'line_limits':np.asarray(line_limits, dtype="object")}
 
     return outputs_regular
