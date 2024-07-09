@@ -129,6 +129,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
             'minor': 0.9
         },
         'spectrum': {
+            'extinction_first': True,
             'extinction': {
                 'bandpass': 'j',
                 'law': 'mw_rv_31',
