@@ -129,6 +129,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
             'minor': 0.9
         },
         'spectrum': {
+            'extinction_first': True,
             'extinction': {
                 'bandpass': 'j',
                 'law': 'mw_rv_31',
@@ -237,9 +238,11 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
         lim_fluxes.append(lim_flx)
         source_rates.append(aperture_source_rate/flux/1e6)
 
-        nwaves = np.size(aperture_source_rate)
+        nwaves = np.arange(len(aperture_source_rate))
+        nwaves = nwaves[~bsubs]
+        midpoint = nwaves[int(len(nwaves)/2)]
 
-        midpoint = int(nwaves/2)
+        #midpoint = int(nwaves/2)
 
         #The best one at the midpoint. It doesn't really matter what the reference spectrum is here. We
         #just need one to calculate the rate per mJy for the saturation estimate.
@@ -357,6 +360,6 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
     outputs_regular = {'configs':np.asarray(configs, dtype="object"),'strategy':strategy, 
                        'wavelengths':np.asarray(wavelengths, dtype="object"),'sns':np.asarray(sns, dtype="object"),
                        'lim_fluxes':np.asarray(lim_fluxes, dtype="object"), 'source_rates_per_njy':source_rates, 
-                       'sat_limits':np.asarray(sat_limits, dtype="object"), 'orders':orders, 'line_limits':line_limits}
+                       'sat_limits':np.asarray(sat_limits, dtype="object"), 'orders':orders, 'line_limits':np.asarray(line_limits, dtype="object")}
 
     return outputs_regular
