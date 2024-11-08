@@ -17,9 +17,9 @@ obsmode = {
            }
 exp_config = {
               'subarray': 'spectroscopy',
-              'ma_table_name': 'hlwas_spectroscopy',
+              'ma_table_name': 'c3b_spec_hlss',
               'nresultants': -1,
-              'nexp': 54
+              'nexp': 26
               }
 strategy = {
             'target_xy': [0.0, 0.0],
