@@ -199,6 +199,8 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
         if 'sky_annulus' in strategy.keys():
             strategy['sky_annulus'] = [aperture*inner_fac,aperture*outer_fac]
 
+        if "detector" in config:
+            exp_config["detector"]=config["detector"]
         for key in config.keys():
             obsmode[key] = config[key]
 
