@@ -1,3 +1,4 @@
+import copy
 import numpy as np
 from verification_tools import calc_limits
 #from verification_tools import fudge_throughput as ft
@@ -12,6 +13,36 @@ configs = [{'filter':'f062','idt':70.00},
            {'filter':'f213','idt':200.00}
        ]
 
+detectors = [
+            "sca01",
+            "sca02",
+            "sca03",
+            "sca04",
+            "sca05",
+            "sca06",
+            "sca07",
+            "sca08",
+            "sca09",
+            "sca10",
+            "sca11",
+            "sca12",
+            "sca13",
+            "sca14",
+            "sca15",
+            "sca16",
+            "sca17",
+            "sca18"
+            ]
+
+def add_detector(configs):
+    out_config = []
+    for detector in detectors:
+        for config in configs:
+            config["detector"] = detector
+            out_config.append(copy.deepcopy(config))
+    return out_config
+
+configs = add_detector(configs)
 
 idt_fluxes = np.array([config['idt'] for config in configs])*1e-6
 #wave_centers = np.array([2.5,2.77,3.0,3.22,3.23,3.35,3.56,3.60,4.05,4.10,4.18,4.30,4.44,4.60,4.66,4.70,4.80])
@@ -21,14 +52,15 @@ pixscale = 0.11  # arcsec
 #for wave_center in wave_centers:
 #    apertures.append(np.max([2.5*pixscale, (1.25 * (wave_center / diameter_flat_to_flat) *
 #                     (180 * 3600 / np.pi))]))
-apertures = np.array([2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5])*pixscale
+apertures = np.array([2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5] * 18)*pixscale
 
 obsmode = {
            'instrument': 'wfi',
            'mode': 'imaging',
            'filter': 'f062',
            'aperture': 'imaging',
-           'disperser': None
+           'disperser': None,
+           'detector': 'sca01'
            }
 exp_config = {
               'subarray': 'imaging',
@@ -47,7 +79,7 @@ strategy = {
             }
 
 outputs_regular, outputs_one = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=100,skyfacs=2.,
-                                 exp_config=exp_config,strategy=strategy,background='roman_minzodi')
+                                exp_config=exp_config,strategy=strategy,background='roman_minzodi')
 
 np.savez('../../outputs/wfi_imaging_sensitivity.npz',
     wavelengths=outputs_regular['wavelengths'], sns=outputs_regular['sns'], lim_fluxes=outputs_regular['lim_fluxes'], sat_limits=outputs_regular['sat_limits'], configs=outputs_regular['configs'])

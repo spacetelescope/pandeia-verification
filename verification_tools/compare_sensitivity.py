@@ -145,26 +145,26 @@ def gettext(data,x):
             textval = data['configs'][x]['aperture']
     return textval
 
-def compareone(data, data2, x, ax, scalarMap):
+def compareone(data1, data2, x, ax, scalarMap):
     """
     Imaging-like data, where each entry is a single filter point. Each needs to
     be labelled.
     This routine reads in the data and extracts the value, assigns the
     appropriate color to the point, and gets the text label and pastes it.
     """
-    colorVal = scalarMap.to_rgba(np.mean(data['wavelengths'][x]))
-    wave = data['wavelengths'][x]
-    vals = data[PROP][x]*mult
+    colorVal = scalarMap.to_rgba(np.mean(data1['wavelengths'][x]))
+    wave = data1['wavelengths'][x]
+    vals1 = data1[PROP][x]*mult
     vals2 = data2[PROP][x]*mult
-    textval = gettext(data,x)
-    ydata = ((vals-vals2)/vals)*100
+    textval = gettext(data1,x)
+    ydata = ((vals1-vals2)/vals1)*100
     ax.scatter(wave,ydata, color=colorVal)
     # the modulus makes it either 0 or 1, the rest of the code is to flip the label above or below the point
     ax.text(np.mean(wave), ydata - (x%2-0.5)*2, textval.upper(), ha="center", va="bottom", bbox=bbox_props)
 
     return ax, wave
 
-def comparemulti(data, data2, x, ax, scalarMap, instrument, mode):
+def comparemulti(data1, data2, x, ax, scalarMap, instrument, mode):
     """
     Spectroscopy-like data, where each entry is a spectral bandpass. Compared to
     imaging modes, each will go into its own plot, so that can become the plot
@@ -174,10 +174,10 @@ def comparemulti(data, data2, x, ax, scalarMap, instrument, mode):
     routine must read.
     """
     colorVal = scalarMap.to_rgba(np.mean(data['wavelengths'][x]))
-    wave1 = np.asarray(data['wavelengths'][x])
+    wave1 = np.asarray(data1['wavelengths'][x])
     wave2 = np.asarray(data2['wavelengths'][x])
 
-    data1prop = np.asarray(data[PROP][x])
+    data1prop = np.asarray(data1[PROP][x])
     data2prop = np.asarray(data2[PROP][x])
 
     if wave1[0] > wave1[-1]:
@@ -308,17 +308,21 @@ for instruments in insnames:
     # go back through the modes again, and plot in the correct cells.
     num = 0
     for mode in instruments.split(',')[1:]:
-        data = dict(np.load('../{}/{}_{}_sensitivity.npz'.format(folder,instrument,mode), encoding="bytes", allow_pickle=True))
+        data1 = dict(np.load('../{}/{}_{}_sensitivity.npz'.format(folder,instrument,mode), encoding="bytes", allow_pickle=True))
         data2 = dict(np.load('../{}/{}_{}_sensitivity.npz'.format(folder2, instrument,mode), encoding="bytes", allow_pickle=True))
-        data = convert(data)
+        data1 = convert(data1)
         data2 = convert(data2)
-        if len(data['wavelengths'][0]) == 1:
+        if len(data1['wavelengths'][0]) == 1:
+        #     if "detector" in data1["configs"][0]:
+        #         detectors = set([x["detector"] for x in data["configs"]])
+        #         for detector in sorted(list(detectors)):
+
             # If the mode is imaging data, we need to put all the data values on
             # one plot
             waves = []
-            for x,keys in enumerate(data['configs']):
+            for x,keys in enumerate(data1['configs']):
                 # compareone will handle all the aspects of plotting the point
-                ax[num//3][num%3], wave = compareone(data, data2, x, ax[num//3][num%3], scalarMap)
+                ax[num//3][num%3], wave = compareone(data1, data2, x, ax[num//3][num%3], scalarMap)
                 waves.append(wave)
             # add the title and the boundary rectangle
             ax[num//3][num%3].set_title('{} {}'.format(instrument.upper(),mode.upper()))
@@ -327,9 +331,9 @@ for instruments in insnames:
         else:
             # if the mode is spectroscopic data, we need to put each setup in
             # its own plot
-            for x,keys in enumerate(data['configs']):
+            for x,keys in enumerate(data1['configs']):
                 # comparemulti will handle all aspects of plotting the spectrum
-                ax[num//3][num%3], wave = comparemulti(data, data2, x, ax[num//3][num%3], scalarMap, instrument, mode)
+                ax[num//3][num%3], wave = comparemulti(data1, data2, x, ax[num//3][num%3], scalarMap, instrument, mode)
                 ax[num//3][num%3] = drawbounds(np.min(wave), np.max(wave), ax[num//3][num%3], scalarMap)
                 num += 1
 

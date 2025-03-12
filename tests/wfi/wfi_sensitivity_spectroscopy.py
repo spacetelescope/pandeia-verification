@@ -1,3 +1,4 @@
+import copy
 import numpy as np
 from verification_tools import calc_limits
 #from verification_tools import fudge_throughput as ft
@@ -5,15 +6,47 @@ from verification_tools import calc_limits
 configs = [{'aperture':'spectroscopy', 'filter':None, 'disperser':'g150', 'bounds':(1.0,1.93)},
            {'aperture':'spectroscopy', 'filter':None, 'disperser':'p120', 'bounds':(0.76,1.8)}]
 
-apertures = np.array([5,5,5,5,5,5,5,5,5,5,5,5])*0.11
-idt_fluxes = np.array([1e-2, 1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2,1e-2])
-skyfacs = [2,2,2,2,2,2,2,2,2,2,2,2]
+apertures = np.array([5,5,5,5,5,5,5,5,5,5,5,5] * 18)*0.11
+detectors = [
+            "sca01",
+            "sca02",
+            "sca03",
+            "sca04",
+            "sca05",
+            "sca06",
+            "sca07",
+            "sca08",
+            "sca09",
+            "sca10",
+            "sca11",
+            "sca12",
+            "sca13",
+            "sca14",
+            "sca15",
+            "sca16",
+            "sca17",
+            "sca18"
+            ]
+def add_detector(configs):
+    out_config = []
+    for detector in detectors:
+        for config in configs:
+            config["detector"] = detector
+            out_config.append(copy.deepcopy(config))
+    return out_config
+
+configs = add_detector(configs)
+
+
+idt_fluxes = np.array([2e-2, 2e-2,2e-2,2e-2,2e-2,2e-2,2e-2,2e-2,2e-2,2e-2,2e-2,2e-2] * 18)
+skyfacs = [2,2,2,2,2,2,2,2,2,2,2,2] * 18
 obsmode = {
            'instrument': 'wfi',
            'mode': 'spectroscopy',
            'filter': None,
            'aperture': 'spectroscopy',
-           'disperser': 'g150'
+           'disperser': 'g150',
+           'detector': 'sca01'
            }
 exp_config = {
               'subarray': 'spectroscopy',
