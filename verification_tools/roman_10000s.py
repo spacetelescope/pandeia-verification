@@ -14,19 +14,19 @@ del ma_tables["diagnostic"]
 imag_tables = []
 spec_tables = []
 
-print("Best 10,000 second setups\n--------------------")
+print("Best 10,000 second setups\n          MA Table         #      nexp\n--------------------")
 
 for ma_table in ma_tables:
     for res, time in enumerate(ma_tables[ma_table]['integration_duration']):
         remainders = 10000/time
         
         if "wim" in ma_tables[ma_table]["observing_mode"]:
-            imag_tables.append([f"{ma_table}_{res+ma_tables[ma_table]['num_pre_science_resultants']}", remainders])
+            imag_tables.append([ma_table, res+ma_tables[ma_table]['num_pre_science_resultants'], remainders])
         elif "wsm" in ma_tables[ma_table]["observing_mode"]:
-            spec_tables.append([f"{ma_table}_{res+ma_tables[ma_table]['num_pre_science_resultants']}", remainders])
+            spec_tables.append([ma_table, res+ma_tables[ma_table]['num_pre_science_resultants'], remainders])
 
-print("Imaging:", sorted(imag_tables, key=(lambda a: a[1] % 1))[0])
-print("Spec:\t", sorted(spec_tables, key=(lambda a: a[1] % 1))[0])
+print("Imaging:", sorted(imag_tables, key=(lambda a: a[2] % 1))[0])
+print("Spec:\t", sorted(spec_tables, key=(lambda a: a[2] % 1))[0])
 
 print("--------------------\n Or for full tables:\n--------------------")
 
@@ -38,9 +38,9 @@ for ma_table in ma_tables:
     remainders = 10000/time
     
     if "wim" in ma_tables[ma_table]["observing_mode"]:
-        imag_tables.append([f"{ma_table}_-1", remainders])
+        imag_tables.append([ma_table, -1, remainders])
     elif "wsm" in ma_tables[ma_table]["observing_mode"]:
-        spec_tables.append([f"{ma_table}_-1", remainders])
+        spec_tables.append([ma_table, -1, remainders])
 
-print("Imaging:", sorted(imag_tables, key=(lambda a: a[1] % 1))[0])
-print("Spec:\t", sorted(spec_tables, key=(lambda a: a[1] % 1))[0])
+print("Imaging:", sorted(imag_tables, key=(lambda a: a[2] % 1))[0])
+print("Spec:\t", sorted(spec_tables, key=(lambda a: a[2] % 1))[0])
