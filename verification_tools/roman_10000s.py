@@ -25,8 +25,8 @@ for ma_table in ma_tables:
         elif "wsm" in ma_tables[ma_table]["observing_mode"]:
             spec_tables.append([ma_table, res+ma_tables[ma_table]['num_pre_science_resultants'], remainders])
 
-print("Imaging:", sorted(imag_tables, key=(lambda a: a[2] % 1))[0])
-print("Spec:\t", sorted(spec_tables, key=(lambda a: a[2] % 1))[0])
+print("Imaging:", sorted(imag_tables, key=(lambda a: abs(a[2] - round(a[2]))))[0])
+print("Spec:\t", sorted(spec_tables, key=(lambda a: abs(a[2] - round(a[2]))))[0])
 
 print("--------------------\n Or for full tables:\n--------------------")
 
@@ -42,5 +42,5 @@ for ma_table in ma_tables:
     elif "wsm" in ma_tables[ma_table]["observing_mode"]:
         spec_tables.append([ma_table, -1, remainders])
 
-print("Imaging:", sorted(imag_tables, key=(lambda a: a[2] % 1))[0])
-print("Spec:\t", sorted(spec_tables, key=(lambda a: a[2] % 1))[0])
+print("Imaging:", sorted(imag_tables, key=(lambda a: abs(a[2] - round(a[2]))))[0])
+print("Spec:\t", sorted(spec_tables, key=(lambda a: abs(a[2] - round(a[2]))))[0])
