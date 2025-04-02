@@ -1,3 +1,4 @@
+import copy
 import numpy as np
 from verification_tools import calc_limits
 #from verification_tools import fudge_throughput as ft
@@ -38,7 +39,7 @@ def add_detector(configs):
     for detector in detectors:
         for config in configs:
             config["detector"] = detector
-            out_config.append(config)
+            out_config.append(copy.deepcopy(config))
     return out_config
 
 configs = add_detector(configs)

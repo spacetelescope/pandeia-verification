@@ -167,6 +167,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
     sat_limits_1 = []
     line_limits_1 = []
     for i in range(len(configs)):
+        print(configs[i])
         config = configs[i]
         aperture = apertures[i]
         flux = fluxes[i]
@@ -422,6 +423,8 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
             sat_limit = np.min(sat_limit_detector)
 
         sat_limits_1.append(sat_limit)
+
+    print(configs)
 
     outputs_regular = {'configs':np.asarray(configs, dtype="object"),'strategy':strategy, 
                        'wavelengths':np.asarray(wavelengths, dtype="object"),'sns':np.asarray(sns, dtype="object"),
