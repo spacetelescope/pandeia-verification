@@ -152,11 +152,11 @@ def compareone(data1, data2, x, ax, scalarMap):
     This routine reads in the data and extracts the value, assigns the
     appropriate color to the point, and gets the text label and pastes it.
     """
-    colorVal = scalarMap.to_rgba(np.mean(data['wavelengths'][x]))
+    colorVal = scalarMap.to_rgba(np.mean(data1['wavelengths'][x]))
     wave = data1['wavelengths'][x]
     vals1 = data1[PROP][x]*mult
     vals2 = data2[PROP][x]*mult
-    textval = gettext(data,x)
+    textval = gettext(data1,x)
     ydata = ((vals1-vals2)/vals1)*100
     ax.scatter(wave,ydata, color=colorVal)
     # the modulus makes it either 0 or 1, the rest of the code is to flip the label above or below the point
