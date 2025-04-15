@@ -50,9 +50,9 @@ obsmode = {
            }
 exp_config = {
               'subarray': 'spectroscopy',
-              'ma_table_name': 'c3b_spec_hlss',
+              'ma_table_name': 'c3f_spec_hlss',
               'nresultants': -1,
-              'nexp': 26
+              'nexp': 10
               }
 strategy = {
             'target_xy': [0.0, 0.0],

@@ -64,9 +64,9 @@ obsmode = {
            }
 exp_config = {
               'subarray': 'imaging',
-              'ma_table_name': 'c2f_img_hlwas',
+              'ma_table_name': 'c2d_img_hlwas',
               'nresultants': -1,
-              'nexp': 16
+              'nexp': 25
               }
 strategy = {
             'method': 'imagingapphot',
