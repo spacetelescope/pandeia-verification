@@ -8,24 +8,24 @@ configs = [{'aperture':'spectroscopy', 'filter':None, 'disperser':'g150', 'bound
 
 apertures = np.array([5,5,5,5,5,5,5,5,5,5,5,5] * 18)*0.11
 detectors = [
-            "sca01",
-            "sca02",
-            "sca03",
-            "sca04",
-            "sca05",
-            "sca06",
-            "sca07",
-            "sca08",
-            "sca09",
-            "sca10",
-            "sca11",
-            "sca12",
-            "sca13",
-            "sca14",
-            "sca15",
-            "sca16",
-            "sca17",
-            "sca18"
+            "wfi01",
+            "wfi02",
+            "wfi03",
+            "wfi04",
+            "wfi05",
+            "wfi06",
+            "wfi07",
+            "wfi08",
+            "wfi09",
+            "wfi10",
+            "wfi11",
+            "wfi12",
+            "wfi13",
+            "wfi14",
+            "wfi15",
+            "wfi16",
+            "wfi17",
+            "wfi18"
             ]
 def add_detector(configs):
     out_config = []
@@ -46,13 +46,13 @@ obsmode = {
            'filter': None,
            'aperture': 'spectroscopy',
            'disperser': 'g150',
-           'detector': 'sca01'
+           'detector': 'wfi01'
            }
 exp_config = {
               'subarray': 'spectroscopy',
-              'ma_table_name': 'c3b_spec_hlss',
+              'ma_table_name': 'c3f_spec_hlss',
               'nresultants': -1,
-              'nexp': 26
+              'nexp': 10
               }
 strategy = {
             'target_xy': [0.0, 0.0],

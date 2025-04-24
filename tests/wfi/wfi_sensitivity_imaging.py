@@ -14,24 +14,24 @@ configs = [{'filter':'f062','idt':70.00},
        ]
 
 detectors = [
-            "sca01",
-            "sca02",
-            "sca03",
-            "sca04",
-            "sca05",
-            "sca06",
-            "sca07",
-            "sca08",
-            "sca09",
-            "sca10",
-            "sca11",
-            "sca12",
-            "sca13",
-            "sca14",
-            "sca15",
-            "sca16",
-            "sca17",
-            "sca18"
+            "wfi01",
+            "wfi02",
+            "wfi03",
+            "wfi04",
+            "wfi05",
+            "wfi06",
+            "wfi07",
+            "wfi08",
+            "wfi09",
+            "wfi10",
+            "wfi11",
+            "wfi12",
+            "wfi13",
+            "wfi14",
+            "wfi15",
+            "wfi16",
+            "wfi17",
+            "wfi18"
             ]
 
 def add_detector(configs):
@@ -60,13 +60,13 @@ obsmode = {
            'filter': 'f062',
            'aperture': 'imaging',
            'disperser': None,
-           'detector': 'sca01'
+           'detector': 'wfi01'
            }
 exp_config = {
               'subarray': 'imaging',
-              'ma_table_name': 'c2f_img_hlwas',
+              'ma_table_name': 'c2d_img_hlwas',
               'nresultants': -1,
-              'nexp': 16
+              'nexp': 25
               }
 strategy = {
             'method': 'imagingapphot',
