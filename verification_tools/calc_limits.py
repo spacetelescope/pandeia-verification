@@ -309,7 +309,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
         if obsmode['instrument'] == 'miri':
             mintime = 5 * tframe #minimum recommended frames is 5 for MIRI
         elif obsmode['instrument'] == 'wfi':
-            mintime = report.signal.the_detector.exposure_spec.ma_table["integration_duration"][0] # the shortest valid spec exposure, as read from the MA table
+            mintime = report.signal.the_detector.exposure_spec.ma_table["accumulated_exposure_time"][0] # the shortest valid spec exposure, as read from the MA table
         else:
             mintime = 2 * tframe
 
