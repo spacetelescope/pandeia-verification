@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-3.6.2.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-3.6.2.min.js"></script>
+</head>
+
+<body>
+  <div id="plotdiv"></div>
+  <script>
+    async function sensitivityPlot() {
+        const response = await fetch('roman_sens_data.json');
+        console.log(response)
+        const item = await response.json();
+        Bokeh.embed.embed_item(item, "plotdiv");
+    }
+    sensitivityPlot();
+  </script>
+
+</body>
