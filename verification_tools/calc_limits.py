@@ -309,10 +309,8 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
         if obsmode['instrument'] == 'miri':
             mintime = 5 * tframe #minimum recommended frames is 5 for MIRI
         elif obsmode['instrument'] == 'wfi':
-            if obsmode['mode'] == "spectroscopy":
-                mintime = 16 * tframe # the shortest valid spec exposure is HLWAS_SPECTROSCOPY, nresultants=2
-            else:
-                mintime = 3 * tframe # The shortest valid exposure is DEFOCUS_MOD/DEFOCUS_LRG, nresultants=2
+            #print(report.signal.current_instrument.the_detector.exposure_spec.__dict__)
+            mintime = report.signal.current_instrument.the_detector.exposure_spec.readout_cum_time[report.signal.current_instrument.the_detector.exposure_spec.pre_science][-1] # the shortest valid spec exposure, as read from the MA table
         else:
             mintime = 2 * tframe
 

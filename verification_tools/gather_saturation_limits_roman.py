@@ -1,9 +1,9 @@
-import pandas as pd
+import json
+from jinja2 import Template
 import numpy as np
-import matplotlib.pylab as plt
 from bokeh.plotting import figure
 from bokeh.resources import CDN
-from bokeh.embed import file_html, components, autoload_static
+from bokeh.embed import file_html, components, autoload_static, json_item
 from bokeh.models import ColumnDataSource, Range1d, LabelSet, Label, HoverTool, CustomJS, LogTickFormatter
 from bokeh.layouts import column,layout, Spacer
 from bokeh.models.widgets import CheckboxGroup
@@ -12,6 +12,23 @@ from bokeh.models.ranges import Range1d
 from bokeh.io import output_file, show
 from bokeh.palettes import Category20 as ColorPalette
 
+
+page = Template("""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{ resources }}
+</head>
+
+<body>
+  <div id="satplot"></div>
+  <script>
+        const response = await fetch('/roman_sat_data.json');
+        const item = await response.json();
+        Bokeh.embed.embed_item(item, "satplot");
+  </script>
+</body>
+""")
 
 wfi_imaging = dict(np.load('../outputs/wfi_imaging_sensitivity.npz', fix_imports=True, encoding='latin1', allow_pickle=True))
 wfi_spectroscopy = dict(np.load('../outputs/wfi_spectroscopy_sensitivity.npz', fix_imports=True, encoding='latin1', allow_pickle=True))
@@ -184,10 +201,11 @@ show(l)
 
 script, div = autoload_static(l, CDN, "sat_plot.js")
 
-#script, div = components(l)
+# script, div = components(l)
 
-f = open('sat_plot.js', 'w')
-f.write(script)
+data_output = json.dumps(json_item(l, "plotdiv"))
+f = open('roman_sat_data.json', 'w')
+f.write(data_output)
 f.close()
 f = open('sat_div.html', 'w')
 f.write(div)

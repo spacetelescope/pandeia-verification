@@ -1,9 +1,8 @@
-import pandas as pd
+import json
 import numpy as np
-import matplotlib.pylab as plt
 from bokeh.plotting import figure
 from bokeh.resources import CDN
-from bokeh.embed import file_html, components, autoload_static
+from bokeh.embed import file_html, components, autoload_static, json_item
 from bokeh.models import ColumnDataSource, Range1d, LabelSet, Label, HoverTool, CustomJS, LogTickFormatter
 from bokeh.layouts import column,layout, Spacer
 from bokeh.models.widgets import CheckboxGroup
@@ -179,9 +178,9 @@ script, div = autoload_static(l, CDN, "etc_plot.js")
 
 #script, div = components(l)
 
-f = open('etc_plot.js', 'w')
-f.write(script)
-f.close()
+data_output = json.dumps(json_item(l, "plotdiv"))
+f = open('roman_sens_data.json', 'w')
+f.write(data_output)
 f = open('etc_div.html', 'w')
 f.write(div)
 f.close()
