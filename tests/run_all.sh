@@ -16,7 +16,8 @@ cd ../miri/
 python miri_sensitivity_imaging.py > ../../logs/miri_imaging.log
 python miri_sensitivity_imaging_extended.py > ../../logs/miri_imaging_extended.log
 python miri_sensitivity_mrs_extended.py > ../../logs/miri_mrs_extended.log 
-python miri_sensitivity_lrs.py > ../../logs/miri_lrs.log
+python miri_sensitivity_lrs.py > ../../logs/miri_lrs.log &
+python miri_sensitivity_wfss.py > ../../logs/miri_wfss.log
 cd ../nirspec
 python nirspec_sensitivity_fs.py > ../../logs/nirspec_fs.log
 python nirspec_sensitivity_msa.py > ../../logs/nirspec_msa.log
