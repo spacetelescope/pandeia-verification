@@ -173,7 +173,7 @@ def comparemulti(data1, data2, x, ax, scalarMap, instrument, mode):
     Spectroscopic data is also only valid within certain limits, which this
     routine must read.
     """
-    colorVal = scalarMap.to_rgba(np.mean(data['wavelengths'][x]))
+    colorVal = scalarMap.to_rgba(np.mean(data1['wavelengths'][x]))
     wave1 = np.asarray(data1['wavelengths'][x])
     wave2 = np.asarray(data2['wavelengths'][x])
 
@@ -198,7 +198,7 @@ def comparemulti(data1, data2, x, ax, scalarMap, instrument, mode):
     fun2 = interp.interp1d(wave2,data2prop*mult, fill_value='extrapolate')
     flux1 = fun1(wave)
     flux2 = fun2(wave)
-    textval = gettext(data,x)
+    textval = gettext(data1,x)
     if 'bounds' in keys.keys():
         bounds = data['configs'][x]['bounds']
         gsubs = np.where((wave>bounds[0]) & (wave<bounds[1]))
@@ -264,7 +264,7 @@ if len(sys.argv) > 4:
 
     insnames = sys.argv[4:]
 else:
-    insnames = ['miri,imaging,lrs,mrs', 'nircam,lw,sw,wfgrism', 'niriss,imaging,ami,soss,wfss', 'nirspec,fs,ifu,msa', 
+    insnames = ['miri,imaging,lrs,mrs,wfss', 'nircam,lw,sw,wfgrism', 'niriss,imaging,ami,soss,wfss', 'nirspec,fs,ifu,msa', 
 'wfi,imaging,spectroscopy']
 
 
