@@ -292,7 +292,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
             report.signal.rate = np.rot90(report.signal.rate)
 
         # Spectrum?
-        if "lrsslit" in obsmode["mode"]:
+        if "miri" in obsmode["instrument"] and (("lrsslit" in obsmode["mode"]) or ("wfss" in obsmode["mode"])):
             # lrsslit and lrsslitless are Y-dispersed spectral modes, and only lrsslitless is a slitless mode with
             # extra pixels on eadch side.
             if (report.signal.rate.shape[0]!=lim_flx.shape[0]):
