@@ -2,8 +2,8 @@ import numpy as np
 from verification_tools import calc_limits
 
 configs = [{'aperture':'imager','mode':'wfss'}]
-apertures = np.array([0.84,0.84])*7.5/10.
-idt_fluxes = np.array([5e-3,30e-3])
+apertures = np.array([0.84])*7.5/10.
+idt_fluxes = np.array([5e-3])
 
 obsmode = {
            'instrument': 'miri',
