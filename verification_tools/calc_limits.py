@@ -295,6 +295,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
         if "miri" in obsmode["instrument"] and (("lrsslit" in obsmode["mode"]) or ("wfss" in obsmode["mode"])):
             # lrsslit and lrsslitless are Y-dispersed spectral modes, and only lrsslitless is a slitless mode with
             # extra pixels on eadch side.
+            print("y-dispersed")
             if (report.signal.rate.shape[0]!=lim_flx.shape[0]):
                 excess = (report.signal.rate.shape[0]-lim_flx.shape[0])-1
             else:
@@ -317,14 +318,14 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
         if excess==0:
             fullwell_minus_bg = (report.signal.the_detector.fullwell-mintime*report.bg_pix)
             rate_per_mjy = report.signal.rate/lim_flx[midpoint]
-            if "lrsslit" in obsmode["mode"]:
+            if "miri" in obsmode["instrument"] and (("lrsslit" in obsmode["mode"]) or ("wfss" in obsmode["mode"])):
                 bg_pix_rate_min = np.min(report.bg_pix,1)
                 bg_pix_rate_max = np.max(report.bg_pix,1)
             else:
                 bg_pix_rate_min = np.min(report.bg_pix,0)
                 bg_pix_rate_max = np.max(report.bg_pix,0)
         else:
-            if "lrsslit" in obsmode["mode"]:
+            if "miri" in obsmode["instrument"] and (("lrsslit" in obsmode["mode"]) or ("wfss" in obsmode["mode"])):
                 bg_pix_rate_min = np.min(report.bg_pix[int(excess/2):-int(excess/2),:])
                 bg_pix_rate_max = np.max(report.bg_pix[int(excess/2):-int(excess/2),:])
                 fullwell_minus_bg = (report.signal.the_detector.fullwell-mintime*report.bg_pix[int(excess/2):-int(excess/2)-1,:])
@@ -339,7 +340,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
 
         # Calculate line sensitivities, assuming unresolved lines.
         if lim_flx.shape[0]>1:
-            if "lrsslit" in obsmode["mode"]: # covers both lrsslit and lrsslitless
+            if "miri" in obsmode["instrument"] and (("lrsslit" in obsmode["mode"]) or ("wfss" in obsmode["mode"])):
                 sat_limit = np.min(sat_limit_detector,1)
             else:
                 sat_limit = np.min(sat_limit_detector,0)
@@ -380,14 +381,14 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
         if excess==0:
             fullwell_minus_bg = (report.signal.the_detector.fullwell-mintime*report.bg_pix)
             rate_per_mjy = report.signal.rate/lim_flx[midpoint]
-            if "lrsslit" in obsmode["mode"]:
+            if "miri" in obsmode["instrument"] and (("lrsslit" in obsmode["mode"]) or ("wfss" in obsmode["mode"])):
                 bg_pix_rate_min = np.min(report.bg_pix,1)
                 bg_pix_rate_max = np.max(report.bg_pix,1)
             else:
                 bg_pix_rate_min = np.min(report.bg_pix,0)
                 bg_pix_rate_max = np.max(report.bg_pix,0)
         else:
-            if "lrsslit" in obsmode["mode"]:
+            if "miri" in obsmode["instrument"] and (("lrsslit" in obsmode["mode"]) or ("wfss" in obsmode["mode"])):
                 bg_pix_rate_min = np.min(report.bg_pix[int(excess/2):-int(excess/2),:])
                 bg_pix_rate_max = np.max(report.bg_pix[int(excess/2):-int(excess/2),:])
                 fullwell_minus_bg = (report.signal.the_detector.fullwell-mintime*report.bg_pix[int(excess/2):-int(excess/2)-1,:])
@@ -402,7 +403,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
 
         # Calculate line sensitivities, assuming unresolved lines.
         if lim_flx.shape[0]>1:
-            if "lrsslit" in obsmode["mode"]:
+            if "miri" in obsmode["instrument"] and (("lrsslit" in obsmode["mode"]) or ("wfss" in obsmode["mode"])):
                 sat_limit = np.min(sat_limit_detector,1)
             else:
                 sat_limit = np.min(sat_limit_detector,0)
