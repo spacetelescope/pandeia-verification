@@ -200,7 +200,7 @@ def comparemulti(data1, data2, x, ax, scalarMap, instrument, mode):
     flux2 = fun2(wave)
     textval = gettext(data1,x)
     if 'bounds' in keys.keys():
-        bounds = data['configs'][x]['bounds']
+        bounds = data1['configs'][x]['bounds']
         gsubs = np.where((wave>bounds[0]) & (wave<bounds[1]))
     else:
         if instrument == 'nirspec' and PROP == 'sat_limits':
