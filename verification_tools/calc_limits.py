@@ -116,7 +116,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
         background = [bg_table['wavelength'],bg_table['background']]
     elif background in ['roman_minzodi']:
         syspath = os.path.abspath(os.path.dirname(__file__))
-        bg_table = fits.getdata(os.path.join(syspath,'inputs/HLWAS-medium_field1_medium.fits'))
+        bg_table = fits.getdata(os.path.join(syspath,'inputs/hlwas-medium_field1_medium.fits'))
         background = [bg_table['wavelength'],bg_table['background']]
     else:
         raise ValueError('Unrecognized background {}'.format(background))
