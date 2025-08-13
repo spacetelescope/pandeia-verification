@@ -64,7 +64,7 @@ strategy = {
             }
 
 outputs_regular, outputs_one = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=50,skyfacs=skyfacs,
-                                 exp_config=exp_config,strategy=strategy,background='roman_minzodi')
+                                 exp_config=exp_config,strategy=strategy,background='roman_hlwas')
 
 np.savez('../../outputs/wfi_spectroscopy_sensitivity.npz',
     wavelengths=outputs_regular['wavelengths'], sns=outputs_regular['sns'], lim_fluxes=outputs_regular['lim_fluxes'], sat_limits=outputs_regular['sat_limits'], configs=outputs_regular['configs'])
