@@ -3,8 +3,8 @@ import numpy as np
 from verification_tools import calc_limits
 #from verification_tools import fudge_throughput as ft
 
-configs = [{'aperture':'spectroscopy', 'filter':None, 'disperser':'g150', 'bounds':(1.0,1.93)},
-           {'aperture':'spectroscopy', 'filter':None, 'disperser':'p120', 'bounds':(0.76,1.8)}]
+configs = [{'aperture':'spectroscopy', 'filter':None, 'disperser':'grism', 'bounds':(1.0,1.93)},
+           {'aperture':'spectroscopy', 'filter':None, 'disperser':'prism', 'bounds':(0.76,1.8)}]
 
 apertures = np.array([5,5,5,5,5,5,5,5,5,5,5,5] * 18)*0.11
 detectors = [
@@ -45,7 +45,7 @@ obsmode = {
            'mode': 'spectroscopy',
            'filter': None,
            'aperture': 'spectroscopy',
-           'disperser': 'g150',
+           'disperser': 'grism',
            'detector': 'wfi01'
            }
 exp_config = {
