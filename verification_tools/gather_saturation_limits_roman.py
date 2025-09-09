@@ -9,8 +9,10 @@ from bokeh.layouts import column,layout, Spacer
 from bokeh.models.widgets import CheckboxGroup
 from bokeh.models.axes import LinearAxis,LogAxis
 from bokeh.models.ranges import Range1d
-from bokeh.io import output_file, show
+from bokeh.io import output_file, show, curdoc
 from bokeh.palettes import Category20 as ColorPalette
+
+curdoc().theme = 'dark_minimal'
 
 
 page = Template("""
