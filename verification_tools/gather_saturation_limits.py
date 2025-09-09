@@ -141,7 +141,7 @@ for instrument in frame.keys():
                                 'ymag':-2.5*np.log10(y[gsubs]/3631.0)})
 
             if x.size==1:
-                glyph = plot.circle(x='x',y='y', source=source,color=colors[instrument],size=7)
+                glyph = plot.scatter(x='x',y='y', source=source,color=colors[instrument],size=7)
             else:
                 glyph = plot.line(x='x',y='y', line_alpha=0.7, source=source, line_width=3,color=colors[instrument])
 
