@@ -8,9 +8,10 @@ from bokeh.layouts import column,layout, Spacer
 from bokeh.models.widgets import CheckboxGroup
 from bokeh.models.axes import LinearAxis,LogAxis
 from bokeh.models.ranges import Range1d
-from bokeh.io import output_file, show
+from bokeh.io import output_file, show, curdoc
 from bokeh.palettes import Category20 as ColorPalette
 
+curdoc().theme = 'dark_minimal'
 
 wfi_imaging = dict(np.load('../outputs/wfi_imaging_sensitivity.npz', fix_imports=True, encoding='latin1', allow_pickle=True))
 wfi_spectroscopy = dict(np.load('../outputs/wfi_spectroscopy_sensitivity.npz', fix_imports=True, encoding='latin1', allow_pickle=True))
