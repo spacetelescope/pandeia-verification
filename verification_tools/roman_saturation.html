@@ -8,13 +8,13 @@
 <body>
   <div id="plotdiv"></div>
   <script>
-    async function sensitivityPlot() {
-        const response = await fetch('roman_sens_data.json');
+    async function saturationPlot() {
+        const response = await fetch('roman_sat_data.json');
         console.log(response)
         const item = await response.json();
         Bokeh.embed.embed_item(item, "plotdiv");
     }
-    sensitivityPlot();
+    saturationPlot();
   </script>
 
 </body>

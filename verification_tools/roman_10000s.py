@@ -9,7 +9,13 @@ with open(f"{pandeia_data}/roman/{INST}/config.json") as configfile:
 ma_tables = config_data["readout_pattern_config"]
 
 del ma_tables["meta"]
-del ma_tables["diagnostic"]
+# only choose from the active tables
+to_delete=[]
+for table in ma_tables:
+    if not ma_tables[table]["active"]:
+        to_delete.append(table)
+for table in to_delete:
+    del ma_tables[table]
 
 imag_tables = []
 spec_tables = []

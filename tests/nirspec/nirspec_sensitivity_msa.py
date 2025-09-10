@@ -23,7 +23,7 @@ idt_fluxes = np.array([1e-2,1e-2,1e-2,1e-2,1e-3,1e-3,1e-3,1e-3,1e-4])
 
 obsmode = {
            'instrument': 'nirspec',
-           'mode': 'msa',
+           'mode': 'mos',
            'filter': 'f070lp',
            'aperture': 'shutter',
            'disperser': 'g140h',
