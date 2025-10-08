@@ -66,6 +66,8 @@ for axis in plot.axis:
     axis.axis_label_text_font_size = '12pt'
     axis.major_label_text_font_size = '12pt'
 
+plot.background_fill_color = "#333333"
+plot.border_fill_color = "#333333"
 
 # Plot glyphs
 sources = {}
@@ -170,6 +172,9 @@ checkbox_group = CheckboxGroup(
         sizing_mode="scale_width", stylesheets=[btnstyl])
 callback = CustomJS(args={"btns": checkbox_group, "sourceargs": sources}, code=scode)
 checkbox_group.js_on_change("active", callback)
+
+checkbox_group.margin = (0, 0, 0, 0)
+checkbox_group.background = "#333333"
 
 spacer1 = Spacer()
 spacer2 = Spacer()
