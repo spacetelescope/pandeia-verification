@@ -82,6 +82,9 @@ plot.extra_y_ranges = {"ABmag": Range1d(start=(-5.0/2.0)*np.log10(yrange[0]/3631
 # Adding the second axis to the plot. Does not currently work properly - Bokeh has trouble mixing linear and log axes.
 #plot.add_layout(LinearAxis(y_range_name="ABmag", axis_label="AB mag"), 'right')
 
+plot.background_fill_color = "#333333"
+plot.border_fill_color = "#333333"
+
 for axis in plot.axis:
     axis.axis_label_text_font_size = '12pt'
     axis.major_label_text_font_size = '12pt'
@@ -198,6 +201,9 @@ checkbox_group = CheckboxGroup(
         sizing_mode="scale_width", stylesheets=[btnstyl])
 callback = CustomJS(args={"btns": checkbox_group, "sourceargs": sources}, code=scode)
 checkbox_group.js_on_change("active", callback)
+
+checkbox_group.margin = (0, 0, 0, 0)
+checkbox_group.background = "#333333"
 
 spacer1 = Spacer()
 spacer2 = Spacer()
