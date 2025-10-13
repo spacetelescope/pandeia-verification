@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 
 setup(name='pandeia_verification',
-      version='2025.5',
+      version='2025.9',
       description='Pandeia verification tools',
       author='Klaus Pontoppidan, Adric Riedel',
       author_email='etc_team@stsci.edu',
       url='http://www.stsci.edu/~pontoppi',
       packages=find_packages(),
-      package_data={'verification_tools': ['inputs/*.fits','inputs/*.txt','inputs/*.tab', 'tests/niriss/*.py', 'tests/nircam/*.py', 'tests/miri/*.py', 'tests/nirspec/*.py']},
+      package_data={'verification_tools': ['inputs/*.fits','inputs/*.txt','inputs/*.tab', 'tests/niriss/*.py', 'tests/nircam/*.py', 'tests/miri/*.py', 'tests/nirspec/*.py', 'tests/wfi/*.py']},
       install_requires = [
           "astropy",
           "bokeh",

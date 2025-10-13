@@ -3,14 +3,13 @@ import numpy as np
 from bokeh.plotting import figure
 from bokeh.resources import CDN
 from bokeh.embed import file_html, components, autoload_static, json_item
-from bokeh.models import ColumnDataSource, Range1d, LabelSet, Label, HoverTool, CustomJS, LogTickFormatter
+from bokeh.models import ColumnDataSource, Range1d, LabelSet, Label, HoverTool, CustomJS, InlineStyleSheet
 from bokeh.layouts import column,layout, Spacer
 from bokeh.models.widgets import CheckboxGroup
 from bokeh.models.axes import LinearAxis,LogAxis
 from bokeh.models.ranges import Range1d
-from bokeh.io import output_file, show
+from bokeh.io import output_file, show, curdoc
 from bokeh.palettes import Category20 as ColorPalette
-
 
 wfi_imaging = dict(np.load('../outputs/wfi_imaging_sensitivity.npz', fix_imports=True, encoding='latin1', allow_pickle=True))
 wfi_spectroscopy = dict(np.load('../outputs/wfi_spectroscopy_sensitivity.npz', fix_imports=True, encoding='latin1', allow_pickle=True))
@@ -67,6 +66,8 @@ for axis in plot.axis:
     axis.axis_label_text_font_size = '12pt'
     axis.major_label_text_font_size = '12pt'
 
+plot.background_fill_color = "#333333"
+plot.border_fill_color = "#333333"
 
 # Plot glyphs
 sources = {}
@@ -160,18 +161,28 @@ scode = """
            })
 
         """
-
+btnstyl = InlineStyleSheet(css="""  
+                            div.bk-input-group span {
+                           color: white;
+                           }
+    """)
 checkbox_group = CheckboxGroup(
         labels=["WFI01", "WFI02", "WFI03", "WFI04", "WFI05", "WFI06", "WFI07", "WFI08", "WFI09", "WFI10", "WFI11", "WFI12", "WFI13", "WFI14", "WFI15", "WFI16", "WFI17", "WFI18"], 
         active=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
-        sizing_mode="fixed")
+        sizing_mode="scale_width", stylesheets=[btnstyl])
 callback = CustomJS(args={"btns": checkbox_group, "sourceargs": sources}, code=scode)
 checkbox_group.js_on_change("active", callback)
+
+checkbox_group.margin = (0, 0, 0, 0)
+checkbox_group.background = "#333333"
 
 spacer1 = Spacer()
 spacer2 = Spacer()
 
 l = layout([[plot, checkbox_group]],sizing_mode='scale_width')
+curdoc().theme = 'dark_minimal'
+curdoc().add_root(l)
+
 show(l)
 
 script, div = autoload_static(l, CDN, "etc_plot.js")
@@ -181,6 +192,7 @@ script, div = autoload_static(l, CDN, "etc_plot.js")
 data_output = json.dumps(json_item(l, "plotdiv"))
 f = open('roman_sens_data.json', 'w')
 f.write(data_output)
-f = open('etc_div.html', 'w')
+f.close()
+f = open('sens_div.html', 'w')
 f.write(div)
 f.close()
