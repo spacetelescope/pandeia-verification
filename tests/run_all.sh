@@ -24,7 +24,7 @@ python nirspec_sensitivity_msa.py > ../../logs/nirspec_msa.log
 cd ../nircam
 python nircam_sensitivity_lw.py > ../../logs/nircam_lw.log
 python nircam_sensitivity_sw.py > ../../logs/nircam_sw.log
-python nircam_sensitivity_wfgrism.py > ../../logs/nircam_wfgrism.log
+python nircam_sensitivity_wfgrism.py > ../../logs/nircam_wfgrism.log &
 cd ../wfi
-python wfi_sensitivity_spectroscopy.py > ../../logs/wfi_spectroscopy.log
+python wfi_sensitivity_spectroscopy.py > ../../logs/wfi_spectroscopy.log &
 python wfi_sensitivity_imaging.py > ../../logs/wfi_imaging.log
