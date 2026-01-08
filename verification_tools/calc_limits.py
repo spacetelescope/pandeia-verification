@@ -300,6 +300,12 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
                 excess = (report.signal.rate.shape[0]-lim_flx.shape[0])-1
             else:
                 excess = 0
+        elif "wfi" in obsmode["instrument"] and ("spectroscopy" in obsmode["mode"]):
+            print("y-dispersed")
+            if (report.signal.rate.shape[0]!=lim_flx.shape[0]):
+                excess = (report.signal.rate.shape[0]-lim_flx.shape[0])-1
+            else:
+                excess = 0
         elif (lim_flx.shape[0]>1) and (report.signal.rate.shape[1]!=lim_flx.shape[0]) :
             #slitless modes have excess pixels on each side - excess should always be an odd integer
             excess = (report.signal.rate.shape[1]-lim_flx.shape[0])-1
@@ -321,11 +327,19 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
             if "miri" in obsmode["instrument"] and (("lrsslit" in obsmode["mode"]) or ("wfss" in obsmode["mode"])):
                 bg_pix_rate_min = np.min(report.bg_pix,1)
                 bg_pix_rate_max = np.max(report.bg_pix,1)
+            elif "wfi" in obsmode["instrument"] and ("spectroscopy" in obsmode["mode"]):
+                bg_pix_rate_min = np.min(report.bg_pix,1)
+                bg_pix_rate_max = np.max(report.bg_pix,1)
             else:
                 bg_pix_rate_min = np.min(report.bg_pix,0)
                 bg_pix_rate_max = np.max(report.bg_pix,0)
         else:
             if "miri" in obsmode["instrument"] and (("lrsslit" in obsmode["mode"]) or ("wfss" in obsmode["mode"])):
+                bg_pix_rate_min = np.min(report.bg_pix[int(excess/2):-int(excess/2),:])
+                bg_pix_rate_max = np.max(report.bg_pix[int(excess/2):-int(excess/2),:])
+                fullwell_minus_bg = (report.signal.the_detector.fullwell-mintime*report.bg_pix[int(excess/2):-int(excess/2)-1,:])
+                rate_per_mjy = report.signal.rate[int(excess/2):-int(excess/2)-1,:]/lim_flx[midpoint]
+            elif "wfi" in obsmode["instrument"] and ("spectroscopy" in obsmode["mode"]):
                 bg_pix_rate_min = np.min(report.bg_pix[int(excess/2):-int(excess/2),:])
                 bg_pix_rate_max = np.max(report.bg_pix[int(excess/2):-int(excess/2),:])
                 fullwell_minus_bg = (report.signal.the_detector.fullwell-mintime*report.bg_pix[int(excess/2):-int(excess/2)-1,:])
@@ -341,6 +355,8 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
         # Calculate line sensitivities, assuming unresolved lines.
         if lim_flx.shape[0]>1:
             if "miri" in obsmode["instrument"] and (("lrsslit" in obsmode["mode"]) or ("wfss" in obsmode["mode"])):
+                sat_limit = np.min(sat_limit_detector,1)
+            elif "wfi" in obsmode["instrument"] and ("spectroscopy" in obsmode["mode"]):
                 sat_limit = np.min(sat_limit_detector,1)
             else:
                 sat_limit = np.min(sat_limit_detector,0)
@@ -384,11 +400,19 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
             if "miri" in obsmode["instrument"] and (("lrsslit" in obsmode["mode"]) or ("wfss" in obsmode["mode"])):
                 bg_pix_rate_min = np.min(report.bg_pix,1)
                 bg_pix_rate_max = np.max(report.bg_pix,1)
+            elif "wfi" in obsmode["instrument"] and "spectroscopy" in obsmode["mode"]:
+                bg_pix_rate_min = np.min(report.bg_pix,1)
+                bg_pix_rate_max = np.max(report.bg_pix,1)
             else:
                 bg_pix_rate_min = np.min(report.bg_pix,0)
                 bg_pix_rate_max = np.max(report.bg_pix,0)
         else:
             if "miri" in obsmode["instrument"] and (("lrsslit" in obsmode["mode"]) or ("wfss" in obsmode["mode"])):
+                bg_pix_rate_min = np.min(report.bg_pix[int(excess/2):-int(excess/2),:])
+                bg_pix_rate_max = np.max(report.bg_pix[int(excess/2):-int(excess/2),:])
+                fullwell_minus_bg = (report.signal.the_detector.fullwell-mintime*report.bg_pix[int(excess/2):-int(excess/2)-1,:])
+                rate_per_mjy = report.signal.rate[int(excess/2):-int(excess/2)-1,:]/lim_flx[midpoint]
+            elif "wfi" in obsmode["instrument"] and "spectroscopy" in obsmode["mode"]:
                 bg_pix_rate_min = np.min(report.bg_pix[int(excess/2):-int(excess/2),:])
                 bg_pix_rate_max = np.max(report.bg_pix[int(excess/2):-int(excess/2),:])
                 fullwell_minus_bg = (report.signal.the_detector.fullwell-mintime*report.bg_pix[int(excess/2):-int(excess/2)-1,:])
@@ -404,6 +428,8 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
         # Calculate line sensitivities, assuming unresolved lines.
         if lim_flx.shape[0]>1:
             if "miri" in obsmode["instrument"] and (("lrsslit" in obsmode["mode"]) or ("wfss" in obsmode["mode"])):
+                sat_limit = np.min(sat_limit_detector,1)
+            elif "wfi" in obsmode["instrument"] and ("spectroscopy" in obsmode["mode"]):
                 sat_limit = np.min(sat_limit_detector,1)
             else:
                 sat_limit = np.min(sat_limit_detector,0)
