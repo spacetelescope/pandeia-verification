@@ -158,9 +158,13 @@ def compareone(data1, data2, x, ax, scalarMap):
     vals2 = data2[PROP][x]*mult
     textval = gettext(data1,x)
     ydata = ((vals1-vals2)/vals1)*100
+
+    #print(instrument, mode, len(vals1), len(vals2), len(wave))
+    #print(vals1.shape, vals2.shape, wave.shape, ydata.shape, np.mean(wave), (ydata - (x%2-0.5)*2)[0], x)
     ax.scatter(wave,ydata, color=colorVal)
     # the modulus makes it either 0 or 1, the rest of the code is to flip the label above or below the point
-    ax.text(np.mean(wave), ydata - (x%2-0.5)*2, textval.upper(), ha="center", va="bottom", bbox=bbox_props)
+    # the (ydata - (x%2-0.5)*2) somehow became an array, which means we have to manually get the int out.
+    ax.text(np.mean(wave), (ydata - (x%2-0.5)*2)[0], textval.upper(), ha="center", va="bottom", bbox=bbox_props)
 
     return ax, wave
 
@@ -337,14 +341,13 @@ for instruments in insnames:
                 ax[num//3][num%3] = drawbounds(np.min(wave), np.max(wave), ax[num//3][num%3], scalarMap)
                 num += 1
 
-
         #data.close()
         #data2.close()
 
     # Add a global title to the plot - it's probably going to be in a weird place,
     # so make it prominent.
     fig.suptitle('{}'.format(PROP.upper()), fontsize="xx-large", fontstyle="italic")
-    plt.tight_layout()
+    #plt.tight_layout()
 
     # save the plot
     plt.savefig('{}_{}_{}_{}.png'.format(instrument,folder,folder2,PROP))
