@@ -143,7 +143,6 @@ def gettext(data,x):
             textval = data['configs'][x]['filter']
         else:
             textval = data['configs'][x]['aperture']
-
     return textval
 
 def compareone(data1, data2, x, ax, scalarMap):
@@ -200,7 +199,6 @@ def comparemulti(data1, data2, x, ax, scalarMap, instrument, mode):
     flux1 = fun1(wave)
     flux2 = fun2(wave)
     textval = gettext(data1,x)
-
     if 'bounds' in keys.keys():
         bounds = data1['configs'][x]['bounds']
         gsubs = np.where((wave>bounds[0]) & (wave<bounds[1]))
