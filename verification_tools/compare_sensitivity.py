@@ -208,6 +208,11 @@ def comparemulti(data1, data2, x, ax, scalarMap, instrument, mode):
         else:
             gsubs = np.where(flux1 > -6)
     ax.plot(wave, (flux1-flux2)/flux1*100, color='#000000', linewidth=3)
+    if instrument == 'miri' and mode == 'lrs':
+        # MIRI LRS wants the subarray listed as well.  If this becomes a general request,
+        #  consider modifying the gettext method.
+        textval += ' ' + data1['configs'][x]['subarray']
+
     ax.set_title("{} {} {}".format(instrument.upper(), mode.upper(), textval.upper()))
 
     return ax, wave_wide
