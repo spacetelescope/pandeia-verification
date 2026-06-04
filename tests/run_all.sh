@@ -20,7 +20,7 @@ python miri_sensitivity_lrs.py > ../../logs/miri_lrs.log &
 python miri_sensitivity_wfss.py > ../../logs/miri_wfss.log
 cd ../wfi
 python wfi_sensitivity_spectroscopy.py > ../../logs/wfi_spectroscopy.log &
-python wfi_sensitivity_imaging.py > ../../logs/wfi_imaging.log
+python wfi_sensitivity_imaging.py > ../../logs/wfi_imaging.log &
 cd ../nirspec
 python nirspec_sensitivity_fs.py > ../../logs/nirspec_fs.log
 python nirspec_sensitivity_msa.py > ../../logs/nirspec_msa.log
