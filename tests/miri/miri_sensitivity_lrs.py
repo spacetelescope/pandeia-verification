@@ -1,10 +1,13 @@
 import numpy as np
 from verification_tools import calc_limits
 
-configs = [{'aperture':'imager','mode':'lrsslitless'},
-           {'aperture':'lrsslit','mode':'lrsslit'}]
-apertures = np.array([0.84,0.84])*7.5/10.
-idt_fluxes = np.array([5e-3,30e-3])
+configs = [{'aperture':'imager','mode':'lrsslitless','subarray':'slitlessprism'},
+           {'aperture':'imager','mode':'lrsslitless','subarray':'slitlessprism_ip'},
+           {'aperture':'imager','mode':'lrsslitless','subarray':'slitlessprism_ips'},
+           {'aperture':'lrsslit','mode':'lrsslit','subarray':'full'},
+           {'aperture':'lrsslit','mode':'lrsslit','subarray':'subslit'}]
+apertures = np.array([0.84,0.84,0.84,0.84,0.84])*7.5/10.
+idt_fluxes = np.array([5e-3,5e-3,5e-3,30e-3,30e-3])
 
 obsmode = {
            'instrument': 'miri',
