@@ -22,6 +22,7 @@ cd ../wfi
 python wfi_sensitivity_spectroscopy.py > ../../logs/wfi_spectroscopy.log &
 python wfi_sensitivity_imaging.py > ../../logs/wfi_imaging.log &
 cd ../nirspec
+python nirspec_sensitivity_bots.py > ../../logs/nirspec_bots.log &
 python nirspec_sensitivity_fs.py > ../../logs/nirspec_fs.log
 python nirspec_sensitivity_msa.py > ../../logs/nirspec_msa.log
 cd ../nircam
