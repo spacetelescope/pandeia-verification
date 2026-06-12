@@ -181,7 +181,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
             inner_fac = 2.
             outer_fac = 5.
         else:
-            if obsmode['mode'] in ['msa','fixed_slit','lrsslit','lrsslitless','wfgrism','ssgrism','wfss','soss']:
+            if obsmode['mode'] in ['msa','bots','fixed_slit','lrsslit','lrsslitless','wfgrism','ssgrism','wfss','soss','spectroscopy']:
                 inner_fac = 1.5
                 outer_fac = inner_fac+skyfac/2.
             elif obsmode['mode'] in ['ifu','mrs','sw_imaging','lw_imaging','imaging','ami']:
@@ -297,7 +297,7 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
             excess=0
 
         if excess==0:
-            fullwell_minus_bg = (report.signal.the_detector.fullwell-mintime*report.bg_pix)
+            fullwell_minus_bg = (report.signal.the_detector.saturation_fullwell-mintime*report.bg_pix)
             rate_per_mjy = report.signal.rate/lim_flx[midpoint]
             if "lrsslit" in obsmode["mode"]:
                 bg_pix_rate_min = np.min(report.bg_pix,1)
@@ -309,12 +309,12 @@ def calc_limits(configs, apertures, fluxes, scanfac=10, obsmode=None,
             if "lrsslit" in obsmode["mode"]:
                 bg_pix_rate_min = np.min(report.bg_pix[int(excess/2):-int(excess/2),:])
                 bg_pix_rate_max = np.max(report.bg_pix[int(excess/2):-int(excess/2),:])
-                fullwell_minus_bg = (report.signal.the_detector.fullwell-mintime*report.bg_pix[int(excess/2):-int(excess/2)-1,:])
+                fullwell_minus_bg = (report.signal.the_detector.saturation_fullwell-mintime*report.bg_pix[int(excess/2):-int(excess/2)-1,:])
                 rate_per_mjy = report.signal.rate[int(excess/2):-int(excess/2)-1,:]/lim_flx[midpoint]
             else:
                 bg_pix_rate_min = np.min(report.bg_pix[:,int(excess/2):-int(excess/2)])
                 bg_pix_rate_max = np.max(report.bg_pix[:,int(excess/2):-int(excess/2)])
-                fullwell_minus_bg = (report.signal.the_detector.fullwell-mintime*report.bg_pix[:,int(excess/2):-int(excess/2)-1])
+                fullwell_minus_bg = (report.signal.the_detector.saturation_fullwell-mintime*report.bg_pix[:,int(excess/2):-int(excess/2)-1])
                 rate_per_mjy = report.signal.rate[:,int(excess/2):-int(excess/2)-1]/lim_flx[midpoint]
 
         sat_limit_detector = fullwell_minus_bg/mintime/np.abs(rate_per_mjy) #units of mJy
