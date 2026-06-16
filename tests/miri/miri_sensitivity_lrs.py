@@ -16,13 +16,41 @@ obsmode = {
            'aperture': 'lrsslit',
            'disperser': 'p750l'
            }
-exp_config = {
+exp_configs = [{
+              'subarray': 'slitlessprism',
+              'readout_pattern': 'fastr1',
+              'ngroup': 180,
+              'nint': 1,
+              'nexp': 20
+              },
+              {
+              'subarray': 'slitlessprism_ip',
+              'readout_pattern': 'fastr1',
+              'ngroup': 180,
+              'nint': 1,
+              'nexp': 20
+              },
+              {
+              'subarray': 'slitlessprism_ips',
+              'readout_pattern': 'fastr1',
+              'ngroup': 180,
+              'nint': 1,
+              'nexp': 20
+              },
+              {
               'subarray': 'full',
               'readout_pattern': 'fastr1',
               'ngroup': 180,
               'nint': 1,
               'nexp': 20
-              }
+              },
+              {
+              'subarray': 'subslit',
+              'readout_pattern': 'fastr1',
+              'ngroup': 180,
+              'nint': 1,
+              'nexp': 20
+              }]
 strategy = {
             'target_xy': [0.0, 0.0],
             'method': 'specapphot',
@@ -34,7 +62,7 @@ strategy = {
 
 
 outputs_regular, outputs_one = calc_limits.calc_limits(configs,apertures,idt_fluxes,obsmode=obsmode,scanfac=1000,nflx=80,
-                                 exp_config=exp_config,strategy=strategy,background='minzodi12')
+                                 exp_configs=exp_configs,strategy=strategy,background='minzodi12')
 
 np.savez('../../outputs/miri_lrs_sensitivity.npz',
     wavelengths=outputs_regular['wavelengths'], sns=outputs_regular['sns'], lim_fluxes=outputs_regular['lim_fluxes'],
