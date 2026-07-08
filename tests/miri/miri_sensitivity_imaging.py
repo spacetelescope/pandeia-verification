@@ -37,6 +37,15 @@ configs = [{'filter':'f560w', 'subarray': 'full'},
            {'filter':'f1800w', 'subarray': 'sub128'},
            {'filter':'f2100w', 'subarray': 'sub128'},
            {'filter':'f2550w', 'subarray': 'sub128'},
+           {'filter':'f560w', 'subarray': 'sub128_ip'},
+           {'filter':'f770w', 'subarray': 'sub128_ip'},
+           {'filter':'f1000w', 'subarray': 'sub128_ip'},
+           {'filter':'f1130w', 'subarray': 'sub128_ip'},
+           {'filter':'f1280w', 'subarray': 'sub128_ip'},
+           {'filter':'f1500w', 'subarray': 'sub128_ip'},
+           {'filter':'f1800w', 'subarray': 'sub128_ip'},
+           {'filter':'f2100w', 'subarray': 'sub128_ip'},
+           {'filter':'f2550w', 'subarray': 'sub128_ip'},
            {'filter':'f560w', 'subarray': 'sub64'},
            {'filter':'f770w', 'subarray': 'sub64'},
            {'filter':'f1000w', 'subarray': 'sub64'},
@@ -46,6 +55,15 @@ configs = [{'filter':'f560w', 'subarray': 'full'},
            {'filter':'f1800w', 'subarray': 'sub64'},
            {'filter':'f2100w', 'subarray': 'sub64'},
            {'filter':'f2550w', 'subarray': 'sub64'},
+           {'filter':'f560w', 'subarray': 'sub64_ip'},
+           {'filter':'f770w', 'subarray': 'sub64_ip'},
+           {'filter':'f1000w', 'subarray': 'sub64_ip'},
+           {'filter':'f1130w', 'subarray': 'sub64_ip'},
+           {'filter':'f1280w', 'subarray': 'sub64_ip'},
+           {'filter':'f1500w', 'subarray': 'sub64_ip'},
+           {'filter':'f1800w', 'subarray': 'sub64_ip'},
+           {'filter':'f2100w', 'subarray': 'sub64_ip'},
+           {'filter':'f2550w', 'subarray': 'sub64_ip'},
            ]
 
 exp_configs = [{
@@ -116,261 +134,389 @@ exp_configs = [{
                 'subarray': 'brightsky',
                 'readout_pattern': 'fastr1',
                 'ngroup': 106,
-                'nint': 2,
-                'nexp': 17
+                'nint': 4,
+                'nexp': 27
                },
                {
                 'subarray': 'brightsky',
                 'readout_pattern': 'fastr1',
                 'ngroup': 106,
-                'nint': 2,
-                'nexp':17
+                'nint': 4,
+                'nexp':27
                },
                {
                  'subarray': 'brightsky',
                  'readout_pattern': 'fastr1',
                  'ngroup': 106,
-                 'nint': 2,
-                 'nexp': 17
+                 'nint': 4,
+                 'nexp': 27
                 },
                 {
                 'subarray': 'brightsky',
                 'readout_pattern': 'fastr1',
                 'ngroup': 106,
-                'nint': 2,
-                'nexp': 17
+                'nint': 4,
+                'nexp': 27
                 },
                 {
                  'subarray': 'brightsky',
                  'readout_pattern': 'fastr1',
                  'ngroup': 106,
-                 'nint': 2,
-                 'nexp': 17
+                 'nint': 4,
+                 'nexp': 27
                 },
                {
                 'subarray': 'brightsky',
                 'readout_pattern': 'fastr1',
                 'ngroup': 22,
                 'nint': 4,
-                'nexp': 41
+                'nexp': 127
                 },
                 {
                  'subarray': 'brightsky',
                  'readout_pattern': 'fastr1',
                  'ngroup': 22,
                  'nint': 4,
-                 'nexp': 41
+                 'nexp': 127
                 },
                 {
                 'subarray': 'brightsky',
                 'readout_pattern': 'fastr1',
                 'ngroup': 12,
-                'nint': 15,
-                'nexp': 20
+                'nint': 10,
+                'nexp': 90
                 },
                 {
                  'subarray': 'brightsky',
                  'readout_pattern': 'fastr1',
                  'ngroup': 12,
-                 'nint': 15,
-                 'nexp': 20
+                 'nint': 10,
+                 'nexp': 90
                 },
 
                 {
                 'subarray': 'sub256',
                 'readout_pattern': 'fastr1',
                 'ngroup': 106,
-                'nint': 2,
-                'nexp': 17
+                'nint': 4,
+                'nexp': 78
                },
                {
                 'subarray': 'sub256',
                 'readout_pattern': 'fastr1',
                 'ngroup': 106,
-                'nint': 2,
-                'nexp':17
+                'nint': 4,
+                'nexp':78
                },
                {
                  'subarray': 'sub256',
                  'readout_pattern': 'fastr1',
                  'ngroup': 106,
-                 'nint': 2,
-                 'nexp': 17
+                 'nint': 4,
+                 'nexp': 78
                 },
                 {
                 'subarray': 'sub256',
                 'readout_pattern': 'fastr1',
                 'ngroup': 106,
-                'nint': 2,
-                'nexp': 17
+                'nint': 4,
+                'nexp': 78
                 },
                 {
                  'subarray': 'sub256',
                  'readout_pattern': 'fastr1',
                  'ngroup': 106,
-                 'nint': 2,
-                 'nexp': 17
+                 'nint': 4,
+                 'nexp': 78
                 },
                {
                 'subarray': 'sub256',
                 'readout_pattern': 'fastr1',
                 'ngroup': 22,
-                'nint': 4,
-                'nexp': 41
+                'nint': 25,
+                'nexp': 58
                 },
                 {
                  'subarray': 'sub256',
                  'readout_pattern': 'fastr1',
                  'ngroup': 22,
-                 'nint': 4,
-                 'nexp': 41
+                 'nint': 25,
+                 'nexp': 58
                 },
                 {
                 'subarray': 'sub256',
                 'readout_pattern': 'fastr1',
                 'ngroup': 12,
-                'nint': 15,
-                'nexp': 20
+                'nint': 25,
+                'nexp': 103
                 },
                 {
                  'subarray': 'sub256',
                  'readout_pattern': 'fastr1',
                  'ngroup': 12,
-                 'nint': 15,
-                 'nexp': 20
+                 'nint': 25,
+                 'nexp': 103
                 },
 
                 {
                 'subarray': 'sub128',
                 'readout_pattern': 'fastr1',
                 'ngroup': 106,
-                'nint': 2,
-                'nexp': 17
+                'nint': 10,
+                'nexp': 79
                },
                {
                 'subarray': 'sub128',
                 'readout_pattern': 'fastr1',
                 'ngroup': 106,
-                'nint': 2,
-                'nexp':17
+                'nint': 10,
+                'nexp':79
                },
                {
                  'subarray': 'sub128',
                  'readout_pattern': 'fastr1',
                  'ngroup': 106,
-                 'nint': 2,
-                 'nexp': 17
+                 'nint': 10,
+                 'nexp': 79
                 },
                 {
                 'subarray': 'sub128',
                 'readout_pattern': 'fastr1',
                 'ngroup': 106,
-                'nint': 2,
-                'nexp': 17
+                'nint': 10,
+                'nexp': 79
                 },
                 {
                  'subarray': 'sub128',
                  'readout_pattern': 'fastr1',
                  'ngroup': 106,
-                 'nint': 2,
-                 'nexp': 17
+                 'nint': 10,
+                 'nexp': 79
                 },
                {
                 'subarray': 'sub128',
                 'readout_pattern': 'fastr1',
                 'ngroup': 22,
-                'nint': 4,
-                'nexp': 41
+                'nint': 50,
+                'nexp': 73
                 },
                 {
                  'subarray': 'sub128',
                  'readout_pattern': 'fastr1',
                  'ngroup': 22,
-                 'nint': 4,
-                 'nexp': 41
+                 'nint': 50,
+                 'nexp': 73
                 },
                 {
                 'subarray': 'sub128',
                 'readout_pattern': 'fastr1',
                 'ngroup': 12,
-                'nint': 15,
-                'nexp': 20
+                'nint': 50,
+                'nexp': 130
                 },
                 {
                  'subarray': 'sub128',
                  'readout_pattern': 'fastr1',
                  'ngroup': 12,
-                 'nint': 15,
-                 'nexp': 20
+                 'nint': 50,
+                 'nexp': 130
+                },
+
+                {
+                'subarray': 'sub128_ip',
+                'readout_pattern': 'fastr1',
+                'ngroup': 106,
+                'nint': 25,
+                'nexp': 31
+               },
+               {
+                'subarray': 'sub128_ip',
+                'readout_pattern': 'fastr1',
+                'ngroup': 106,
+                'nint': 25,
+                'nexp':31
+               },
+               {
+                 'subarray': 'sub128_ip',
+                 'readout_pattern': 'fastr1',
+                 'ngroup': 106,
+                 'nint': 25,
+                 'nexp': 31
+                },
+                {
+                'subarray': 'sub128_ip',
+                'readout_pattern': 'fastr1',
+                'ngroup': 106,
+                'nint': 25,
+                'nexp': 31
+                },
+                {
+                 'subarray': 'sub128_ip',
+                 'readout_pattern': 'fastr1',
+                 'ngroup': 106,
+                 'nint': 25,
+                 'nexp': 31
+                },
+               {
+                'subarray': 'sub128_ip',
+                'readout_pattern': 'fastr1',
+                'ngroup': 22,
+                'nint': 30,
+                'nexp': 121
+                },
+                {
+                 'subarray': 'sub128_ip',
+                 'readout_pattern': 'fastr1',
+                 'ngroup': 22,
+                 'nint': 30,
+                 'nexp': 121
+                },
+                {
+                'subarray': 'sub128_ip',
+                'readout_pattern': 'fastr1',
+                'ngroup': 12,
+                'nint': 50,
+                'nexp': 128
+                },
+                {
+                 'subarray': 'sub128_ip',
+                 'readout_pattern': 'fastr1',
+                 'ngroup': 12,
+                 'nint': 50,
+                 'nexp': 128
                 },
 
                 {
                 'subarray': 'sub64',
                 'readout_pattern': 'fastr1',
                 'ngroup': 106,
-                'nint': 2,
-                'nexp': 17
+                'nint': 25,
+                'nexp': 44
                },
                {
                 'subarray': 'sub64',
                 'readout_pattern': 'fastr1',
                 'ngroup': 106,
-                'nint': 2,
-                'nexp':17
+                'nint': 25,
+                'nexp':44
                },
                {
                  'subarray': 'sub64',
                  'readout_pattern': 'fastr1',
                  'ngroup': 106,
-                 'nint': 2,
-                 'nexp': 17
+                 'nint': 25,
+                 'nexp': 44
                 },
                 {
                 'subarray': 'sub64',
                 'readout_pattern': 'fastr1',
                 'ngroup': 106,
-                'nint': 2,
-                'nexp': 17
+                'nint': 25,
+                'nexp': 44
                 },
                 {
                  'subarray': 'sub64',
                  'readout_pattern': 'fastr1',
                  'ngroup': 106,
-                 'nint': 2,
-                 'nexp': 17
+                 'nint': 25,
+                 'nexp': 44
                 },
                {
                 'subarray': 'sub64',
                 'readout_pattern': 'fastr1',
                 'ngroup': 22,
-                'nint': 4,
-                'nexp': 41
+                'nint': 60,
+                'nexp': 85
                 },
                 {
                  'subarray': 'sub64',
                  'readout_pattern': 'fastr1',
                  'ngroup': 22,
-                 'nint': 4,
-                 'nexp': 41
+                 'nint': 60,
+                 'nexp': 85
                 },
                 {
                 'subarray': 'sub64',
                 'readout_pattern': 'fastr1',
                 'ngroup': 12,
-                'nint': 15,
-                'nexp': 20
+                'nint': 50,
+                'nexp': 181
                 },
                 {
                  'subarray': 'sub64',
                  'readout_pattern': 'fastr1',
                  'ngroup': 12,
-                 'nint': 15,
-                 'nexp': 20
+                 'nint': 50,
+                 'nexp': 181
                 }
+
+                {
+                'subarray': 'sub64_ip',
+                'readout_pattern': 'fastr1',
+                'ngroup': 106,
+                'nint': 25,
+                'nexp': 43
+               },
+               {
+                'subarray': 'sub64_ip',
+                'readout_pattern': 'fastr1',
+                'ngroup': 106,
+                'nint': 25,
+                'nexp':43
+               },
+               {
+                 'subarray': 'sub64_ip',
+                 'readout_pattern': 'fastr1',
+                 'ngroup': 106,
+                 'nint': 25,
+                 'nexp': 43
+                },
+                {
+                'subarray': 'sub64_ip',
+                'readout_pattern': 'fastr1',
+                'ngroup': 106,
+                'nint': 25,
+                'nexp': 43
+                },
+                {
+                 'subarray': 'sub64_ip',
+                 'readout_pattern': 'fastr1',
+                 'ngroup': 106,
+                 'nint': 25,
+                 'nexp': 43
+                },
+               {
+                'subarray': 'sub64_ip',
+                'readout_pattern': 'fastr1',
+                'ngroup': 22,
+                'nint': 60,
+                'nexp': 83
+                },
+                {
+                 'subarray': 'sub64_ip',
+                 'readout_pattern': 'fastr1',
+                 'ngroup': 22,
+                 'nint': 60,
+                 'nexp': 83
+                },
+                {
+                'subarray': 'sub64_ip',
+                'readout_pattern': 'fastr1',
+                'ngroup': 12,
+                'nint': 50,
+                'nexp': 177
+                },
+                {
+                 'subarray': 'sub64_ip',
+                 'readout_pattern': 'fastr1',
+                 'ngroup': 12,
+                 'nint': 50,
+                 'nexp': 177
+                 }
                ]
 
-apertures = 0.42*np.array([5.6,7.7,10.,11.3,12.8,15.,18.,21.,25.5,5.6,7.7,10.,11.3,12.8,15.,18.,21.,25.5,5.6,7.7,10.,11.3,12.8,15.,18.,21.,25.5,5.6,7.7,10.,11.3,12.8,15.,18.,21.,25.5,5.6,7.7,10.,11.3,12.8,15.,18.,21.,25.5])/10.
-idt_fluxes = np.array([0.16,0.25,0.54,1.35,0.84,1.39,3.46,7.09,26.2,0.16,0.25,0.54,1.35,0.84,1.39,3.46,7.09,26.2,0.16,0.25,0.54,1.35,0.84,1.39,3.46,7.09,26.2,0.16,0.25,0.54,1.35,0.84,1.39,3.46,7.09,26.2,0.16,0.25,0.54,1.35,0.84,1.39,3.46,7.09,26.2])*1e-3
+apertures = 0.42*np.array([5.6,7.7,10.,11.3,12.8,15.,18.,21.,25.5,5.6,7.7,10.,11.3,12.8,15.,18.,21.,25.5,5.6,7.7,10.,11.3,12.8,15.,18.,21.,25.5,5.6,7.7,10.,11.3,12.8,15.,18.,21.,25.5,5.6,7.7,10.,11.3,12.8,15.,18.,21.,25.5,5.6,7.7,10.,11.3,12.8,15.,18.,21.,25.5,5.6,7.7,10.,11.3,12.8,15.,18.,21.,25.5])/10.
+idt_fluxes = np.array([0.16,0.25,0.54,1.35,0.84,1.39,3.46,7.09,26.2,0.16,0.25,0.54,1.35,0.84,1.39,3.46,7.09,26.2,0.16,0.25,0.54,1.35,0.84,1.39,3.46,7.09,26.2,0.16,0.25,0.54,1.35,0.84,1.39,3.46,7.09,26.2,0.16,0.25,0.54,1.35,0.84,1.39,3.46,7.09,26.2,0.16,0.25,0.54,1.35,0.84,1.39,3.46,7.09,26.2,0.16,0.25,0.54,1.35,0.84,1.39,3.46,7.09,26.2])*1e-3
 
 obsmode = {
            'instrument': 'miri',

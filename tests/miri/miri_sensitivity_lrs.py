@@ -20,22 +20,22 @@ exp_configs = [{
               'subarray': 'slitlessprism',
               'readout_pattern': 'fastr1',
               'ngroup': 180,
-              'nint': 1,
-              'nexp': 20
+              'nint': 347,
+              'nexp': 1
               },
               {
               'subarray': 'slitlessprism_ip',
               'readout_pattern': 'fastr1',
               'ngroup': 180,
-              'nint': 1,
-              'nexp': 20
+              'nint': 354,
+              'nexp': 1
               },
               {
               'subarray': 'slitlessprism_ips',
               'readout_pattern': 'fastr1',
               'ngroup': 180,
-              'nint': 1,
-              'nexp': 20
+              'nint': 469,
+              'nexp': 1
               },
               {
               'subarray': 'full',
@@ -48,7 +48,7 @@ exp_configs = [{
               'subarray': 'subslit',
               'readout_pattern': 'fastr1',
               'ngroup': 180,
-              'nint': 1,
+              'nint': 10,
               'nexp': 20
               }]
 strategy = {

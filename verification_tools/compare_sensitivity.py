@@ -164,7 +164,7 @@ def compareone(data1, data2, x, ax, scalarMap):
     ax.scatter(wave,ydata, color=colorVal)
     # the modulus makes it either 0 or 1, the rest of the code is to flip the label above or below the point
     # the (ydata - (x%2-0.5)*2) somehow became an array, which means we have to manually get the int out.
-    ax.text(np.mean(wave), (ydata - (x%2-0.5)*2)[0], textval.upper(), ha="center", va="bottom", bbox=bbox_props)
+    ax.text(np.mean(wave), (ydata - x%2-0.5*2), textval.upper(), ha="center", va="bottom", bbox=bbox_props)
 
     return ax, wave
 
@@ -215,6 +215,7 @@ def comparemulti(data1, data2, x, ax, scalarMap, instrument, mode):
     if instrument == 'miri' and mode == 'lrs':
         # MIRI LRS wants the subarray listed as well.  If this becomes a general request,
         #  consider modifying the gettext method.
+        print(data1['configs'][x])
         textval += ' ' + data1['configs'][x]['subarray']
 
     ax.set_title("{} {} {}".format(instrument.upper(), mode.upper(), textval.upper()))
