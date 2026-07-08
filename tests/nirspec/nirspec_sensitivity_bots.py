@@ -27,6 +27,8 @@ for sub in instrument.subarrays:
     new_instrument.set_element("subarray", sub)
     for disp in new_instrument.dispersers:
         new_instrument.set_element("disperser", disp)
+        if sub == "sub1024a" and disp == "prism":
+            continue
         for filt in new_instrument.filters:
             configs.append({"subarray": sub, "filter": filt, "disperser": disp})
             exp_configs.append(subarray_settings[sub])
