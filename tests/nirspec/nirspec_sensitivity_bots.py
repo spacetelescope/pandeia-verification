@@ -13,7 +13,7 @@ subarray_settings = {"s32m16_prm": {"subarray": "s32m16_prm", "readout_pattern":
                      "sub512s": {"subarray": "sub512s", "readout_pattern": "nrsrapid", "ngroup": 79, "nint": 51, "nexp": 17},
                      "sub1024a": {"subarray": "sub1024a", "readout_pattern": "nrsrapid", "ngroup": 89, "nint": 41, "nexp": 6},
                      "sub1024b": {"subarray": "sub1024b", "readout_pattern": "nrsrapid", "ngroup": 89, "nint": 41, "nexp": 6},
-                     "sub2048": {"subarray": "sub52048", "readout_pattern": "nrsrapid", "ngroup": 14, "nint": 82, "nexp": 9},
+                     "sub2048": {"subarray": "sub2048", "readout_pattern": "nrsrapid", "ngroup": 14, "nint": 82, "nexp": 9},
                      }
 
 configs = []
