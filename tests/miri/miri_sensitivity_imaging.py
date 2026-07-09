@@ -129,7 +129,6 @@ exp_configs = [{
                  'nint': 15,
                  'nexp': 20
                 },
-
                 {
                 'subarray': 'brightsky',
                 'readout_pattern': 'fastr1',
@@ -448,8 +447,7 @@ exp_configs = [{
                  'ngroup': 12,
                  'nint': 50,
                  'nexp': 181
-                }
-
+                },
                 {
                 'subarray': 'sub64_ip',
                 'readout_pattern': 'fastr1',
