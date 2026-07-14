@@ -251,7 +251,11 @@ def calc_limits(configs, apertures, fluxes, scanfac=100, obsmode=None,
                 print("Limiting flux at upper limit {} at {}".format(lim_flx[wav], wavelength[wav]))
         wavelengths.append(wavelength)
         sns.append(fits_dict['1d']['sn'][0].data['sn'])
-        lim_fluxes.append(lim_flx)
+        if len(lim_flx) == 1:
+            lim_fluxes.append(lim_flx[0])
+        else:
+            lim_fluxes.append(lim_flx)
+        print(lim_fluxes)
         source_rates.append(aperture_source_rate/flux/1e6)
 
         nwaves = np.arange(len(aperture_source_rate))
