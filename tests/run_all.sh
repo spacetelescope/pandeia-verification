@@ -11,7 +11,7 @@ cd ../nirspec
 python nirspec_sensitivity_ifu.py > ../../logs/nirspec_ifu.log &
 cd ../niriss/
 python niriss_sensitivity_ami.py > ../../logs/niriss_ami.log
-python niriss_sensitivity_imaging.py > ../../logs/niriss_imaging.log
+python niriss_sensitivity_imaging.py > ../../logs/niriss_imaging.log &
 cd ../miri/
 python miri_sensitivity_imaging.py > ../../logs/miri_imaging.log
 python miri_sensitivity_imaging_extended.py > ../../logs/miri_imaging_extended.log
